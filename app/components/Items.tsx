@@ -1,11 +1,11 @@
-import React from "react";
 import ItemCard from "./ItemCard";
+
 function Items() {
   return (
     <div className="w-[100%] items-wrapper bg-[#0deca5] h-[80%] p-5 m-6 rounded-xl">
       <div className="relative">
         <h1 className="absolute left-0 text-[40px] flex flex-end font-bold">
-          Today's Items
+          Today&apos;s Items
         </h1>
         <span className="absolute right-0 top-auto bottom-auto">
           7th January, 2023

@@ -1,9 +1,8 @@
-import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Image from "next/image";
+import React from "react";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -60,7 +59,12 @@ function ItemCard() {
             </Typography> */}
             <div className="grid grid-cols-2">
               <div>
-                <Image alt="parcel" src="/parcel.webp" height={400} width={400}></Image>
+                <Image
+                  alt="parcel"
+                  src="/parcel.webp"
+                  height={400}
+                  width={400}
+                ></Image>
               </div>
               <div className="px-4">
                 <span className="w-[100%] relative top-0 text-[12px]">
