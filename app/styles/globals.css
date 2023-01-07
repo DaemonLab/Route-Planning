@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input:focus {
+  outline: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+.items-wrapper {
+  background: rgb(13, 236, 165);
+  background: linear-gradient(
+    45deg,
+    rgba(13, 236, 165, 1) 0%,
+    rgba(13, 236, 165, 1) 17%,
+    rgba(50, 191, 219, 1) 100%
+  );
+}
+
+.riders-wrapper {
+  background: rgb(111, 111, 111);
+  background: linear-gradient(
+    45deg,
+    rgba(111, 111, 111, 1) 4%,
+    rgba(77, 199, 232, 1) 100%
+  );
+}
