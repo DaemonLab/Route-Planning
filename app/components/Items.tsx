@@ -11,7 +11,7 @@ function Items() {
           7th January, 2023
         </span>
       </div>
-      <div className="h-[70%] overflow-scroll mt-20">
+      <div className="h-[70%] overflow-y-scroll mt-20">
         <ItemCard></ItemCard>
         <ItemCard></ItemCard>
         <ItemCard></ItemCard>
