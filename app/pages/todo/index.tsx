@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { TodoContext } from '../../context/todoContext';
-import { TodoContextType , TodoType } from '../../@types/todo';
+import { TodoContext } from '../../context/todosContext';
+import { TodosContextType , TodoType } from '../../@types/todo';
 
 export default function Todo() {
 
-    const { todos , saveTodo , updateTodo } = React.useContext(TodoContext) as TodoContextType;
+    const { todos , saveTodo , updateTodo } = React.useContext(TodoContext) as TodosContextType;
 
     const [formData, setFormData] = React.useState<TodoType | {}>();
 
