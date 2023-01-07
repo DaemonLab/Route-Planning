@@ -5,8 +5,8 @@ export interface TodoType {
     status: boolean;
 };
 
-export type TodoContextType = {
+export type TodosContextType = {
     todos: TodoType[];
-    saveTodo: (todo: Todo) => void;
+    saveTodo: (todo: TodoType) => void;
     updateTodo: (id: number) => void;
 };
