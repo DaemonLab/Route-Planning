@@ -13,7 +13,7 @@ export default function ManagerHome() {
           width={200}
           height={100}
           alt="Grow Simplee Logo"
-          src="/growSimplee.png"
+          src="/images/growSimplee.png"
         ></Image>
       </div>
       <div className="flex justify-center items-center h-screen bg-[#111111]">
@@ -23,7 +23,7 @@ export default function ManagerHome() {
               width={500}
               height={100}
               alt="Grow Simplee Logo"
-              src="/growSimplee.png"
+              src="/images/growSimplee.png"
             ></Image>
           </div>
           <h1 className="text-center text-2xl font-bold text-[#02f97b] mb-10">

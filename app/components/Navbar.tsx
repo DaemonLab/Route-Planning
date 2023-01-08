@@ -52,7 +52,7 @@ function Navbar() {
               width={200}
               height={100}
               alt="Grow Simplee Logo"
-              src="/growSimplee.png"
+              src="/images/growSimplee.png"
             ></Image>
           </div>
         </a>
