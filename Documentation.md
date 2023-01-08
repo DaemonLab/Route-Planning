@@ -18,7 +18,7 @@ The app has two types of users:
 
 ## Functional Requirements
 
-Both, the item scanners as well as warehous managers will have to login using an id and password, before obtaining access to the following functionalities:
+Both, the item scanners as well as warehouse managers will have to login using an id and password, before obtaining access to the following functionalities:
 
 ###### Item Scanning personnel
 
