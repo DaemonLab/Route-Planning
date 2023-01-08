@@ -24,4 +24,4 @@ app.include_router(UserRouter)
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": "World!"}
