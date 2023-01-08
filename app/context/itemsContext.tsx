@@ -1,53 +1,63 @@
 import * as React from "react";
-import { TodosContextType, TodoType } from "../@types/todo";
+import { ItemsContextType, ItemType } from "../@types/item";
 
-export const TodoContext = React.createContext<TodosContextType | null>(null);
+export const ItemsContext = React.createContext<ItemsContextType | null>(null);
 
 interface Props {
   children: React.ReactNode;
 }
 
-const TodoProvider: React.FC<Props> = ({ children }: Props) => {
-  const [todos, setTodos] = React.useState<TodoType[]>([
-    {
-      id: 1,
-      title: "post 1",
-      description: "this is a description",
-      status: false,
-    },
-    {
-      id: 2,
-      title: "post 2",
-      description: "this is a description",
-      status: true,
-    },
+const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
+
+    const [items, setItems] = React.useState<ItemType[]>([
+      
+      {
+        id: 1234,
+        name: "Dettol Soap",
+        description: "This is a soap",
+        volume: 53,
+        weight: 21,
+        deliveryLocation: "IIT Indore, Khandwa Road, Simrol",
+        edd: new Date('1995-12-17T03:24:00')
+      },
+
+      {
+        id: 1012,
+        name: "Bucket",
+        description: "This is a bucket",
+        volume: 90,
+        weight: 10,
+        deliveryLocation: "Shiru Cafe, IIT Indore",
+        edd: new Date('1995-09-23T04:51:00')
+      }
+      
   ]);
 
-  const saveTodo = (todo: TodoType) => {
-    const newTodo: TodoType = {
-      id: Math.random(), // not really unique - but fine for this example
-      title: todo.title,
-      description: todo.description,
-      status: false,
-    };
+  const getItemsList = () => {
+    //get items using API call
+  }
 
-    setTodos([...todos, newTodo]);
-  };
+  const addItem = (item : ItemType) => {
+    setItems([...items, item])
+  }
 
-  const updateTodo = (id: number) => {
-    todos.filter((todo: TodoType) => {
-      if (todo.id === id) {
-        todo.status = !todo.status;
-        setTodos([...todos]);
-      }
-    });
-  };
+  const deleteItem = (id : number) => {
+
+      setItems((items : ItemType[])=>{
+        return items.filter((item)=>item.id!==id)
+      })
+  }
+
+  const approveItemList = () => {
+     console.log("List Approved!")
+     //save items using API call
+  }
 
   return (
-    <TodoContext.Provider value={{ todos, saveTodo, updateTodo }}>
+    <ItemsContext.Provider value={{ items, getItemsList, addItem, deleteItem , approveItemList}}>
       {children}
-    </TodoContext.Provider>
+    </ItemsContext.Provider>
   );
 };
 
-export default TodoProvider;
+export default ItemsProvider;
