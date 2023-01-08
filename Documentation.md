@@ -1,11 +1,11 @@
-# Inter IIT'11 Grow Simplee Route Planning for Optimized On-Time Delivery
+# Inter IIT'11 Grow Simplee's Route Planning for Optimized On-Time Delivery
 
 ###### This app is used to achieve Efficient On-Time Delivery and serve as a platform for warehouse managers and delivery personnels. It creates a space for the item scanning employees and warehouse managers to efficiently manage the scanning, logging, dispatch, and monitoring of goods from a single place. 
 
 ## Tech Stack used
 
 1. Frontend : Next.js (Typescript)
-2. Desgin   : TailwindCSS
+2. Design   : TailwindCSS
 3. Backend  : Python (FastAPI)
 4. Database : SQLite 
 
