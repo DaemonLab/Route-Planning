@@ -12,7 +12,7 @@ export default function Home() {
         <title>Route Planning</title>
         <meta
           name="description"
-          content=" This app is used to achieve Efficient On-Time Delivery and serve as a platform for warehouse managers and delivery personnels. "
+          content="This app is used to achieve Efficient On-Time Delivery and serve as a platform for warehouse managers and delivery personnels."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/icons/favicon.ico" />
