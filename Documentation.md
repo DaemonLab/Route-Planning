@@ -47,3 +47,10 @@ distance traveled. It should maximize the output of the riders by smart bag crea
 2. Minimum time lag for communication between the app and the sensors as well as between the app and the routing algorithm.
 
 3. Rider route navigation must mimic a real-world senario as closely as possible, with appropriate scaling down of the time taken for the rider to travel between to points, so as to represent a simulation-like environment.
+
+
+## Dataflow
+
+Following is the Data flow diagram which shows interaction between various entities of the application
+
+![Data Flow Diagram](./Dataflow%20Diagram.png)
