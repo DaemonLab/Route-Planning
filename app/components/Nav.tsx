@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 
 export const Nav = () => {
@@ -7,7 +8,7 @@ export const Nav = () => {
     <div className="bg-black">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between">
-          <a
+          <Link
             href="/"
             aria-label="Grow Simplee"
             title="Grow Simplee"
@@ -37,59 +38,59 @@ export const Nav = () => {
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
               Grow Simplee
             </span>
-          </a>
+          </Link>
           <ul className="items-center hidden space-x-8 lg:flex">
             <li>
-              <a
+              <Link
                 href="/"
                 aria-label="Our product"
                 title="Our product"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
                 Product
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/"
                 aria-label="Our product"
                 title="Our product"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
                 Features
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/"
                 aria-label="Product pricing"
                 title="Product pricing"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
                 Pricing
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/"
                 aria-label="About us"
                 title="About us"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
                 About us
-              </a>
+              </Link>
             </li>
           </ul>
           <ul className="items-center hidden space-x-8 lg:flex">
             <li>
-              <a
+              <Link
                 href="/home"
                 className="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-600"
                 aria-label="Sign up"
                 title="Sign up"
               >
                 Sign up
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="lg:hidden">
@@ -119,7 +120,7 @@ export const Nav = () => {
                 <div className="p-5 bg-white border rounded shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <a
+                      <Link
                         href="/"
                         aria-label="Grow Simplee"
                         title="Grow Simplee"
@@ -148,7 +149,7 @@ export const Nav = () => {
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
                           Grow Simplee
                         </span>
-                      </a>
+                      </Link>
                     </div>
                     <div>
                       <button
@@ -169,54 +170,54 @@ export const Nav = () => {
                   <nav>
                     <ul className="space-y-4">
                       <li>
-                        <a
+                        <Link
                           href="/"
                           aria-label="Our product"
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
                           Product
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
+                        <Link
                           href="/"
                           aria-label="Our product"
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
                           Features
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
+                        <Link
                           href="/"
                           aria-label="Product pricing"
                           title="Product pricing"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
                           Pricing
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
+                        <Link
                           href="/"
                           aria-label="About us"
                           title="About us"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
                           About us
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
+                        <Link
                           href="/"
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-600 "
                           aria-label="Sign up"
                           title="Sign up"
                         >
                           Sign up
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </nav>
