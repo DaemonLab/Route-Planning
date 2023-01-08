@@ -1,5 +1,5 @@
 import Items from "../../components/Items";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Nav";
 import Riders from "../../components/Riders";
 export default function Dashboard() {
   return (
