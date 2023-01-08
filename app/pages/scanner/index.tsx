@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as React from 'react';
 import Image from 'next/image';
 import groceryImg from '../../public/grocery.png'
@@ -39,4 +40,12 @@ export default function Scanner() {
 
         </>
     )
+=======
+export default function Scanner() {
+  return (
+    <>
+      <h1>Scanner Home Page</h1>
+    </>
+  );
+>>>>>>> main
 }

@@ -1,5 +1,5 @@
 import database
-# from .user import *
+from .user import *
 
 def create_database():
     return database.Base.metadata.create_all(bind=database.engine)
