@@ -11,18 +11,18 @@ export default function Scanner() {
             
             <Navbar/>
 
-            <div className='flex items-center space-x-3 left-4 top-28'>
+            <div className='flex items-center space-x-3'>
                 <Image
                     src={groceryImg}
                     alt="Picture of the author"
                     className='max-w-sm'
                 />
-                <div className='bg-gray-500 border-2 rounded-md p-2'>   
-                    <ul>
-                        <li>Name : zxc</li>
-                        <li>Volume : 10</li>
-                        <li>Weight : 23</li>
-                        <li>id : as123as</li>
+                <div className='bg-gray-800 rounded-lg shadow text-white text-lg'>   
+                    <ul className='list-[">"] p-4'> 
+                        <li className='px-1'>Name : zxc</li>
+                        <li className='px-1'>Volume : 10</li>
+                        <li className='px-1'>Weight : 23</li>
+                        <li className='px-1'>id : as123as</li>
                     </ul>
                 </div>
                 
