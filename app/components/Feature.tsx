@@ -3,11 +3,11 @@ import Link from "next/link";
 export default function Feature() {
   return (
     <div className="bg-black">
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 min-h-[85vh]">
         <div className="max-w-xl mb-10 md:mx-auto text-center lg:max-w-2xl md:mb-12">
-          <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-green-500 sm:text-4xl mx-auto">
+          <h1 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-green-500 sm:text-4xl mx-auto">
             Route Planning for Optimized On Time Delivery
-          </h2>
+          </h1>
           <p className="text-base text-white md:text-lg">
             It creates a space for the item scanning employees and warehouse
             managers to efficiently manage the scanning, logging, dispatch, and

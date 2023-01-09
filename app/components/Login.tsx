@@ -28,7 +28,7 @@ export default function Login() {
               fill="#FFFFFF"
             />
           </svg>
-          Grow Simplee
+          <h1>Grow Simplee</h1>
         </Link>
         <div className="w-full bg-gray-800 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -76,7 +76,6 @@ export default function Login() {
                       aria-describedby="remember"
                       type="checkbox"
                       className="w-4 h-4 border rounded focus:ring-3  bg-gray-700 border-gray-600 focus:ring-green-500 ring-offset-gray-800"
-                      required
                     />
                   </div>
                   <div className="ml-3 text-sm">

@@ -3,6 +3,12 @@
   "short_name": "Route Planning",
   "scope": "/",
   "start_url": "/",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "categories": ["business", "navigation", "utilities", "transportations"],
+  "description": "This app is used to achieve Efficient On-Time Delivery and serve as a platform for warehouse managers and delivery personnels.",
   "icons": [
     {
       "src": "/icons/android-icon-36x36.png",
@@ -46,10 +52,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "display": "fullscreen",
-  "orientation": "portrait",
-  "splash_pages": null
+  ]
 }
