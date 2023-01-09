@@ -18,12 +18,12 @@
 ### Steps to Reproduce (Backend)
 1. `cd ./server/`
 2. `pip install -r requirements.txt`
-3. `uvicorn main:app
+3. `uvicorn main:app`
 
 ### Steps to Reproduce (Frontend)
 1. `cd ./app/`
-2.  pnpm install 
-3.  pnpm dev
+2.  `pnpm install`
+3.  `pnpm dev`
 
 ### Note to Developers
 1. If you working with VSCode, we recommend you to install PostCSS Language Support
