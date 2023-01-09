@@ -3,35 +3,10 @@ import Link from "next/link";
 export default function Feature() {
   return (
     <div className="bg-black">
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-        <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-          <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-green-500 sm:text-4xl md:mx-auto">
-            <span className="relative inline-block">
-              <svg
-                viewBox="0 0 52 24"
-                fill="currentColor"
-                className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
-              >
-                <defs>
-                  <pattern
-                    id="df31b9f6-a505-42f8-af91-d2b7c3218e5c"
-                    x="0"
-                    y="0"
-                    width=".135"
-                    height=".30"
-                  >
-                    <circle cx="1" cy="1" r=".7" />
-                  </pattern>
-                </defs>
-                <rect
-                  fill="url(#df31b9f6-a505-42f8-af91-d2b7c3218e5c)"
-                  width="52"
-                  height="24"
-                />
-              </svg>
-              <span className="relative">Route</span>
-            </span>{" "}
-            Planning for Optimized On-Time Delivery
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+        <div className="max-w-xl mb-10 md:mx-auto text-center lg:max-w-2xl md:mb-12">
+          <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-green-500 sm:text-4xl mx-auto">
+            Route Planning for Optimized On Time Delivery
           </h2>
           <p className="text-base text-white md:text-lg">
             It creates a space for the item scanning employees and warehouse
@@ -40,8 +15,8 @@ export default function Feature() {
           </p>
         </div>
         <div className="grid gap-8 row-gap-8 lg:grid-cols-3">
-          <div className="sm:text-center">
-            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50 sm:mx-auto sm:w-24 sm:h-24">
+          <div className="text-center">
+            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50 mx-auto sm:w-24 sm:h-24">
               <svg
                 className="w-10"
                 strokeLinejoin="round"
@@ -58,7 +33,7 @@ export default function Feature() {
             <h6 className="mb-2 font-semibold leading-5 text-green-500">
               Scanning Personnel
             </h6>
-            <p className="max-w-md mb-3 text-sm text-white sm:mx-auto">
+            <p className="max-w-md mb-3 text-sm text-white mx-auto">
               Cheese on toast airedale the big cheese. Danish fontina cheesy
               grin airedale danish
             </p>
@@ -70,8 +45,8 @@ export default function Feature() {
               Sign in
             </Link>
           </div>
-          <div className="sm:text-center">
-            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50 sm:mx-auto sm:w-24 sm:h-24">
+          <div className="text-center">
+            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50 mx-auto sm:w-24 sm:h-24">
               <svg
                 className="w-10"
                 strokeLinejoin="round"
@@ -88,7 +63,7 @@ export default function Feature() {
             <h6 className="mb-2 font-semibold leading-5 text-green-500">
               Warehouse Manager
             </h6>
-            <p className="max-w-md mb-3 text-sm text-white sm:mx-auto">
+            <p className="max-w-md mb-3 text-sm text-white mx-auto">
               Satoshi Nakamoto launched lots of decentralisation when Litecoin
               required
             </p>
@@ -100,8 +75,8 @@ export default function Feature() {
               Sign in
             </Link>
           </div>
-          <div className="sm:text-center">
-            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50 sm:mx-auto sm:w-24 sm:h-24">
+          <div className="text-center">
+            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50 mx-auto sm:w-24 sm:h-24">
               <svg
                 className="w-10"
                 strokeLinejoin="round"
@@ -118,7 +93,7 @@ export default function Feature() {
             <h6 className="mb-2 font-semibold leading-5 text-green-500">
               Delivery Rider
             </h6>
-            <p className="max-w-md mb-3 text-sm text-white sm:mx-auto">
+            <p className="max-w-md mb-3 text-sm text-white mx-auto">
               Bavaria ipsum dolor sit amet Radler Schneid vui huift vui ognudelt
               i mechad
             </p>
