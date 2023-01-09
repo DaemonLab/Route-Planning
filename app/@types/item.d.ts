@@ -1,17 +1,18 @@
 export interface ItemType {
-    id: string;
-    name: string;
+    id : string;
+    name : string;
     description: string;
-    volume: float; //in m^3
-    weight: float; //in g
-    deliveryLocation: string;
-    edd: Date;
+    volume : number; //in m^3
+    weight : number; //in g
+    task_location: string;
+    task_type : string;
+    edd: Date | null
 };
 
 export type ItemsContextType = {
     items: ItemType[];
-    getItemsList : () => void;
-    addItem: (item: ItemType) => void;
-    deleteItem: (id: string) => void;
-    approveItemList: () => void;
+    getItems : () => void;
+    addItem : (item: ItemType) => void;
+    deleteItem : (id: string) => void;
+    approveItemList : () => void;
 };

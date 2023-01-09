@@ -32,7 +32,7 @@ const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
           }
     ]);
 
-    const getItemsList = () => {
+    const getItems = () => {
       //get items using API call
     }
 
@@ -53,7 +53,7 @@ const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
     }
 
     return (
-      <ItemsContext.Provider value={{ items, getItemsList, addItem, deleteItem , approveItemList}}>
+      <ItemsContext.Provider value={{ items, getItems, addItem, deleteItem , approveItemList}}>
         {children}
       </ItemsContext.Provider>
     );

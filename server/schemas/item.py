@@ -9,8 +9,9 @@ class Item(BaseModel):
     description : str = 'Item Description'
     volume: float
     weight: float
-    delivery_location: str
-    edd: datetime.datetime
+    task_location: str
+    task_type : str
+    edd: datetime.datetime = None
     
     class Config:
         title = 'items'
