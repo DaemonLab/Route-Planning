@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Login() {
   return (
     <div className="bg-black">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-16">
+      <div className="flex flex-col items-center justify-center px-6 py-16 h-[72vh] md:h-[85vh] mx-auto lg:py-16">
         <Link
           href="/"
           className="flex items-center mb-6 text-2xl font-semibold text-white"
