@@ -1,18 +1,21 @@
-export interface ItemType {
-    id : string;
+import { Location } from "./location";
+
+export interface Item {
+    item_id : string;
     name : string;
-    description: string;
-    volume : number; //in m^3
-    weight : number; //in g
-    task_location: string;
+    description : string;
+    volume : number; 
+    weight : number;
     task_type : string;
+    task_location : Location;
+    task_completed : boolean;
     edd: Date | null
 };
 
-export type ItemsContextType = {
-    items: ItemType[];
+export type ItemsContextWrapper = {
+    items: Item[];
     getItems : () => void;
-    addItem : (item: ItemType) => void;
+    addItem : (item: Item) => void;
     deleteItem : (id: string) => void;
     approveItemList : () => void;
 };

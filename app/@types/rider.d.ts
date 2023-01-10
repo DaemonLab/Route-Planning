@@ -1,23 +1,26 @@
-export interface RoutePointType {
-    task_id : string;
-    task_type : string;
-    task_location : string;
-    time_req : number;
-}
+import { Location } from "./location";
 
-export interface RiderType {
-    id : string;
+export interface Task {
+    item_id : string;
+    task_type : string;
+    task_location : Location;
+    time_req : number;
+};
+
+export interface Rider {
+    rider_id : string;
     name : string;
     age : number;
     bag_volume : number;
-    current_location : string;
-    route : RoutePointType[];
+    current_location : Location;
+    current_route : Location[];
+    tasks : Task[];
 };
 
-export type RidersContextType = {
-    riders : RiderType[];
+export type RidersContextWrapper = {
+    riders : Rider[];
     getRiders : () => void;
-    addRider : (rider : RiderType) => void;
-    updateRider : (rider : RiderType) => void;
+    addRider : (rider : Rider) => void;
+    updateRider : (rider : Rider) => void;
     deleteRider : (id : string) => void;
 };
