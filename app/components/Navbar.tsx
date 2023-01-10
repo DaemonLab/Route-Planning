@@ -146,7 +146,7 @@ export default function Navbar() {
                             fill="#000000"
                           />
                         </svg>
-                        <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                        <span className="ml-2 text-xl font-bold tracking-wide text-gray-800">
                           Grow Simplee
                         </span>
                       </Link>
