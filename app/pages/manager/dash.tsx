@@ -1,6 +1,6 @@
-import Items from "../../components/ItemList";
-import Navbar from "../../components/Nav";
-import Riders from "../../components/Riders";
+import Items from "../../Other components/ItemList";
+import Navbar from "../../Other components/Nav";
+import Riders from "../../Other components/Riders";
 export default function Dash() {
   return (
     <div className="bg-[#111111] h-screen w-screen">
