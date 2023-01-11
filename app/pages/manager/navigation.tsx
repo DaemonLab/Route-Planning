@@ -1,6 +1,5 @@
 import Items from "../../components/Items";
-import Navbar from "../../components/Nav";
-import Riders from "../../components/Riders";
+import Navbar from "../../components/Navbar";
 
 export default function Navigation() {
 
@@ -40,7 +39,6 @@ export default function Navigation() {
             <Items></Items>
             </div>
             <div className="col-span-3 h-[100%]">
-            <Riders></Riders>
             </div>
         </div>
         </div>
