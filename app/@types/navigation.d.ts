@@ -5,10 +5,9 @@ export interface NavigationContextWrapper {
     items  : Item[];
     riders : Rider[];
 
-    fetchItems : () => void
-    fetchRiders : () => void
+    getItems : () => void
+    getRiders : () => void
+    updateRiderLocations : (time_delta : number) => void
     addPickupItem : (item : Item) => void
-    assignPickupItem : (task : Task) => void 
-    completeTask : (task : Task) => void
 };
 
