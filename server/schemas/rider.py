@@ -1,14 +1,23 @@
 from pydantic import BaseModel
-from datetime import datetime
+from location import Location
+
+class Task(BaseModel):  
+    item_id : str 
+    task_type : str 
+    task_location : Location
+    time_req : float 
+    
+    
 
 class Rider(BaseModel):
     
-    id : str
+    rider_id : str
     name : str
     age : int = '30'
     bag_volume : float
-    current_location : str = 'Warehouse Address'
-    route : list[str] = []
+    current_location : Location | None
+    current_route : list[Location] = []
+    tasks : list[Task] = []
     
     class Config:
         title = 'riders'
