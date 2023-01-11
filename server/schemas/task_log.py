@@ -8,5 +8,5 @@ class TaskLog(BaseModel):
     rider_id : Rider.rider_id
     
     class Config:
-        title = 'items'
+        title = 'task_logs'
         orm_mode = True
