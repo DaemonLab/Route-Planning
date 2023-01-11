@@ -51,7 +51,7 @@ export default function Nav() {
             <Image
               width={200}
               height={100}
-              alt="Grow Simplee Logo"
+              alt="Team 53 Logo"
               src="/images/growSimplee.png"
             ></Image>
           </div>

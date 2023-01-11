@@ -10,8 +10,8 @@ export default function Navbar() {
         <div className="relative flex items-center justify-between">
           <Link
             href="/"
-            aria-label="Grow Simplee"
-            title="Grow Simplee"
+            aria-label="Home"
+            title="Home"
             className="inline-flex items-center"
           >
             <svg
@@ -36,48 +36,38 @@ export default function Navbar() {
             </svg>
 
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-100">
-              Grow Simplee
+              Team 53
             </span>
           </Link>
           <ul className="items-center hidden space-x-8 lg:flex">
             <li>
               <Link
-                href="/"
-                aria-label="Our product"
-                title="Our product"
+                href="/scan"
+                aria-label="Scan Items"
+                title="Scan Items"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
-                Product
+                Scan
               </Link>
             </li>
             <li>
               <Link
-                href="/"
-                aria-label="Our product"
-                title="Our product"
+                href="/dispatch"
+                aria-label="Dispatch Items"
+                title="Dispatch Items"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
-                Features
+                Dispatch
               </Link>
             </li>
             <li>
               <Link
-                href="/"
-                aria-label="Product pricing"
-                title="Product pricing"
+                href="/deliver"
+                aria-label="Deliver/Pickup Items"
+                title="Deliver/Pickup Items "
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
-                Pricing
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/"
-                aria-label="About us"
-                title="About us"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
-              >
-                About us
+                Deliver/Pickup
               </Link>
             </li>
           </ul>
@@ -122,8 +112,8 @@ export default function Navbar() {
                     <div>
                       <Link
                         href="/"
-                        aria-label="Grow Simplee"
-                        title="Grow Simplee"
+                        aria-label="Home"
+                        title="Home"
                         className="inline-flex items-center"
                       >
                         <svg
@@ -147,7 +137,7 @@ export default function Navbar() {
                           />
                         </svg>
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800">
-                          Grow Simplee
+                          Team 53
                         </span>
                       </Link>
                     </div>
@@ -176,7 +166,7 @@ export default function Navbar() {
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
-                          Product
+                          Scanning Personnel
                         </Link>
                       </li>
                       <li>
@@ -186,7 +176,7 @@ export default function Navbar() {
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
-                          Features
+                          Warehouse Manager
                         </Link>
                       </li>
                       <li>
@@ -196,17 +186,7 @@ export default function Navbar() {
                           title="Product pricing"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
-                          Pricing
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/"
-                          aria-label="About us"
-                          title="About us"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-                        >
-                          About us
+                          Delivery Rider
                         </Link>
                       </li>
                       <li>

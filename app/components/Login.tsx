@@ -28,7 +28,7 @@ export default function Login() {
               fill="#FFFFFF"
             />
           </svg>
-          <h1>Grow Simplee</h1>
+          <h1>Team 53</h1>
         </Link>
         <div className="w-full bg-gray-800 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">

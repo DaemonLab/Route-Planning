@@ -1,5 +1,5 @@
-import Items from "../../components/Items";
-import Navbar from "../../components/Navbar";
+import Items from "../../components/Dispatch/Items";
+import Navbar from "../../components/Home/Navbar";
 
 export default function Navigation() {
 

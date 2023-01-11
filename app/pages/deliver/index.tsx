@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
 import Login from "../../components/Login";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Deliver/Navbar";
 
-export default function ManagerHome() {
+export default function ScannerHome() {
 
   const router = useRouter();
   const onLogin = () => {
     //verification
-    router.push("/manager/dashboard");
+    router.push("/scanner/dashboard");
   };
   
   return (
