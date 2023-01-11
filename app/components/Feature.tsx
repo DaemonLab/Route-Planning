@@ -40,7 +40,7 @@ export default function Feature() {
             <Link
               href="/scanner"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-white bg-green-500 px-6 rounded h-9 hover:bg-green-600"
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-black bg-green-600 px-6 rounded h-9 hover:bg-green-500"
             >
               Sign in
             </Link>
@@ -70,7 +70,7 @@ export default function Feature() {
             <Link
               href="/manager"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-white bg-green-500 px-6 rounded h-9 hover:bg-green-600"
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-black bg-green-600 px-6 rounded h-9 hover:bg-green-500"
             >
               Sign in
             </Link>
@@ -100,7 +100,7 @@ export default function Feature() {
             <Link
               href="/rider"
               aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-white bg-green-500 px-6 rounded h-9 hover:bg-green-600"
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-black bg-green-600 px-6 rounded h-9 hover:bg-green-500"
             >
               Sign in
             </Link>

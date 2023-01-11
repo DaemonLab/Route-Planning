@@ -85,7 +85,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-600"
+                className="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-green-600 hover:bg-green-500 focus:ring-2 focus:ring-green-600"
                 aria-label="Sign up"
                 title="Sign up"
               >
