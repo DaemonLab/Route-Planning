@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
-import Login from "../../components/Login";
-import Navbar from "../../components/Scan/Navbar";
+import Login from "../../components/Scan/Login";
+import Navbar from "../../components/Home/Navbar";
 
 export default function ScannerHome() {
 
