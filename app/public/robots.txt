@@ -1,6 +1,6 @@
 User-agent: *
 Disallow: 
-Disallow: /scanner
-Disallow: /manager
-Disallow: /rider
+Disallow: /scan
+Disallow: /dispatch
+Disallow: /deliver
 Sitemap: https://route-planning.onrender.com/sitemap.xml

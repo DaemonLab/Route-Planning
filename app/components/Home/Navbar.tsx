@@ -162,31 +162,31 @@ export default function Navbar() {
                       <li>
                         <Link
                           href="/"
-                          aria-label="Our product"
-                          title="Our product"
+                          aria-label="Scan Items"
+                          title="Scan Items"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
-                          Scanning Personnel
+                          Scan
                         </Link>
                       </li>
                       <li>
                         <Link
                           href="/"
-                          aria-label="Our product"
-                          title="Our product"
+                          aria-label="Dispatch Items"
+                          title="Dispatch Items"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
-                          Warehouse Manager
+                          Dispatch
                         </Link>
                       </li>
                       <li>
                         <Link
                           href="/"
-                          aria-label="Product pricing"
-                          title="Product pricing"
+                          aria-label="Deliver/Pickup Items"
+                          title="Deliver/Pickup Items"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
                         >
-                          Delivery Rider
+                          Deliver/Pickup
                         </Link>
                       </li>
                       <li>

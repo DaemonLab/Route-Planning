@@ -1,5 +1,5 @@
 import Footer from "../../components/Footer";
-import Navbar from "../../components/Home/Navbar";
+import Navbar from "../../components/Scan/Navbar";
 import Output from "../../components/Scan/Output";
 import ProductList from "../../components/Scan/ProductList";
 
