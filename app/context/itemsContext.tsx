@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ItemsContextType , ItemType } from "../@types/item";
+import { ItemsContextWrapper , Item } from "../@types/item";
 
-export const ItemsContext = React.createContext<ItemsContextType | null>(null);
+export const ItemsContext = React.createContext<ItemsContextWrapper | null>(null);
 
 interface Props {
   children: React.ReactNode;
@@ -9,41 +9,20 @@ interface Props {
 
 const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
 
-      const [items, setItems] = React.useState<ItemType[]>([
-          
-          {
-            id: "a12sdq",
-            name: "Dettol Soap",
-            description: "This is a soap",
-            volume: 53,
-            weight: 21,
-            deliveryLocation: "IIT Indore, Khandwa Road, Simrol",
-            edd: new Date('1995-12-17T03:24:00')
-          },
-
-          {
-            id: "asd213",
-            name: "Bucket",
-            description: "This is a bucket",
-            volume: 90,
-            weight: 10,
-            deliveryLocation: "Shiru Cafe, IIT Indore",
-            edd: new Date('1995-09-23T04:51:00')
-          }
-    ]);
+      const [items, setItems] = React.useState<Item[]>([]);
 
     const getItems = () => {
       //get items using API call
     }
 
-    const addItem = (item : ItemType) => {
+    const addItem = (item : Item) => {
       setItems([...items, item])
     }
 
     const deleteItem = (id : string) => {
 
-        setItems((items : ItemType[])=>{
-          return items.filter((item)=>item.id!==id)
+        setItems((items : Item[])=>{
+          return items.filter((item)=>item.item_id!==id)
         })
     }
 
