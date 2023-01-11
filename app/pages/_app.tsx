@@ -19,11 +19,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="application-name" content="Route Planning" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Route Planning" />
+        <meta name="apple-mobile-web-app-title" content="Route Planning for Optimized On-Time Delivery" />
         <meta
           name="description"
           content="This app is used to achieve Efficient On-Time Delivery and serve as a platform for warehouse managers and delivery personnels."
         />
+        <meta name="keywords" content="Quick Delivery Platform, Application" />
+        <meta name="author" content="Team 53, Inter IIT" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
@@ -34,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="theme-color" content="#000000" />
-        {/* <meta name="robots" content="index,follow" /> */}
+        <meta name="robots" content="index,follow" />
         <link rel="canonical" href="https://route-planning.onrender.com/" />
         <link
           rel="apple-touch-icon"
@@ -111,7 +113,7 @@ export default function App({ Component, pageProps }: AppProps) {
           name="twitter:url"
           content="https://route-planning.onrender.com"
         />
-        <meta name="twitter:title" content="Route Planning" />
+        <meta name="twitter:title" content="Route Planning for Optimized On-Time Delivery" />
         <meta
           name="twitter:description"
           content="This app is used to achieve Efficient On-Time Delivery and serve as a platform for warehouse managers and delivery personnels."
@@ -121,7 +123,7 @@ export default function App({ Component, pageProps }: AppProps) {
           content="https://route-planning.onrender.com/icons/android-icon-192x192.png"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Route Planning" />
+        <meta property="og:title" content="Route Planning for Optimized On-Time Delivery" />
         <meta
           property="og:description"
           content="This app is used to achieve Efficient On-Time Delivery and serve as a platform for warehouse managers and delivery personnels."
