@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${poppins.variable} font-sans`}>
       <Head>
-        <title>Route Planning</title>
+        <title>Route Planning for Optimized On-Time Delivery</title>
         <meta name="application-name" content="Route Planning" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -34,7 +34,8 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="theme-color" content="#000000" />
-
+        {/* <meta name="robots" content="index,follow" /> */}
+        <link rel="canonical" href="https://route-planning.onrender.com/" />
         <link
           rel="apple-touch-icon"
           sizes="57x57"
