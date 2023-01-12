@@ -64,7 +64,7 @@ export default function Navbar() {
               <Link
                 href="/deliver"
                 aria-label="Deliver/Pickup Items"
-                title="Deliver/Pickup Items "
+                title="Deliver/Pickup Items"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
                 Deliver/Pickup
@@ -161,7 +161,7 @@ export default function Navbar() {
                     <ul className="space-y-4">
                       <li>
                         <Link
-                          href="/"
+                          href="/scan"
                           aria-label="Scan Items"
                           title="Scan Items"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
@@ -171,7 +171,7 @@ export default function Navbar() {
                       </li>
                       <li>
                         <Link
-                          href="/"
+                          href="/dispatch"
                           aria-label="Dispatch Items"
                           title="Dispatch Items"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
@@ -181,7 +181,7 @@ export default function Navbar() {
                       </li>
                       <li>
                         <Link
-                          href="/"
+                          href="/deliver"
                           aria-label="Deliver/Pickup Items"
                           title="Deliver/Pickup Items"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
