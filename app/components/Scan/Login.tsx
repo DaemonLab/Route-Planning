@@ -6,7 +6,7 @@ export default function Login() {
       <div className="flex flex-col items-center justify-center px-6 py-16 h-[72vh] md:h-[85vh] mx-auto lg:py-16">
         <Link
           href="/"
-          className="flex items-center mb-6 text-2xl font-semibold text-white"
+          className="flex items-center text-2xl font-semibold text-white"
         >
           <svg
             className="w-8 mr-2"
@@ -28,8 +28,9 @@ export default function Login() {
               fill="#FFFFFF"
             />
           </svg>
-          <h1>Grow Simplee</h1>
+          <h1>Team 53</h1>
         </Link>
+        <h2 className="text-white text-lg mt-2 mb-4">Scan Items</h2>
         <div className="w-full bg-gray-800 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
@@ -85,7 +86,7 @@ export default function Login() {
                   </div>
                 </div>
                 <Link
-                  href="/manager/dashboard"
+                  href="/scan/dashboard"
                   className="text-sm font-medium hover:underline text-primary-500 text-white"
                 >
                   Forgot password?

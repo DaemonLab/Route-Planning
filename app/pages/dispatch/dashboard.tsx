@@ -1,6 +1,6 @@
-import Items from "../../components/Items";
+import Items from "../../components/Dispatch/Items";
+import Navbar from "../../components/Dispatch/Navbar";
 import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
 
 export default function Dashboard() {
   return (

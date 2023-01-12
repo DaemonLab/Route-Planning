@@ -38,7 +38,7 @@ export default function Feature() {
               grin airedale danish
             </p>
             <Link
-              href="/scanner"
+              href="/scan"
               aria-label=""
               className="inline-flex items-center font-semibold transition-colors duration-200 text-black bg-green-600 px-6 rounded h-9 hover:bg-green-500"
             >
@@ -68,8 +68,8 @@ export default function Feature() {
               required
             </p>
             <Link
-              href="/manager"
-              aria-label=""
+              href="/dispatch"
+              aria-label="Sign In"
               className="inline-flex items-center font-semibold transition-colors duration-200 text-black bg-green-600 px-6 rounded h-9 hover:bg-green-500"
             >
               Sign in
@@ -98,8 +98,8 @@ export default function Feature() {
               i mechad
             </p>
             <Link
-              href="/rider"
-              aria-label=""
+              href="/deliver"
+              aria-label="Sign In"
               className="inline-flex items-center font-semibold transition-colors duration-200 text-black bg-green-600 px-6 rounded h-9 hover:bg-green-500"
             >
               Sign in

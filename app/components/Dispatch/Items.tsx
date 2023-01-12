@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 
 export default function Items() {
@@ -9,7 +8,7 @@ export default function Items() {
       id: "(ID 879-10-940)",
       address:
         "1260, SY 35/4, SJR Tower's, 7th Phase, 24th Main, Puttanhalli, JP Nagar, Bangalore",
-      status: true,
+      type: true,
       link: "#userProfile1",
       rider: "John Doe",
     },
@@ -17,14 +16,14 @@ export default function Items() {
       id: "(ID 879-10-941)",
       address:
         "915, 24th Main Road, 2nd Phase, Mayura Circle, JP Nagar, Bangalore",
-      status: false,
+      type: false,
       link: "#userProfile2",
       rider: "John Doe",
     },
     {
       id: "(ID 879-10-942)",
       address: "44, 3rd Cross, Marenahalli, 2nd Phase, JP Nagar, Bangalore",
-      status: true,
+      type: true,
       link: "#userProfile3",
     },
   ];
@@ -33,8 +32,8 @@ export default function Items() {
     <div className="bg-black">
       {showWarnModal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-          <div className="relative w-auto my-6 mx-auto max-w-3xl">
-            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-[95%] bg-white outline-none focus:outline-none mx-2">
+          <div className="relative w-auto my-6 mx-auto max-w-3xl px-2">
+            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t">
                 <h3 className="p-1 text-xl font-semibold">Delete Item</h3>
                 <button
@@ -60,7 +59,7 @@ export default function Items() {
               </div>
               <div className="relative px-6 py-2 flex-auto">
                 <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                  Are you sure, you want to delete that item?
+                  Are you sure, you want to delete this item?
                 </p>
               </div>
               <div className="flex items-center justify-end px-4 py-2 border-t border-solid border-slate-200 rounded-b">
@@ -85,7 +84,7 @@ export default function Items() {
       ) : null}
       {showConfirmModal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-          <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          <div className="relative w-auto my-6 mx-auto max-w-3xl px-2">
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t">
                 <h3 className="p-1 text-xl font-semibold">Approve Items</h3>
@@ -146,14 +145,14 @@ export default function Items() {
             <li key={item.id} className="border-b-2 border-gray-100">
               <div
                 className={`py-5 px-4 flex justify-between border-l-4 border-transparent bg-transparent text-gray-100 hover:text-gray-900 ${
-                  item.status
+                  item.type
                     ? "hover:border-green-400 hover:bg-green-100"
                     : "hover:border-yellow-500 hover:bg-yellow-100"
                 }`}
               >
                 <div className="sm:pl-4 pr-8 flex sm:items-center">
                   <div className="space-y-1">
-                    <p className="text-base text-white text-inherit font-bold tracking-wide">
+                    <p className="text-base text-white text-inherit font-bold tracking-wide hover:underline cursor-pointer">
                       {item.id}
                     </p>
                     <p className="text-sm font-medium">{item.address}</p>
@@ -165,22 +164,16 @@ export default function Items() {
 
                 <div className="flex items-center">
                   <div className="pr-4 flex flex-col justify-start items-end">
-                    <Link
-                      href={item.link}
-                      className="text-sm font-semibold hover:underline mb-3 mr-2"
-                    >
-                      Details
-                    </Link>
                     <div>
-                      {item.status ? (
+                      {item.type ? (
                         <div>
                           <span className="text-xs text-green-500 font-semibold bg-green-50 px-2 py-1 rounded-full">
-                            Delivered
+                            Delivery
                           </span>
                         </div>
                       ) : (
                         <span className="text-xs text-yellow-500 font-semibold bg-yellow-50 px-2 py-1 rounded-full">
-                          Dispatched
+                          Pickup
                         </span>
                       )}
                     </div>
