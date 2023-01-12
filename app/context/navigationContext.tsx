@@ -3,14 +3,14 @@ import { Item } from "../@types/item";
 import { Rider } from "../@types/rider";
 import { NavigationContextWrapper } from "../@types/navigation";
 
-export const ItemsContext =
+export const NavigationContext =
   React.createContext<NavigationContextWrapper | null>(null);
 
 interface Props {
   children: React.ReactNode;
 }
 
-const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
+const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   const [items, setItems] = React.useState<Item[]>([]);
   const [riders, setRiders] = React.useState<Rider[]>([]);
   const [pickupItems, setPickupItems] = React.useState<Item[]>([]);
@@ -58,7 +58,7 @@ const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   return (
-    <ItemsContext.Provider
+    <NavigationContext.Provider
       value={{
         items,
         riders,
@@ -69,8 +69,8 @@ const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
       }}
     >
       {children}
-    </ItemsContext.Provider>
+    </NavigationContext.Provider>
   );
 };
 
-export default ItemsProvider;
+export default NavigationProvider;

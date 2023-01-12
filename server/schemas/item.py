@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from location import Location
-from datetime import datetime
+from .location import Location
+import datetime
 
 
 
