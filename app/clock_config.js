@@ -1,5 +1,5 @@
 export default clock_config =  {
-    CALIBIRATE : TRUE,
-    FACTOR : 5,
-    CLOCK_START : Date()
+    calibirate : true,
+    factor : 5,
+    clock_start : Date()
 }
