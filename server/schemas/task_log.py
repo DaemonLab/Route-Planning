@@ -1,11 +1,8 @@
 from pydantic import BaseModel
-from item import Item
-from rider import Rider
-from datetime import datetime
 
 class TaskLog(BaseModel):
-    item_id  : Item.item_id
-    rider_id : Rider.rider_id
+    item_id  : str
+    rider_id : str
     
     class Config:
         title = 'task_logs'
