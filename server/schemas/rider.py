@@ -14,11 +14,11 @@ class Rider(BaseModel):
     name : str
     age : int = '30'
     bag_volume : float
-    current_location : Location | None
-    current_route : list[Location] = []
+    current_location : Location or None
+    current_route : list = []
     current_index : int
-    time_taken : list[float] = []
-    tasks : list[Task] = []
+    time_taken : list = []
+    tasks : list = []
     
     class Config:
         title = 'riders'
