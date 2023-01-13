@@ -1,9 +1,7 @@
 import services
 from fastapi import FastAPI
-from settings import settings
 from router import UserRouter
-
-
+from settings import settings
 
 tags_metadata = [
     {"name": "Users", "description": "User Authentication"},
@@ -31,5 +29,3 @@ def read_root():
 
 
 app.include_router(UserRouter)
-    
-

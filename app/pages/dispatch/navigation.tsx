@@ -2,11 +2,10 @@ import Items from "../../components/Dispatch/Items";
 import Navbar from "../../components/Home/Navbar";
 
 export default function Navigation() {
+  //Fetch Items from Backend
+  //Fetch Riders from Backend
 
-    //Fetch Items from Backend
-    //Fetch Riders from Backend
-
-    /*   
+  /*   
                             INITIAL ASSIGNMENT
 
         -> Run algorithm to get items assigned to each rider and order of deliveries
@@ -15,7 +14,7 @@ export default function Navigation() {
         -> Display on map
     */
 
-    /*
+  /*
 
                             ROUTE SIMULATION
 
@@ -23,7 +22,7 @@ export default function Navigation() {
         -> Once a rider reaches some task_location, perform appropriate actions
     */
 
-    /*                     PICKUP POINTS
+  /*                     PICKUP POINTS
         -> Maintain a array of 'unassigned pickup points'
         -> While updating the location of each rider, if a rider has reached a delivery point, add it to 
            an array of 'free riders'
@@ -31,16 +30,15 @@ export default function Navigation() {
            assignment of the pickup points
     */
 
-    return (
-        <div className="bg-[#111111] h-screen w-screen">
-        <Navbar></Navbar>
-        <div className="grid grid-cols-5 h-[100%] gap-3">
-            <div className="col-span-2 h-[100%]">
-            <Items></Items>
-            </div>
-            <div className="col-span-3 h-[100%]">
-            </div>
+  return (
+    <div className="bg-[#111111] h-screen w-screen">
+      <Navbar></Navbar>
+      <div className="grid grid-cols-5 h-[100%] gap-3">
+        <div className="col-span-2 h-[100%]">
+          <Items></Items>
         </div>
-        </div>
-    );
+        <div className="col-span-3 h-[100%]"></div>
+      </div>
+    </div>
+  );
 }

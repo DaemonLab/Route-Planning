@@ -1,9 +1,9 @@
 import bcrypt
 import schemas
-from database import users
-from schemas.user import users_serializer
-from fastapi import HTTPException
 from bson import ObjectId
+from database import users
+from fastapi import HTTPException
+from schemas.user import users_serializer
 
 
 def get_user(user_id: str):
@@ -31,7 +31,7 @@ def get_users(limit: int = 100):
 
 
 def create_user(user: schemas.UserCreate):
-    bytes = user.hashed_password.encode('utf-8')
+    bytes = user.hashed_password.encode("utf-8")
     salt = bcrypt.gensalt()
     hash = bcrypt.hashpw(bytes, salt)
     user.hashed_password = hash
