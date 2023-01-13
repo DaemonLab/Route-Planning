@@ -1,24 +1,40 @@
-from sqlalchemy.orm import Session
-
-import models, schemas
-
-
-def get_user(db: Session, user_id: int):
-    return db.query(models.User).filter(models.User.id == user_id).first()
-
-
-def get_user_by_email(db: Session, email: str):
-    return db.query(models.User).filter(models.User.email == email).first()
+import bcrypt
+import schemas
+from database import users
+from schemas.user import users_serializer
+from fastapi import HTTPException
+from bson import ObjectId
 
 
-def get_users(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.User).offset(skip).limit(limit).all()
+def get_user(user_id: str):
+    user = users_serializer(users.find({"_id": ObjectId(user_id)}))
+    if user:
+        return user
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
 
 
-def create_user(db: Session, user: schemas.UserCreate):
-    fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(email=user.email, hashed_password=fake_hashed_password)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+def get_user_by_email(email: str):
+    user = users_serializer(users.find({"email": email}))
+    if user:
+        return user
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+
+
+def get_users(limit: int = 100):
+    user = users_serializer(users.find().limit(limit))
+    if user:
+        return user
+    else:
+        raise HTTPException(status_code=404, detail="Users not found")
+
+
+def create_user(user: schemas.UserCreate):
+    bytes = user.hashed_password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    hash = bcrypt.hashpw(bytes, salt)
+    user.hashed_password = hash
+    _id = users.insert_one(dict(user))
+    user = users_serializer(users.find({"_id": _id.inserted_id}))
+    return {"status": "OK", "data_inserted": user}

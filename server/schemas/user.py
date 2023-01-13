@@ -6,7 +6,7 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    password: str
+    hashed_password: str
 
 
 class User(UserBase):
@@ -14,3 +14,15 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+def user_serializer(user) -> dict:
+    return {
+        "id": str(user["_id"]),
+        "email": user["email"],
+        "hashed_password": user["hashed_password"]
+    }
+
+
+def users_serializer(users) -> list:
+    return [user_serializer(user) for user in users]
