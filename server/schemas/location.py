@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class Location(BaseModel):
     
     address : str
@@ -7,5 +8,5 @@ class Location(BaseModel):
     lng : float
     
     class Config:
-        title = 'locations'
+        title = "locations"
         orm_mode = True

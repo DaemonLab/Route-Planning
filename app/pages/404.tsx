@@ -10,7 +10,8 @@ export default function Page404() {
             Sorry, we couldn't find this page.
           </p>
           <p className="mt-4 mb-8 text-gray-200">
-            But don't worry, you can find plenty of other things on our homepage.
+            But don't worry, you can find plenty of other things on our
+            homepage.
           </p>
           <a
             aria-label="Home"

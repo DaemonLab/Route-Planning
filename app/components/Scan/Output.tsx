@@ -2,7 +2,7 @@ export default function Output() {
   return (
     <section className="text-gray-400 bg-black">
       <div className="container mx-auto flex px-5 py-12 items-center justify-center flex-col">
-      <h1 className="text-white text-center text-3xl pb-8 font-bold">
+        <h1 className="text-white text-center text-3xl pb-8 font-bold">
           Scanned Output
         </h1>
         <img

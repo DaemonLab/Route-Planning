@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+
 from .location import Location
 
 class RouteInformation(BaseModel):
@@ -25,5 +26,5 @@ class Rider(BaseModel):
     tasks : list = []
     
     class Config:
-        title = 'riders'
+        title = "riders"
         orm_mode = True
