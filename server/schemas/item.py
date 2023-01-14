@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 from .location import Location
 
-
 class Item(BaseModel):
 
     item_id: str
@@ -14,9 +13,10 @@ class Item(BaseModel):
     weight: float
     task_type: str
     task_location: Location
-    task_completed: bool
-    edd: datetime.datetime = None
-
+    task_completed : bool = False
+    scan_time : datetime.datetime = None
+    edd : datetime.datetime = None
+    
     class Config:
         title = "items"
         orm_mode = True
