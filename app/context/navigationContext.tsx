@@ -14,6 +14,19 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   const [items, setItems] = React.useState<Item[]>([]);
   const [riders, setRiders] = React.useState<Rider[]>([]);
   const [pickupItems, setPickupItems] = React.useState<Item[]>([]);
+  const [availableRiders,setAvailableRiders] = React.useState<Rider[]>([]);
+
+  // const options = {
+  //   method: "PUT",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({ rider_id: rider.rider_id }),
+  // };
+
+  // fetch("/api/rider", options)
+  //   .then((response) => response.json())
+  //   .then((data: Rider) => {
+  //     setUpdatedRider({ ...updatedRider, ...data });
+  //   });
 
   const getItems = () => {
     //get items using API call
@@ -24,37 +37,45 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   const updateRiderLocations = (time_delta: number) => {
-    riders.map((rider) => {
-      let current_index = rider.current_index;
-      let time_taken = rider.time_taken;
+    
+    riders.map((rider): Rider => {
 
-      while (current_index < time_taken.length) {
-        if (time_delta >= time_taken[current_index]) {
-          time_delta -= time_taken[current_index];
-          time_taken[current_index] = 0;
+      const [updatedRider, setUpdatedRider] = React.useState<Rider>(rider);
+
+      let current_index = rider.current_index;
+      let route_information = rider.route_information;
+
+      while (current_index < route_information.length) {
+
+        if (time_delta >= route_information[current_index]["time_taken"]) {
+          time_delta -= route_information[current_index]["time_taken"];
+          route_information[current_index]["time_taken"] = 0;
           current_index++;
-        } else {
-          time_taken[current_index] -= time_delta;
+        } 
+        else {
+          route_information[current_index]["time_taken"] -= time_delta;
           break;
         }
+
       }
 
-      if (current_index == time_taken.length) {
-        //rider has reached task_point
-      }
-
-      return {
+      setUpdatedRider({
         ...rider,
         current_location: rider.current_route[current_index],
         current_index: current_index,
-        time_taken: time_taken,
-      };
+        route_information: route_information,
+      });
+
+      return updatedRider;
     });
+
+
+
   };
 
   const addPickupItem = (pickupItem: Item) => {
-    setPickupItems([...pickupItems, pickupItem]);
     //add pickup item using API call
+    setPickupItems([...pickupItems, pickupItem]);
   };
 
   return (

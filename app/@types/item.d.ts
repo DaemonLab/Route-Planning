@@ -9,6 +9,7 @@ export interface Item {
   task_type: string; // Delvery or pickup
   task_location: Location;
   task_completed: boolean;
+  scan_time : Date | null;
   edd: Date | null;
 }
 
