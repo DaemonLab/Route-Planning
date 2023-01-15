@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     LICENSE_NAME: str = "GNU Gneral Public License 3.0"
     ENVIRONMENT: str = "DEV"
     MONGO_URL: str = "mongodb+srv://grow_simplee:grow_simplee@cluster0.xeclo4y.mongodb.net/?retryWrites=true&w=majority"
+
     class Config:
         env_file = ".env"
         env_file_encoding = "UTF-8"

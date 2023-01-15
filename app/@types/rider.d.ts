@@ -1,10 +1,10 @@
 import { Location } from "./location";
 
 export interface RouteInformation {
-  time_taken : number;
-  distance : number;
-  speed_limit : number;
-  instruction : string;
+  time_taken: number;
+  distance: number;
+  speed_limit: number;
+  instruction: string;
 };
 
 export interface Task {
@@ -21,8 +21,8 @@ export interface Rider {
   bag_volume: number;
   current_location: Location;
   current_route: Location[];
-  current_index : number; //index of rider in current_route_array
-  route_information : RouteInformation[]; //array of size (current_route.size() - 1)
+  current_index: number; //index of rider in current_route_array
+  route_information: RouteInformation[]; //array of size (current_route.size() - 1)
   tasks: Task[];
 };
 
