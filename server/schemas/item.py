@@ -6,7 +6,8 @@ import datetime
 
 class Item(BaseModel):
     
-    item_id : str
+    _id : str
+    given_id: str
     name : str
     description : str = 'Item Description'
     volume: float
@@ -19,3 +20,23 @@ class Item(BaseModel):
     class Config:
         title = 'items'
         orm_mode = True
+        
+        
+
+def item_serializer(item) -> dict:
+    return {
+        "_id": str(item["_id"]),
+        "given_id": str(item["given_id"]),
+        "name": item["name"],
+        "description": item["description"],
+        "volume": item["volume"],
+        "weight": item["weight"],
+        "task_type": item["task_type"],
+        "task_location": item["task_location"],
+        "task_completed": item["task_completed"],
+        "edd": item["edd"]
+    }
+
+
+def items_serializer(items) -> list:
+    return [item_serializer(item) for item in items]
