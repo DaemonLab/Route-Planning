@@ -27,6 +27,7 @@
 
 ### Note to Developers
 1. If you working with VSCode, we recommend you to install PostCSS Language Support
+2. Before making any changes to the project, test the project using `python -m pytest`
 
 ## Users of the app
 
