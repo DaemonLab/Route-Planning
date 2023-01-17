@@ -35,6 +35,7 @@ The app has two types of users:
 
 1. Item Scanning personnel
 2. Warehouse managers
+3. Delivery Riders
 
 ## Functional Requirements
 
@@ -59,6 +60,11 @@ Both, the item scanners as well as warehouse managers will have to login using a
 3. Upon clicking the "Dispatch" button, the routing algorithm will start running in the backend and will perform optimal clustering of items to riders, as well as finding the optimal route for each rider.
 
 4. On the navigation page, the manager will be able to view the current location of each rider and their projected route. This page will also support dynamic addition and removal of pickup points.
+
+###### Delivery Riders
+
+1. Each rider should be able to view the route they need to take in order to reach the next delivery/pickup point.
+2. Riders will also be intimidated about the expected time within which the they should reach that location
 
 
 ## Other Requirements
