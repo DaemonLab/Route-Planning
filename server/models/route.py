@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 
 
 class Location(BaseModel):
-
+    
     address: str = Field(..., title="Address")
     lat: float = Field(..., title="Latitude")
     lng: float = Field(..., title="Longitude")
