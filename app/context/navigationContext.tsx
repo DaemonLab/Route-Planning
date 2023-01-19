@@ -14,7 +14,7 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   const [items, setItems] = React.useState<Item[]>([]);
   const [riders, setRiders] = React.useState<Rider[]>([]);
   const [pickupItems, setPickupItems] = React.useState<Item[]>([]);
-  const [availableRiders,setAvailableRiders] = React.useState<Rider[]>([]);
+  const [availableRiders, setAvailableRiders] = React.useState<Rider[]>([]);
 
   // const options = {
   //   method: "PUT",
@@ -37,26 +37,21 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   const updateRiderLocations = (time_delta: number) => {
-    
     riders.map((rider): Rider => {
-
       const [updatedRider, setUpdatedRider] = React.useState<Rider>(rider);
 
       let current_index = rider.current_index;
       let route_information = rider.route_information;
 
       while (current_index < route_information.length) {
-
         if (time_delta >= route_information[current_index]["time_taken"]) {
           time_delta -= route_information[current_index]["time_taken"];
           route_information[current_index]["time_taken"] = 0;
           current_index++;
-        } 
-        else {
+        } else {
           route_information[current_index]["time_taken"] -= time_delta;
           break;
         }
-
       }
 
       setUpdatedRider({
@@ -68,9 +63,6 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
 
       return updatedRider;
     });
-
-
-
   };
 
   const addPickupItem = (pickupItem: Item) => {
