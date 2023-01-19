@@ -7,7 +7,18 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig = withPWA({
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'maps.geoapify.com',
+        port: '',
+        pathname: '/v1/**',
+      },
+    ],
+  },
   reactStrictMode: true,
+ 
 });
 
 module.exports = nextConfig;
