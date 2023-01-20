@@ -8,6 +8,7 @@ from .route import Location
 class Task(BaseModel):
     item_id: str = Field(..., title="Item ID")
     task_type: Literal["Deliver", "Pickup"]
+    awb_id: str = Field(..., title="AWB ID")
     task_location: Location
 
     class Config:

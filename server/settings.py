@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     LICENSE_NAME: str = "GNU General Public License 3.0"
     ENVIRONMENT: str = "DEV"
     MONGO_URL: str
+    MONGO_NAME: str = "ROUTE-PLANNING-DB"
 
     class Config:
         env_file = ".env"

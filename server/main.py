@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from router import UserRouter
+from router import UserRouter , RidersRouter , ItemsRouter
 from settings import settings
 
 tags_metadata = [
@@ -23,3 +23,5 @@ def read_root():
 
 
 app.include_router(UserRouter)
+app.include_router(RidersRouter)
+app.include_router(ItemsRouter)

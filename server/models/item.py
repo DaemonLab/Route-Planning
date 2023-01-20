@@ -17,6 +17,7 @@ class Item(BaseModel):
     volume: float = Field(..., title="Volume")
     weight: float = Field(..., title="Weight")
 
+    awb_id: str = Field(..., title="AWB ID")
     task_location: Location
     scan_time: datetime.datetime = Field(None, title="Scan Time")
     edd: datetime.datetime = Field(None, title="Expected Delivery Date")

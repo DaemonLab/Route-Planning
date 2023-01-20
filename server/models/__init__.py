@@ -1,5 +1,5 @@
 from .item import Item
 from .rider import Rider
-from .route import Location
-from .task import TaskLog
+from .route import Location , RouteDetail
+from .task import Task, TaskLog
 from .user import *

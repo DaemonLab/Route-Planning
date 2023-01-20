@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 
 
 class Location(BaseModel):
-
+    
     address: str = Field(..., title="Address")
     lat: float = Field(..., title="Latitude")
     lng: float = Field(..., title="Longitude")
@@ -13,7 +13,7 @@ class Location(BaseModel):
         orm_mode = True
 
 
-class Route(BaseModel):
+class RouteDetail(BaseModel):
 
     time_taken: int = Field(..., title="Time Taken")
     distance: int = Field(..., title="Distance")
