@@ -13,7 +13,7 @@ class Location(BaseModel):
         orm_mode = True
 
 
-class RouteInformation(BaseModel):
+class RouteDetail(BaseModel):
 
     time_taken: int = Field(..., title="Time Taken")
     distance: int = Field(..., title="Distance")

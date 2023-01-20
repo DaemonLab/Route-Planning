@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import List
 
 
-from .route import Location , RouteInformation
+from .route import Location , RouteDetail
 from .task import Task
 
 
@@ -15,7 +15,7 @@ class Rider(BaseModel):
     current_location: Location = None
     current_route: List[Location] = []
     current_index: int = Field(..., title="Current Index")
-    route_information: List[RouteInformation]
+    route_details: List[RouteDetail]
     tasks: List[Task] = []
 
     class Config:

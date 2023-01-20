@@ -6,28 +6,38 @@ from typing import List
 
 def get_item(item_id: str):
     try:
-        if items_db.find_one({"item_id": item_id}) is None:
-            raise HTTPException(status_code=404, detail="Item not found")
-        return serializers.item_serializer(
-            items_db.find_one({"item_id": item_id})
-        )
-    except:
-        raise HTTPException(status_code=404, detail="Invalid ID")
 
-def get_items():
-    items = serializers.items_serializer(items_db.find())
-    if items:
-        return items
-    raise HTTPException(status_code=404, detail="Items not found")
+        item = items_db.find_one({"item_id": item_id})
+        if item:
+            return {"item": serializers.item_serializer(item)}
+
+        raise HTTPException(status_code=404, detail="Item not found")
+        
+    except Exception as E:
+        return HTTPException(status_code=404, detail=f"Could Not Process Get Item")
+
+def get_items() -> dict:
+    try:
+        items = items_db.find()
+        if items:
+            return {"items": serializers.items_serializer(items)}
+        
+        raise HTTPException(status_code=404, detail="Items not found")
+
+    except Exception as E:
+        return HTTPException(status_code=404, detail=f"Could Not Process Get Items, Error")
 
 def add_items(items: List[Item]) -> dict:
-    for item in items:
-        _id = items_db.insert_one(dict(item))
-        added_item = serializers.item_serializer(items.find({"_id": _id.inserted_id}))
-        print({"status": "OK", "data_inserted": added_item})
-    return {"status": "OK", "data_added": True}
+    try:
+        items_db.insert_many(serializers.items_serializer(items))
+        return {"status": "OK", "data_added": True}
+    except Exception as E:
+        return HTTPException(status_code=404, detail=f"Could Not Process Add Items, Error")
     
 
 def delete_item(item_id: str):
-    items_db.delete_one({"item_id": item_id})
-    return {"status": "OK", "data_deleted": True}
+    try:
+        items_db.delete_one({"item_id": item_id})
+        return {"status": "OK", "data_deleted": True}
+    except Exception as E:
+        return HTTPException(status_code=404, detail=f"Could Not Process Delete Item, Error")
