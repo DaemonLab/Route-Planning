@@ -7,7 +7,6 @@ export interface NavigationContextWrapper {
 
     getItems: () => void
     getRiders: () => void
-    updateRiderLocations: (time_delta: number) => void
     addPickupItem: (item: Item) => void
 };
 

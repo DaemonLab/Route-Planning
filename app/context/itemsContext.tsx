@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Item, ItemsContextWrapper } from "../@types/item";
+import * as api from "../api";
 
 export const ItemsContext = React.createContext<ItemsContextWrapper | null>(
   null
@@ -12,23 +13,31 @@ interface Props {
 const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
   const [items, setItems] = React.useState<Item[]>([]);
 
-  const getItems = () => {
-    //get items using API call
+  const getItems = async () => {
+    const { data } = await api.getItems();
+    setItems([...data.items]);
   };
 
   const addItem = (item: Item) => {
     setItems([...items, item]);
   };
 
-  const deleteItem = (id: string) => {
+  const deleteItem = (item_id: string) => {
     setItems((items: Item[]) => {
-      return items.filter((item) => item.item_id !== id);
+      return items.filter((item) => item.item_id !== item_id);
     });
   };
 
-  const approveItemList = () => {
-    console.log("List Approved!");
-    //save items using API call
+  const approveItemList = async () => {
+
+    let addItems = [...items]
+
+    addItems = addItems.map((item)=>{
+      const id = `insertID${(Math.floor(Math.random() * 100)).toString()}`
+      return {...item,item_id:id}
+    })
+
+    await api.addItems(addItems)
   };
 
   return (

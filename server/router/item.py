@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from models import Item
 from typing import List
 
-router = APIRouter(prefix="/items",tags=["Items"])
+router = APIRouter(prefix="/item",tags=["Items"])
 
 @router.get("/{item_id}")
 def get_item(item_id: str):

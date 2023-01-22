@@ -1,14 +1,17 @@
-import { Location } from "./location";
+import { Location } from "./route";
 
 export interface Item {
   item_id: string;
   name: string;
   description: string;
+  task_type: "Delivery" | "Pickup"
+  is_completed: boolean;
+
   volume: number;
   weight: number;
-  task_type: string; // Delvery or pickup
+
+  awb_id: string;
   task_location: Location;
-  task_completed: boolean;
   scan_time: Date | null;
   edd: Date | null;
 }

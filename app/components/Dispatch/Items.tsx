@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { ItemsContextWrapper , Item } from "../../@types/item";
+import { ItemsContext } from "../../context/itemsContext";
 
 export default function Items() {
+
+  const { items , getItems , approveItemList } = React.useContext(ItemsContext) as ItemsContextWrapper;
+
   const [showWarnModal, setShowWarnModal] = React.useState(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-  const items = [
+  const lolitems = [
     {
       id: "(ID 879-10-940)",
       address:
@@ -30,6 +35,7 @@ export default function Items() {
 
   return (
     <div className="bg-black">
+      <button className="text-white" onClick={()=>approveItemList()}>Click to approve</button>
       {showWarnModal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl px-2">
@@ -141,7 +147,7 @@ export default function Items() {
         <h2 className="text-center text-white pb-2">January 10, 2023</h2>
 
         <ul className="flex flex-col">
-          {items.map((item) => (
+          {lolitems.map((item) => (
             <li key={item.id} className="border-b-2 border-gray-100">
               <div
                 className={`py-5 px-4 flex justify-between border-l-4 border-transparent bg-transparent text-gray-100 hover:text-gray-900 ${
