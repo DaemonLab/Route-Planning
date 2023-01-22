@@ -9,7 +9,9 @@ input:focus {
 body {
   overflow-x: hidden;
 }
-
+#map {
+  height: 180px;
+}
 .items-wrapper {
   background: rgb(13, 236, 165);
   background: linear-gradient(
@@ -34,10 +36,12 @@ body {
   overflow-x: hidden;
 } */
 ::-webkit-scrollbar {
-  width: 0;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
 }
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-  background: #FF0000;
+  background: #ff0000;
 }
+
+
