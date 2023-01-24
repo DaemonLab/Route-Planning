@@ -1,61 +1,69 @@
 import serializers
-from database import items_db, riders_db
+from database import item_db, rider_db
 from fastapi import HTTPException
 from models import Item, Rider
 from typing import List
 
-
-def dispatch():
-    try:
-        
-        items = items_db.find()
-        riders = riders_db.find()
-
-        #Run Routing algorithm and assign deliveries to riders
-    except:
-        return 0
-
-
-def update_rider_location():
+def rider_update():
     print("Updating Rider Location")
 
 
-def rider_update():
+def dispatch():
+    try:
 
-    return 0
+        items = item_db.find()
+        riders = rider_db.find()
+        # Run algorithm and assign deliveries to riders
 
+    except:
+        return 0
 
-'''
-riders.map((rider): Rider => {
-      const [updatedRider, setUpdatedRider] = React.useState<Rider>(rider);
+def assign_pickup_items(free_riders,pickup_items):
+  #Run algorithm and assign pickups to riders
+  return 0
 
-      let current_index = rider.current_index;
-      let route_information = rider.route_information;
+def update_rider_location(time_delta=5):
 
-      while (current_index < route_information.length) {
-        if (time_delta >= route_information[current_index]["time_taken"]) {
-          time_delta -= route_information[current_index]["time_taken"];
-          route_information[current_index]["time_taken"] = 0;
-          current_index++;
-        } else {
-          route_information[current_index]["time_taken"] -= time_delta;
-          break;
-        }
-      }
+    riders = serializers.riders_serializer(rider_db.find())
 
-      setUpdatedRider({
-        ...rider,
-        current_location: rider.current_route[current_index],
-        current_index: current_index,
-        route_information: route_information,
-      });
+    free_riders  = []
+    pickup_items = item_db.find({"task_type": "Deliver", "is_completed": False})
 
-      return updatedRider;
-    });
-  };
+    for rider in riders:
 
-  const addPickupItem = (pickupItem: Item) => {
-    //add pickup item using API call
-    setPickupItems([...pickupItems, pickupItem]);
-  };
-'''
+        current_index = rider["current_index"]
+        route_details = rider["route_details"]
+
+        while (current_index < len(route_details)):
+
+            if (time_delta >= route_details[current_index]["time_taken"]):
+                time_delta -= route_details[current_index]["time_taken"]
+                route_details[current_index]["time_taken"] = 0
+                current_index += 1
+
+            else:
+                route_details[current_index]["time_taken"] -= time_delta
+                break
+
+        if current_index == len(route_details):
+
+            rider["current_location"] = rider["current_route"][current_index]
+            rider["current_route"] = []
+            rider["current_index"] = 0
+            rider["route_details"] = []
+            rider["tasks"].pop(0)
+
+            free_riders.append(rider) 
+
+            rider_db.update_one({"rider_id": rider["rider_id"]}, {
+                                  "$set": {
+                                      "current_location": rider["current_location"],
+                                      "current_route": rider["current_route"],
+                                      "current_index": rider["current_index"],
+                                      "route_details": rider["route_details"],
+                                      "tasks": rider["tasks"]
+                                  }
+                                })
+    
+    assign_pickup_items(free_riders,pickup_items)
+

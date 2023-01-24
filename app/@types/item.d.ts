@@ -16,10 +16,12 @@ export interface Item {
   edd: Date | null;
 }
 
-export type ItemsContextWrapper = {
+export type ItemContextWrapper = {
+  item: Item;
   items: Item[];
+  getItem: (item_id: string) => void;
   getItems: () => void;
   addItem: (item: Item) => void;
-  deleteItem: (id: string) => void;
-  approveItemList: () => void;
+  addItems: (items: Item[]) => void;
+  deleteItem: (item_id: string) => void;
 };

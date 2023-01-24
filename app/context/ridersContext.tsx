@@ -1,46 +1,65 @@
 import * as React from "react";
-import { Item } from "../@types/item";
-import { Rider } from "../@types/rider";
-import { NavigationContextWrapper } from "../@types/navigation";
+import { Rider , RiderContextWrapper } from "../@types/rider";
+import * as api from "../api";
 
-export const NavigationContext =
-  React.createContext<NavigationContextWrapper | null>(null);
+export const RiderContext =
+  React.createContext<RiderContextWrapper | null>(null);
 
 interface Props {
   children: React.ReactNode;
 }
 
-const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
+const RiderProvider: React.FC<Props> = ({ children }: Props) => {
 
-  const [items, setItems] = React.useState<Item[]>([]);
+  const [rider, setRider]   = React.useState<Rider>({} as Rider);
   const [riders, setRiders] = React.useState<Rider[]>([]);
 
   
-  const getItems = () => {
-    //get items using API call
+  const getRider = async (rider_id: string) => {
+    const { data } = await api.getRider(rider_id);
+    setRider({...data.rider});
   };
 
-  const getRiders = () => {
-    //get riders using API call
+  const getRiders = async () => {
+    const { data } = await api.getRiders();
+    setRiders([...data.riders]);
   };
 
-  const addPickupItem = (pickupItem: Item) => {
-    //add pickup item using API call
+  const addRider = (rider: Rider) => {
+    setRiders([...riders,rider])
+  }
+
+  const addRiders = async (riders: Rider[]) => {
+
+    let addRiders = [...riders]
+
+    addRiders = addRiders.map((rider)=>{
+      const id = `insertID${(Math.floor(Math.random() * 100)).toString()}`
+      return {...rider,rider_id:id}
+    })
+
+    await api.addRiders(addRiders)
+  };
+
+  const deleteRider = () => {
+    //delete Rider using API call
   };
 
   return (
-    <NavigationContext.Provider
+    <RiderContext.Provider
       value={{
-        items,
+        rider,
         riders,
-        getItems,
+        getRider,
         getRiders,
-        addPickupItem,
+        addRider,
+        addRiders,
+        deleteRider
       }}
     >
       {children}
-    </NavigationContext.Provider>
+    </RiderContext.Provider>
   );
 };
 
-export default NavigationProvider;
+export default RiderProvider;

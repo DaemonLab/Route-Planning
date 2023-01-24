@@ -1,17 +1,24 @@
 import * as React from "react";
-import { Item, ItemsContextWrapper } from "../@types/item";
+import { Item , ItemContextWrapper } from "../@types/item";
 import * as api from "../api";
 
-export const ItemsContext = React.createContext<ItemsContextWrapper | null>(
-  null
-);
+export const ItemContext =
+  React.createContext<ItemContextWrapper | null>(null);
 
 interface Props {
   children: React.ReactNode;
 }
 
-const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
+const ItemProvider: React.FC<Props> = ({ children }: Props) => {
+
+  const [item, setItem]   = React.useState<Item>({} as Item);
   const [items, setItems] = React.useState<Item[]>([]);
+
+  
+  const getItem = async (item_id: string) => {
+    const { data } = await api.getItem(item_id);
+    setItem({...data.item});
+  };
 
   const getItems = async () => {
     const { data } = await api.getItems();
@@ -19,16 +26,10 @@ const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   const addItem = (item: Item) => {
-    setItems([...items, item]);
-  };
+    setItems([...items,item])
+  }
 
-  const deleteItem = (item_id: string) => {
-    setItems((items: Item[]) => {
-      return items.filter((item) => item.item_id !== item_id);
-    });
-  };
-
-  const approveItemList = async () => {
+  const addItems = async (items: Item[]) => {
 
     let addItems = [...items]
 
@@ -40,13 +41,25 @@ const ItemsProvider: React.FC<Props> = ({ children }: Props) => {
     await api.addItems(addItems)
   };
 
+  const deleteItem = () => {
+    //delete Item using API call
+  };
+
   return (
-    <ItemsContext.Provider
-      value={{ items, getItems, addItem, deleteItem, approveItemList }}
+    <ItemContext.Provider
+      value={{
+        item,
+        items,
+        getItem,
+        getItems,
+        addItem,
+        addItems,
+        deleteItem
+      }}
     >
       {children}
-    </ItemsContext.Provider>
+    </ItemContext.Provider>
   );
 };
 
-export default ItemsProvider;
+export default ItemProvider;

@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
-import { ItemsContextWrapper , Item } from "../../@types/item";
-import { ItemsContext } from "../../context/itemsContext";
+import React, { use, useEffect } from "react";
+import { ItemContextWrapper , Item } from "../../@types/item";
+import { ItemContext } from "../../context/itemsContext";
+import { RiderContextWrapper , Rider } from "../../@types/rider";
+import { RiderContext } from "../../context/ridersContext";
 
 export default function Items() {
 
-  const { items , getItems , approveItemList } = React.useContext(ItemsContext) as ItemsContextWrapper;
+  const { item  , items , getItem  , getItems , addItem, addItems, deleteItem } = React.useContext(ItemContext) as ItemContextWrapper;
+  const { rider , riders, getRider , getRiders, addRider, addRiders, deleteRider } = React.useContext(RiderContext) as RiderContextWrapper;
 
   const [showWarnModal, setShowWarnModal] = React.useState(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
@@ -35,7 +38,6 @@ export default function Items() {
 
   return (
     <div className="bg-black">
-      <button className="text-white" onClick={()=>approveItemList()}>Click to approve</button>
       {showWarnModal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className="relative w-auto my-6 mx-auto max-w-3xl px-2">

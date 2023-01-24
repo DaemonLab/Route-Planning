@@ -12,9 +12,12 @@ export interface Rider {
   tasks: Task[];
 };
 
-export type RidersContextWrapper = {
+export type RiderContextWrapper = {
+  rider: Rider;
   riders: Rider[];
   getRider: (rider_id: string) => void
   getRiders: () => void;
-  deleteRider: (id: string) => void;
+  addRider: (rider: Rider) => void;
+  addRiders: (riders: Rider[]) => void;
+  deleteRider: (rider_id: string) => void;
 };

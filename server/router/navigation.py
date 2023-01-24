@@ -7,7 +7,7 @@ router = APIRouter(prefix="/navigation",tags=["Navigation"])
 
 inter = 'setInterval Object'
 
-@router.get('/dispatch')
+@router.get("/dispatch")
 def dispatch():
     return services.dispatch()
 
@@ -15,7 +15,7 @@ def dispatch():
 def start_navigation():
     try:
         global inter
-        inter = setInterval(1.0,services.update_rider_location)
+        inter = setInterval(1.0,services.rider_update)
         return {'navigtation_started':True}
     except Exception as E:
         return {'navigation_started:':False,'error':E}
