@@ -4,7 +4,7 @@ from database import db
 from fastapi import APIRouter, HTTPException
 from models import UserBase, UserCreate
 
-router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter(prefix="/user", tags=["Users"])
 users_db = db["users"]
 
 

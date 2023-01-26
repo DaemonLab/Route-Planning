@@ -1,43 +1,47 @@
 import serializers
-from database import items_db
+from database import item_db
 from fastapi import HTTPException
 from models import Item
 from typing import List
 
+
 def get_item(item_id: str):
     try:
+        item = item_db.find_one({"item_id": item_id})
 
-        item = items_db.find_one({"item_id": item_id})
-        if item:
-            return {"item": serializers.item_serializer(item)}
+        if item is None:
+            raise HTTPException(status_code=404, detail="Item Not Found")
 
-        raise HTTPException(status_code=404, detail="Item not found")
-        
+        return {"item": serializers.item_serializer(item)}
+
     except Exception as E:
         return HTTPException(status_code=404, detail=f"Could Not Process Get Item")
 
+
 def get_items() -> dict:
     try:
-        items = items_db.find()
-        if items:
-            return {"items": serializers.items_serializer(items)}
-        
-        raise HTTPException(status_code=404, detail="Items not found")
-
+        items = item_db.find()
+        return {"items": serializers.items_serializer(items)}
     except Exception as E:
-        return HTTPException(status_code=404, detail=f"Could Not Process Get Items, Error")
+        return HTTPException(status_code=404, detail=f"Could Not Process Get Items")
+
+
+def assign_ids(items: List[Item]) -> List[Item]:
+    #Assign ids to items according to predefined list
+    return items
 
 def add_items(items: List[Item]) -> dict:
     try:
-        items_db.insert_many(serializers.items_serializer(items))
+        items = assign_ids(serializers.items_serializer(items))
+        item_db.insert_many(items)
         return {"status": "OK", "data_added": True}
     except Exception as E:
-        return HTTPException(status_code=404, detail=f"Could Not Process Add Items, Error")
-    
+        return HTTPException(status_code=404, detail=f"Could Not Process Add Items")
+
 
 def delete_item(item_id: str):
     try:
-        items_db.delete_one({"item_id": item_id})
+        item_db.delete_one({"item_id": item_id})
         return {"status": "OK", "data_deleted": True}
     except Exception as E:
-        return HTTPException(status_code=404, detail=f"Could Not Process Delete Item, Error")
+        return HTTPException(status_code=404, detail=f"Could Not Process Delete Item")

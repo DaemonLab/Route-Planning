@@ -2,7 +2,8 @@ import { Poppins } from "@next/font/google";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import ItemsProvider from "../context/itemsContext";
+import ItemProvider from "../context/itemsContext";
+import RiderProvider from "../context/ridersContext";
 import "../styles/globals.css";
 
 const poppins = Poppins({
@@ -148,9 +149,11 @@ export default function App({ Component, pageProps }: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
         />
       </Head>
-      <ItemsProvider>
-        <Component {...pageProps} />
-      </ItemsProvider>
+      <ItemProvider>
+        <RiderProvider>
+          <Component {...pageProps} />
+        </RiderProvider>
+      </ItemProvider>
     </main>
   );
 }

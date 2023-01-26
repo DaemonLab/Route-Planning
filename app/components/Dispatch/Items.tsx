@@ -1,9 +1,17 @@
-import React from "react";
+import React, { use, useEffect } from "react";
+import { ItemContextWrapper , Item } from "../../@types/item";
+import { ItemContext } from "../../context/itemsContext";
+import { RiderContextWrapper , Rider } from "../../@types/rider";
+import { RiderContext } from "../../context/ridersContext";
 
 export default function Items() {
+
+  const { item  , items , getItem  , getItems , addItem, addItems, deleteItem } = React.useContext(ItemContext) as ItemContextWrapper;
+  const { rider , riders, getRider , getRiders, addRider, addRiders, deleteRider } = React.useContext(RiderContext) as RiderContextWrapper;
+
   const [showWarnModal, setShowWarnModal] = React.useState(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-  const items = [
+  const lolitems = [
     {
       id: "(ID 879-10-940)",
       address:
@@ -141,7 +149,7 @@ export default function Items() {
         <h2 className="text-center text-white pb-2">January 10, 2023</h2>
 
         <ul className="flex flex-col">
-          {items.map((item) => (
+          {lolitems.map((item) => (
             <li key={item.id} className="border-b-2 border-gray-100">
               <div
                 className={`py-5 px-4 flex justify-between border-l-4 border-transparent bg-transparent text-gray-100 hover:text-gray-900 ${
