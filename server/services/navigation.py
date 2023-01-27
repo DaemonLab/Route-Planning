@@ -22,7 +22,7 @@ def dispatch():
 
     time_adj = services.get_time_matrix(items,num_items)
 
-    program_path = "./algorithm/dispatch_linux.exe"
+    program_path = "./algorithm/dispatch_win.exe"
 
     p = Popen(program_path, stdout=PIPE, stdin=PIPE ,  encoding='utf8')
 
@@ -65,39 +65,39 @@ def dispatch():
 
         deliveries[i] = order
 
-    for i in range(num_riders):
+    # for i in range(num_riders):
 
-        delivery_items = [items[j] for j in deliveries[i]]
+    #     delivery_items = [items[j] for j in deliveries[i]]
 
-        tasks = [] 
+    #     tasks = [] 
         
-        for item in delivery_items:
-            tasks.append({
-                "item_id": item["item_id"],
-                "task_type": "Delivery",
-                "awb_id": item["awb_id"],
-                "task_location": item["task_location"],
-                "time_next": 0
-            }) 
+    #     for item in delivery_items:
+    #         tasks.append({
+    #             "item_id": item["item_id"],
+    #             "task_type": "Delivery",
+    #             "awb_id": item["awb_id"],
+    #             "task_location": item["task_location"],
+    #             "time_next": 0
+    #         }) 
 
-        for delivery_ind in range(len(deliveries[i])):
+    #     for delivery_ind in range(len(deliveries[i])):
 
-            item_num_1 = deliveries[i][delivery_ind] + 1
-            item_num_2 = deliveries[i][delivery_ind+1] if (delivery_ind+1)<len(deliveries[i]) else 0
+    #         item_num_1 = deliveries[i][delivery_ind] + 1
+    #         item_num_2 = deliveries[i][delivery_ind+1] if (delivery_ind+1)<len(deliveries[i]) else 0
 
-            tasks[delivery_ind]["time_next"] = time_adj[item_num_1][item_num_2]
+    #         tasks[delivery_ind]["time_next"] = time_adj[item_num_1][item_num_2]
 
-        if len(tasks)>0:
-            current_route , route_details = services.get_route(tasks,-1,0)
-            tasks.append({"warehouse task"})
-        else:
-            current_route , route_details = [] , []
+    #     if len(tasks)>0:
+    #         current_route , route_details = services.get_route(tasks,-1,0)
+    #         tasks.append({"warehouse task"})
+    #     else:
+    #         current_route , route_details = [] , []
 
-        current_location = "warehoue location"
-        route_index = 0
-        task_index = 0
+    #     current_location = "warehoue location"
+    #     route_index = 0
+    #     task_index = 0
 
-        #update rider in database
+    #     #update rider in database
         
 
     return {"done":str(deliveries)}

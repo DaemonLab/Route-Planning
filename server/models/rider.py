@@ -15,9 +15,9 @@ class Rider(BaseModel):
     current_location: Location = None
     current_route: List[Location] = []
     route_details: List[RouteDetail]
-    route_index: int = Field(..., title="Route Index",default=0)
+    route_index: int = Field(..., title="Route Index")
     tasks: List[Task] = []
-    task_index: int = Field(..., title="Task Index",default=0)
+    task_index: int = Field(..., title="Task Index")
 
     class Config:
         title = "riders"
