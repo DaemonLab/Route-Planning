@@ -14,9 +14,10 @@ class Rider(BaseModel):
     bag_volume: float = Field(..., title="Bag Volume")
     current_location: Location = None
     current_route: List[Location] = []
-    current_index: int = Field(..., title="Current Index")
     route_details: List[RouteDetail]
+    route_index: int = Field(..., title="Route Index",default=0)
     tasks: List[Task] = []
+    task_index: int = Field(..., title="Task Index",default=0)
 
     class Config:
         title = "riders"

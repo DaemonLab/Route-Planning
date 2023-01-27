@@ -10,7 +10,9 @@ def task_serializer(task: Task) -> dict :
         "item_id": task["item_id"],
         "task_type": task["task_type"],
         "awb_id": task["awb_id"],
-        "task_location": serializers.location_serializer(task["task_location"])
+        "task_location": serializers.location_serializer(task["task_location"]),
+        "time_next": task["time_next"],
+        "dist_next": task["dist_next"]
     }
 
 

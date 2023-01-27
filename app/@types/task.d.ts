@@ -5,6 +5,7 @@ export interface Task {
     task_type: string;
     awb_id: string;
     task_location: Location;
+    time_next: number;
 };
 
 export interface TaskLog {

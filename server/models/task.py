@@ -10,6 +10,7 @@ class Task(BaseModel):
     task_type: Literal["Deliver", "Pickup"]
     awb_id: str = Field(..., title="AWB ID")
     task_location: Location
+    time_next: int
 
     class Config:
         anystr_strip_whitespace = True
