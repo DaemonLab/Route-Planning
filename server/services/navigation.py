@@ -6,6 +6,8 @@ from models import Item, Rider
 from typing import List
 import subprocess
 import datetime
+from pathlib import Path
+from subprocess import Popen, PIPE
 
 def rider_update():
     print("Updating Rider Location")
@@ -20,33 +22,32 @@ def dispatch():
 
     dist = services.get_distance_matrix(items,num_items)
 
-    f = open("./algorithm/input.in", "w")
+    # program_path = "./algorithm/dispatch_win.exe"
+    program_path = "./algorithm/dispatch_linux"
 
-    print(num_items,file=f)
+    p = Popen(program_path, stdout=PIPE, stdin=PIPE ,  encoding='utf8')
+
+    p.stdin.write(str(num_items)+'\n')
 
     for i in range(num_items+1):
         for j in range(num_items+1):
             if i==j :
                 continue
-            print(dist[i][j],file=f)
+            p.stdin.write(str(dist[i][j])+'\n')
 
     for item in items:
-        print(int(item['volume']),file=f)
+        p.stdin.write(str(int(item['volume']))+'\n')
 
     for item in items:
-        print(int(item['weight']),file=f)
+        p.stdin.write(str(int(item['weight']))+'\n')
         # print(str(item['edd']),file=f)
 
-    print(num_riders,file=f)
+    p.stdin.write(str(num_riders)+'\n')
 
     for rider in riders:
-        print(int(rider['bag_volume']),file=f)
+        p.stdin.write(str(int(rider['bag_volume']))+'\n')
 
-    f.close()
-
-    subprocess.call("algorithm\dispatch.exe",shell=True) 
-
-    f = open("./algorithm/output.out", "r")
+    p.stdin.flush()
 
     deliveries = dict()
 
@@ -54,25 +55,20 @@ def dispatch():
 
         order = []
 
-        while(True):
+        while True:
             
-            result = int(f.readline())
+            result = int(p.stdout.readline().strip())
 
             if result==-1:
                 break
-
-            #Items order obtained from algorithm is 1-indexed
-            #We convert it to zero-indexed
             
-            order.append(result-1)
+            order.append(result)
 
         deliveries[i] = order
 
     print(deliveries)
 
-
-
-    return {"done" : str(deliveries)}
+    return {"done":str(deliveries)}
 
 def assign_pickup_items(free_riders,pickup_items):
   #Run algorithm and assign pickups to riders

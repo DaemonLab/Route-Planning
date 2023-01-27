@@ -7,6 +7,10 @@ router = APIRouter(prefix="/navigation",tags=["Navigation"])
 
 inter = 'setInterval Object'
 
+@router.get("/")
+def nav():
+    return {"route_working":"true"}
+
 @router.get("/dispatch")
 def dispatch():
     return services.dispatch()
