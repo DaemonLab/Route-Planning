@@ -14,7 +14,7 @@ class Item(BaseModel):
     task_type: Literal["Deliver", "Pickup"]
     is_completed: bool = Field(False, title="Is Completed")
 
-    volume: float = Field(..., title="Volume")
+    volume: int = Field(..., title="Volume")
     weight: float = Field(..., title="Weight")
 
     awb_id: str = Field(..., title="AWB ID")

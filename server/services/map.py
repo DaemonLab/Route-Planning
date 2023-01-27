@@ -6,3 +6,9 @@ def get_time_matrix(items,num_items):
 
 def get_route(tasks,i1,i2):
     return [] , []
+
+def get_time(loc1,loc2):
+    return 0
+
+def insert_pickup(tasks,after_task_ind,item):
+    return 0

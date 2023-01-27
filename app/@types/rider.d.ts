@@ -7,8 +7,8 @@ export interface Rider {
   bag_volume: number;
   current_location: Location;
   current_route: Location[];
-  route_index: number; 
   route_details: RouteDetail[]; 
+  route_index: number; 
   tasks: Task[];
   task_index: number;
 };
