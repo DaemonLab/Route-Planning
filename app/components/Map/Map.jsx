@@ -24,7 +24,17 @@ export function ChangeView({ coords }) {
   return null;
 }
 
-export default function Map() {
+export default function Map(props) {
+  const [rider, setRider] = useState(props.rider);
+  const [currentRoute, setCurrentRoute] = useState([]);
+  const [coordinates, setCoordinates] = useState([]);
+  useEffect(() => {
+    setRider(props.rider);
+    let route = props.rider.current_route;
+    for (let i = 0; i < route.length; i++) {
+      setCoordinates(...currentRoute, [route.lat, route.lng]);
+    }
+  }, [props.rider]);
   const [geoData, setGeoData] = useState({
     lat: coordinates[0][0],
     lng: coordinates[0][1],
