@@ -12,6 +12,15 @@ class Location(BaseModel):
         title = "Location"
         orm_mode = True
 
+class RouteLocation(BaseModel):
+    lat: float = Field(..., title="Latitude")
+    lng: float = Field(..., title="Longitude")
+
+    class Config:
+        anystr_strip_whitespace = True
+        title = "RouteLocation"
+        orm_mode = True
+
 
 class RouteDetail(BaseModel):
 

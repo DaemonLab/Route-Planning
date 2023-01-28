@@ -2,6 +2,7 @@ import services
 from fastapi import APIRouter 
 from setInterval import setInterval
 import threading
+from models import Item
 
 router = APIRouter(prefix="/navigation",tags=["Navigation"])
 
@@ -15,11 +16,15 @@ def nav():
 def dispatch():
     return services.dispatch()
 
+@router.post("/add_pickup")
+def add_pickup(item: Item):
+    return services.add_pickup_item(item)
+
 @router.get("/start")
 def start_navigation():
     try:
         global inter
-        inter = setInterval(1.0,services.rider_update)
+        inter = setInterval(2.0,services.update_rider_location)
         return {'navigtation_started':True}
     except Exception as E:
         return {'navigation_started:':False,'error':E}
