@@ -16,6 +16,7 @@ def rider_serializer(rider : Rider) -> dict :
         "current_location": serializers.route_location_serializer(rider["current_location"]),
         "current_route": serializers.route_locations_serializer(rider["current_route"]),
         "route_details":  serializers.route_details_serializer(rider["route_details"]),
+        "route_polyline": serializers.route_locations_serializer(rider["route_polyline"]),
         "route_index": rider["route_index"],
         "tasks" : serializers.tasks_serializer(rider["tasks"]),
         "task_index": rider["task_index"]

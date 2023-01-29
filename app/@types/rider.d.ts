@@ -1,13 +1,14 @@
-import { Location , RouteDetail } from "./route";
+import { Location , RouteLocation ,RouteDetail } from "./route";
 
 export interface Rider {
   rider_id: string;
   name: string;
   age: number;
   bag_volume: number;
-  current_location: Location;
-  current_route: Location[];
+  current_location: RouteLocation;
+  current_route: RouteLocation[];
   route_details: RouteDetail[]; 
+  route_polyline: RouteLocation[]
   route_index: number; 
   tasks: Task[];
   task_index: number;

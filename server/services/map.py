@@ -23,7 +23,10 @@ def get_pickup_time_matrix(riders,item):
 def get_route(tasks,i1,i2):
 
     if i1==-1:
-        return ["init_route","init_route_details"]
+        return ["init_route"] , ["init_route_details"] , ["init_route_polyline"]
+
+    if i2>=len(tasks):
+        return [] , [] , []
     
     f = open('./services/pair_route_1.json')
     awb_pair_to_route = json.load(f)
@@ -31,4 +34,4 @@ def get_route(tasks,i1,i2):
     awb1 , awb2 = tasks[i1]["awb_id"] , tasks[i2]["awb_id"]
 
     route = awb_pair_to_route[f"{awb1}-{awb2}"]
-    return route["route_array"] , route["route_information"]
+    return route["route_array"] , route["route_information"] , route["route_polyline"]
