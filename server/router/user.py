@@ -10,7 +10,8 @@ users_db = db["users"]
 
 @router.post("/")
 def create_user(user: UserCreate):
-    db_user = serializers.users_serializer(users_db.find({"email": user.email}))
+    db_user = serializers.users_serializer(
+        users_db.find({"email": user.email}))
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     return services.create_user(user=user)

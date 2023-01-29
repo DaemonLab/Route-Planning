@@ -13,10 +13,13 @@ def rider_serializer(rider : Rider) -> dict :
         "name": rider["name"],
         "age": rider["age"],
         "bag_volume" : rider["bag_volume"],
-        "current_location": serializers.location_serializer(rider["current_location"]),
-        "current_route": serializers.locations_serializer(rider["current_route"]),
+        
+        "current_location": serializers.route_location_serializer(rider["current_location"]),
+        "current_route": serializers.route_locations_serializer(rider["current_route"]),
         "route_details":  serializers.route_details_serializer(rider["route_details"]),
+        "route_polyline": serializers.route_locations_serializer(rider["route_polyline"]),
         "route_index": rider["route_index"],
+        
         "tasks" : serializers.tasks_serializer(rider["tasks"]),
         "task_index": rider["task_index"]
     }

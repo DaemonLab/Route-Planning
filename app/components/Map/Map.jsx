@@ -30,7 +30,7 @@ export default function Map(props) {
   const [coordinates, setCoordinates] = useState([]);
   useEffect(() => {
     setRider(props.rider);
-    let route = props.rider.current_route;
+    let route = props.rider.current_polyline;
     for (let i = 0; i < route.length; i++) {
       setCoordinates(...currentRoute, [route.lat, route.lng]);
     }
