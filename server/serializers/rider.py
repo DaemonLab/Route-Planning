@@ -6,6 +6,9 @@ from models import  Rider
 
 def rider_serializer(rider : Rider) -> dict :
 
+    if rider is None:
+        return rider
+
     rider = serializers.serialize_object(rider)
 
     return {

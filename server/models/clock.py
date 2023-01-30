@@ -1,16 +1,15 @@
 import datetime
-from typing import Field
+from pydantic import Field
 
 from pydantic import BaseModel
 
 
 class Clock(BaseModel):
 
-    is_calibrated: bool = Field(False, title = "Is Calibrated")
+    day_start: datetime.datetime = Field(..., title = "Warehouse Day Start Time")
     clock_start: datetime.datetime = Field(..., title = "Clock Start Time")
-    factor: int = Field(..., title = "Multiplication Factor")
     is_scanned: bool = Field(False, title = "Is Scanned")
-    Is_dispatched: bool = Field(False, title = "Is Dispatched")
+    is_dispatched: bool = Field(False, title = "Is Dispatched")
 
     class Config:
         title = "clock"

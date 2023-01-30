@@ -5,6 +5,9 @@ from models import Item
 
 def item_serializer(item: Item) -> dict:
 
+    if item is None:
+        return item
+
     item = serializers.serialize_object(item)
 
     return {
@@ -13,6 +16,7 @@ def item_serializer(item: Item) -> dict:
         "description": item["description"],
         "task_type": item["task_type"],
         "is_completed": item["is_completed"],
+        "completion_time": item["completion_time"],
 
         "volume": item["volume"],
         "weight": item["weight"],

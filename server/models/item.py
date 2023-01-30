@@ -13,6 +13,7 @@ class Item(BaseModel):
     description: str = Field(..., title="Description")
     task_type: Literal["Deliver", "Pickup"]
     is_completed: bool = Field(False, title="Is Completed")
+    completion_time: datetime.datetime = Field(None, title="Task Completion Time")
 
     volume: int = Field(..., title="Volume")
     weight: float = Field(..., title="Weight")

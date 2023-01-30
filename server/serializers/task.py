@@ -3,6 +3,9 @@ import serializers
 from models import Task
 
 def task_serializer(task: Task) -> dict :
+
+    if task is None:
+        return task
     
     task = serializers.serialize_object(task)
 

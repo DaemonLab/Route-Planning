@@ -6,6 +6,7 @@ db = client[settings.MONGO_NAME]
 
 items_db = db["items"]
 riders_db = db["riders"]
+clock_db = db["clock"]
 
 
 # from deta import Deta
