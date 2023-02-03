@@ -1,18 +1,19 @@
-import serializers
-from database import items_db , clock_db
 from fastapi import HTTPException
-from models import Item
-from typing import List
 from datetime import datetime as dt
+from typing import List
+
+from models import Item
+from database import items_db , clock_db
+import serializers
 
 def get_item(item_id: str):
     try:
-        item = items_db.find_one({"item_id": item_id})
+        item = serializers.item_serializer(items_db.find_one({"item_id": item_id}))
 
         if item is None:
             raise HTTPException(status_code=404, detail="Item Not Found")
 
-        return {"item": serializers.item_serializer(item)}
+        return {"item": item}
 
     except Exception as E:
         return HTTPException(status_code=404, detail=f"Could Not Process Get Item")
@@ -20,8 +21,8 @@ def get_item(item_id: str):
 
 def get_items() -> dict:
     try:
-        items = items_db.find()
-        return {"items": serializers.items_serializer(items)}
+        items = serializers.items_serializer(items_db.find())
+        return {"items": items}
     except Exception as E:
         return HTTPException(status_code=404, detail=f"Could Not Process Get Items")
 

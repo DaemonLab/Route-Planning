@@ -1,6 +1,7 @@
 from typing import List
-import serializers
+
 from models import  Rider
+import serializers
 
 
 

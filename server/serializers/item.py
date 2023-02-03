@@ -1,6 +1,7 @@
 from typing import List
-import serializers
+
 from models import Item
+import serializers
 
 
 def item_serializer(item: Item) -> dict:

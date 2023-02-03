@@ -1,12 +1,14 @@
+import datetime
 from typing import Literal
 from pydantic import BaseModel, Field
-from .route import Location
-import datetime
+
+from models import Location
+
 
 class Task(BaseModel):
     item_id: str = Field(..., title="Item ID")
     volume: int  = Field(..., title="Volume")
-    task_type: Literal["Deliver", "Pickup"]
+    task_type: Literal["Delivery", "Pickup"]
     edd: datetime.datetime = Field(None, title="Expected Delivery Date")
     awb_id: str = Field(..., title="AWB ID")
     task_location: Location

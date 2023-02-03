@@ -1,7 +1,9 @@
-import serializers
 from fastapi import APIRouter
-from database import clock_db
 from datetime import datetime as dt
+
+from database import clock_db
+import serializers
+
 
 router = APIRouter(prefix="/clock", tags=["Clock"])
 

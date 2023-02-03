@@ -1,5 +1,5 @@
-import serializers
 from models import Clock
+import serializers
 
 
 def clock_serializer(clock: Clock) -> dict :
@@ -7,7 +7,7 @@ def clock_serializer(clock: Clock) -> dict :
     if clock is None:
         return clock
     
-    task = serializers.serialize_object(clock)
+    clock = serializers.serialize_object(clock)
 
     return {
         "day_start": clock["day_start"],
