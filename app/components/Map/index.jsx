@@ -32,7 +32,7 @@ export default function Map(props) {
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <MapContainer
             center={center}
-            zoom={200}
+            zoom={20}
             style={{ width: "100vw", height: "100vh" }}
             scrollWheelZoom={true}
           >
