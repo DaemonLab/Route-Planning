@@ -1,13 +1,21 @@
 import React, { use, useEffect } from "react";
-import { ItemContextWrapper , Item } from "../../@types/item";
+import { ItemContextWrapper, Item } from "../../@types/item";
 import { ItemContext } from "../../context/itemsContext";
-import { RiderContextWrapper , Rider } from "../../@types/rider";
+import { RiderContextWrapper, Rider } from "../../@types/rider";
 import { RiderContext } from "../../context/ridersContext";
 
 export default function Items() {
-
-  const { item  , items , getItem  , getItems , addItem, addItems, deleteItem } = React.useContext(ItemContext) as ItemContextWrapper;
-  const { rider , riders, getRider , getRiders, addRider, addRiders, deleteRider } = React.useContext(RiderContext) as RiderContextWrapper;
+  const { item, items, getItem, getItems, addItem, addItems, deleteItem } =
+    React.useContext(ItemContext) as ItemContextWrapper;
+  const {
+    rider,
+    riders,
+    getRider,
+    getRiders,
+    addRider,
+    addRiders,
+    deleteRider,
+  } = React.useContext(RiderContext) as RiderContextWrapper;
 
   const [showWarnModal, setShowWarnModal] = React.useState(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
