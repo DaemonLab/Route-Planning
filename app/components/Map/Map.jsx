@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
-import coordinates from "./coordinates";
+// import coordinates from "./coordinates";
 import {
   MapContainer,
   TileLayer,

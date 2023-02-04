@@ -1,6 +1,17 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState()
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    if (email == "manager@gmail.com" && password == "manager") {
+      router.push("/dispatch/dashboard");
+    } else alert("Invalid Credentials");
+  }
   return (
     <div className="bg-black">
       <div className="flex flex-col items-center justify-center px-6 py-16 h-[72vh] md:h-[85vh] mx-auto lg:py-16">
@@ -51,6 +62,8 @@ export default function Login() {
                   className="border sm:text-sm rounded-lg focus:border-green-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-green-500"
                   placeholder="name@company.com"
                   required
+                  value={email}
+                  onChange={(e: any) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -67,6 +80,8 @@ export default function Login() {
                   placeholder="••••••••"
                   className="border sm:text-sm rounded-lg focus:border-green-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-green-500"
                   required
+                  value={password}
+                  onChange={(e: any) => setPassword(e.target.value)}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -85,15 +100,9 @@ export default function Login() {
                     </label>
                   </div>
                 </div>
-                <Link
-                  href="/deliver/dashboard"
-                  className="text-sm font-medium hover:underline text-primary-500 text-white"
-                >
-                  Forgot password?
-                </Link>
               </div>
               <button
-                type="submit"
+                onClick={onSubmit}
                 className="w-full text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Sign in
