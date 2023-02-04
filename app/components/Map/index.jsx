@@ -5,6 +5,7 @@ import {
   MapContainer, Marker, Polyline, TileLayer, useMap
 } from "react-leaflet";
 import coordinates from "./coordinates";
+
 const markerIcon = new L.icon({
   iconUrl: "/images/marker2.png",
   iconSize: [40, 40],
