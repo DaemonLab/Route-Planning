@@ -1,10 +1,14 @@
 from typing import List
-import serializers
+
 from models import  Rider
+import serializers
 
 
 
 def rider_serializer(rider : Rider) -> dict :
+
+    if rider is None:
+        return rider
 
     rider = serializers.serialize_object(rider)
 

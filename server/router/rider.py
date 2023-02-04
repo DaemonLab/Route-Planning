@@ -1,7 +1,8 @@
-import services
 from fastapi import APIRouter
-from models import Rider
 from typing import List
+
+from models import Rider
+import services
 
 router = APIRouter(prefix="/rider", tags=["Riders"])
 

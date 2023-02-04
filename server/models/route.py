@@ -31,5 +31,18 @@ class RouteDetail(BaseModel):
 
     class Config:
         anystr_strip_whitespace = True
-        title = "Route"
+        title = "RouteDetail"
+        orm_mode = True
+
+class LocationDetail(BaseModel):
+
+    address: str = Field(..., title="Address")
+    area: str = Field(..., title="Area or Locality")
+    awb_id: str
+    lat: float = Field(..., title="Latitude")
+    lng: float = Field(..., title="Longitude")    
+
+    class Config:
+        anystr_strip_whitespace = True
+        title = "LocationDetail"
         orm_mode = True

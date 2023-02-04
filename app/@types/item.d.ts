@@ -6,6 +6,7 @@ export interface Item {
   description: string;
   task_type: "Delivery" | "Pickup"
   is_completed: boolean;
+  completion_time: Date | null;
 
   volume: number;
   weight: number;

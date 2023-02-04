@@ -1,8 +1,12 @@
 from typing import List
-import serializers
+
 from models import Task
+import serializers
 
 def task_serializer(task: Task) -> dict :
+
+    if task is None:
+        return task
     
     task = serializers.serialize_object(task)
 

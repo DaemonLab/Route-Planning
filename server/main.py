@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from router import RidersRouter , ItemsRouter , NavigationRouter
+from router import RidersRouter , ItemsRouter , NavigationRouter , ClockRouter
 from fastapi.middleware.cors import CORSMiddleware
 from settings import settings
 
@@ -38,3 +38,4 @@ def read_root():
 app.include_router(RidersRouter)
 app.include_router(ItemsRouter)
 app.include_router(NavigationRouter)
+app.include_router(ClockRouter)

@@ -1,9 +1,13 @@
 from typing import List
-import serializers
+
 from models import Item
+import serializers
 
 
 def item_serializer(item: Item) -> dict:
+
+    if item is None:
+        return item
 
     item = serializers.serialize_object(item)
 
@@ -13,6 +17,7 @@ def item_serializer(item: Item) -> dict:
         "description": item["description"],
         "task_type": item["task_type"],
         "is_completed": item["is_completed"],
+        "completion_time": item["completion_time"],
 
         "volume": item["volume"],
         "weight": item["weight"],
