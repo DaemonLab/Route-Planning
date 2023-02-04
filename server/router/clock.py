@@ -3,19 +3,19 @@ from datetime import datetime as dt
 
 from database import clock_db
 import serializers
+import utils
 
 
 router = APIRouter(prefix="/clock", tags=["Clock"])
 
 @router.post("/start_day")
-def start_day(day_start):
+def start_day():
 
     clock = serializers.clock_serializer(clock_db.find_one())
-    day_start = dt.strptime(day_start, "%d-%m-%Y %H:%M:%S")
-
+    
     if clock is None:
         clock_db.insert_one({
-            "day_start": day_start,
+            "day_start": utils.day_start,
             "clock_start": dt.strptime(dt.now().strftime("%d-%m-%Y %H:%M:%S") , "%d-%m-%Y %H:%M:%S"),
             "is_scanned": False,
             "is_dispatched": False
@@ -24,7 +24,7 @@ def start_day(day_start):
     else:
         clock_db.update_one({}, {
                 "$set": {
-                    "day_start": day_start,
+                    "day_start": utils.day_start,
                     "clock_start": dt.strptime(dt.now().strftime("%d-%m-%Y %H:%M:%S") , "%d-%m-%Y %H:%M:%S"),
                     "is_scanned": False,
                     "is_dispatched": False

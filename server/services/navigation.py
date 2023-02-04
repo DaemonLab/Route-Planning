@@ -3,18 +3,28 @@ from datetime import datetime as dt
 from subprocess import Popen, PIPE
 from typing import List
 
-from models import Item, Rider , LocationDetail
+from models import Item,  LocationDetail
 from database import items_db, riders_db, clock_db , location_details_db
 import serializers
 import utils
+
+iter = 0
 
 
 def add_locations(locations: List[LocationDetail]) -> dict:
     try:
         locations = serializers.location_details_serializer(locations)
+
+        locations.append(utils.WAREHOUSE_LOCATION_DETAIL)
+    
+        for location in locations:
+            location["lat"] , location["lng"] = utils.geocode(location["awb_id"],location["address"])
+
         location_details_db.insert_many(locations)
+        
         return {"success": True, "message": "Locations Added Successfully!"}
     except Exception as E:
+        print(E)
         return HTTPException(status_code=404, detail=f"Could Not Process Add Locations")
 
 def dispatch():
@@ -51,6 +61,30 @@ def dispatch():
             edd_time_simult = item["edd"]
             edd_time_algthm = (edd_time_simult - day_start).total_seconds()
             p.stdin.write(str(int(edd_time_algthm))+'\n')
+
+        location_detail = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": utils.WAREHOUSE_LOCATION_DETAIL["awb_id"]}))) 
+        p.stdin.write(str(location_detail["lat"])+'\n')
+        p.stdin.write(str(location_detail["lng"])+'\n')
+
+        for item in items:
+            awb_id = item["awb_id"]
+            location_detail = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_id}))) 
+            p.stdin.write(str(location_detail["lat"])+'\n')
+            p.stdin.write(str(location_detail["lng"])+'\n')
+
+        areas = []
+
+        areas.append(utils.WAREHOUSE_LOCATION_DETAIL["area"])
+        p.stdin.write(str(0)+'\n')
+
+        for item in items:
+            awb_id = item["awb_id"]
+            area = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_id})))["area"]
+            
+            if area not in areas:
+                areas.append(area)
+            p.stdin.write(str(int(areas.index(area)))+'\n')
+            
         
 
         p.stdin.write(str(num_riders)+'\n')
@@ -77,6 +111,7 @@ def dispatch():
 
             deliveries[i] = order
 
+        print(deliveries)
 
         for i in range(num_riders):
 
@@ -84,7 +119,10 @@ def dispatch():
 
             tasks = []
 
+            bag_volume = riders[i]["bag_volume"]
+
             for item in delivery_items:
+
                 tasks.append({
                     "item_id": item["item_id"],
                     "volume": item["volume"],
@@ -94,6 +132,8 @@ def dispatch():
                     "task_location": item["task_location"],
                     "time_next": 0
                 })
+
+                bag_volume-=item["volume"]
 
             for delivery_ind in range(len(deliveries[i])):
 
@@ -108,12 +148,13 @@ def dispatch():
             else:
                 current_route, route_details, route_polyline = [], [], []
 
-            current_location = utils.WAREHOUSE_ROUTE_LOCATION
+            current_location = {"lat":utils.WAREHOUSE_LOCATION_DETAIL["lat"], "lng":utils.WAREHOUSE_LOCATION_DETAIL["lng"]}
             route_index = 0
             task_index = 0
 
             riders_db.update_one({"rider_id": riders[i]["rider_id"]}, {
                 "$set": {
+                    "bag_volume": bag_volume,
                     "current_location": serializers.route_location_serializer(current_location),
                     "current_route": serializers.route_locations_serializer(current_route),
                     "route_details": serializers.route_details_serializer(route_details),
@@ -135,8 +176,9 @@ def dispatch():
 def update_rider_location():
 
     try:
-
-        print("Updating Riders")
+        global iter
+        print("Updating Riders",iter)
+        iter+=1
 
         riders = serializers.riders_serializer(riders_db.find())
 
@@ -144,12 +186,16 @@ def update_rider_location():
         day_start = clock["day_start"]
         clock_start = clock["clock_start"]
 
+        found = False
+
         for rider in riders:
 
-            time_delta = 1
+            time_delta = 10
 
             if rider["task_index"] >= len(rider["tasks"]):
                 continue
+
+            found = True
 
             while (rider["route_index"] < len(rider["route_details"])):
 
@@ -170,6 +216,8 @@ def update_rider_location():
                 task_completion_simult = day_start + (task_completion_actual - clock_start)
 
                 task_edd = rider["tasks"][rider["task_index"]]["edd"]
+
+                print("Task Completed")
 
                 items_db.update_one({"item_id": rider["tasks"][rider["task_index"]]["item_id"]}, {
                     "$set": {
@@ -198,7 +246,12 @@ def update_rider_location():
                 }
             })
 
+        if not found:
+            print("Riders Finished")
+
         return {"success": True, "message": "Updated Successfully!"}
+
+
 
     except Exception as E:
         print(E)
@@ -288,6 +341,7 @@ def add_pickup_item(item: Item):
         rider_ind = int(p.stdout.readline().strip())
         after_task_index = int(p.stdout.readline().strip()) + valid_riders[rider_ind]["task_index"]
 
+        print(rider_ind, after_task_index)
 
         tasks = valid_riders[rider_ind]["tasks"]
         valid_riders[rider_ind]["tasks"] = insert_pickup(valid_riders[rider_ind]["rider_id"], tasks, after_task_index, item, times_from_pickup)

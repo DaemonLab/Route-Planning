@@ -1,13 +1,22 @@
-import services
-import serializers
-from database import location_details_db
 import numpy as np
 import random
 import requests
 from requests.structures import CaseInsensitiveDict
+import json
 
-GEOAPIFY_ROUTING_API_KEY = "1234"
+from database import location_details_db
+import serializers
+import utils
 
+GEOAPIFY_ROUTING_API_KEY = "650255f31fe44196a0969c8e5b040ff8"
+
+
+def geocode(awb_id,address):
+       
+    f = open('./utils/awb_to_coordinate.json')
+    awb_to_coordinate = json.load(f)
+
+    return awb_to_coordinate[awb_id]["lat"] , awb_to_coordinate[awb_id]["lng"]
 
 def preprocess_response(response, coordinate_source, coordinate_destination):
 
@@ -102,6 +111,7 @@ def preprocess_response(response, coordinate_source, coordinate_destination):
 
 def find_route(coordinate_source, coordinate_destination):
 
+
     headers = CaseInsensitiveDict()
     headers["Accept"] = "application/json"
 
@@ -111,7 +121,7 @@ def find_route(coordinate_source, coordinate_destination):
     routing_url = f"https://api.geoapify.com/v1/routing?waypoints={lat1},{lng1}|{lat2},{lng2}&mode=motorcycle&details=instruction_details,route_details&apiKey=" + GEOAPIFY_ROUTING_API_KEY
     response = requests.get(routing_url, headers=headers)
     response = response.json()
-    response = preprocess_response(response, coordinate_source, coordinate_destination)
+    return preprocess_response(response, coordinate_source, coordinate_destination)
 
 
 def get_route(tasks, i1, i2):
@@ -120,16 +130,24 @@ def get_route(tasks, i1, i2):
         return [], [], []
 
     try:
-        awb_source = (services.WAREHOUSE_AWB if i1 == -1 else tasks[i1]["awb_id"])
+        awb_source = (utils.WAREHOUSE_LOCATION_DETAIL["awb_id"] if i1 == -1 else tasks[i1]["awb_id"])
         awb_destination = tasks[i2]["awb_id"]
 
-        coordinate_source      = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_source})))["coordinate"]
-        coordinate_destination = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_destination})))["coordinate"]
+
+        location_detail_source      = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_source})))
+        location_detail_destination = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_destination})))
+
+        print(location_detail_source)
+        print(location_detail_destination)
+
+        coordinate_source      = {"lat": location_detail_source["lat"], "lng": location_detail_source["lng"]}
+        coordinate_destination = {"lat": location_detail_destination["lat"], "lng": location_detail_destination["lng"]}
 
         route = find_route(coordinate_source, coordinate_destination)
         return route["current_route"], route["route_details"], route["route_polyline"]
 
-    except:
+    except Exception as E:
+        print(E)
         print("Could not find route", awb_source, awb_destination)
         return [], [], []
 

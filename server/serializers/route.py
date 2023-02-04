@@ -62,7 +62,8 @@ def location_detail_serializer(location_detail: LocationDetail) -> dict:
         "address": location_detail["address"],
         "area": location_detail["area"],
         "awb_id": location_detail["awb_id"],
-        "coordinate": serializers.route_location_serializer(location_detail["coordinate"])
+        "lat": location_detail["lat"],
+        "lng": location_detail["lng"]
     }
 
 def location_details_serializer(location_details: List[LocationDetail]) -> list:

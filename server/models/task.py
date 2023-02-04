@@ -2,7 +2,7 @@ import datetime
 from typing import Literal
 from pydantic import BaseModel, Field
 
-from models import Location
+from .route import Location
 
 
 class Task(BaseModel):

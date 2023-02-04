@@ -2,8 +2,8 @@ from pydantic import BaseModel, Field
 from typing import List
 
 
-from models import RouteLocation ,  RouteDetail
-from models import Task
+from .route import RouteLocation ,  RouteDetail
+from .task import Task
 
 
 class Rider(BaseModel):
