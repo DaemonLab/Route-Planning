@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 export default function AddCsv() {
     const [file, setFile] = useState();
-    const [data, setData] = useState([]);
     useEffect(() => {
         const fileReader = new FileReader;
         if (file) {
@@ -23,11 +22,11 @@ export default function AddCsv() {
                     let names = others[2];
                     let product_id = others[3];
                     let data = {
-                        location:{
+                        location: {
                             address: address,
                             area: area,
                             awb_id: awb_id
-                        }, 
+                        },
                         names: names,
                         item_id: product_id
                     }
@@ -48,9 +47,8 @@ export default function AddCsv() {
         console.log(e.target.files[0])
     };
 
-    const handleOnSubmit = (e: any) => {
+    const handleOnSubmitItems = (e: any) => {
         e.preventDefault();
-
         if (file) {
             console.log(file)
         }
@@ -69,7 +67,7 @@ export default function AddCsv() {
 
                 <button
                     onClick={(e) => {
-                        handleOnSubmit(e);
+                        handleOnSubmitItems(e);
                     }}
                 >
                     IMPORT CSV
