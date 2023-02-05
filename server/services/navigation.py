@@ -11,16 +11,16 @@ import utils
 iter = 0
 
 
-def add_locations(locations: List[LocationDetail]) -> dict:
+def add_locations(location_details: List[LocationDetail]) -> dict:
     try:
-        locations = serializers.location_details_serializer(locations)
+        location_details = serializers.location_details_serializer(location_details)
 
-        locations.append(utils.WAREHOUSE_LOCATION_DETAIL)
+        location_details.append(utils.WAREHOUSE_LOCATION_DETAIL)
     
-        for location in locations:
-            location["lat"] , location["lng"] = utils.geocode(location["awb_id"],location["address"])
+        for location_detail in location_details:
+            location_detail["lat"] , location_detail["lng"] = utils.geocode(location_detail["awb_id"],location_detail["address"])
 
-        location_details_db.insert_many(locations)
+        location_details_db.insert_many(location_details)
         
         return {"success": True, "message": "Locations Added Successfully!"}
     except Exception as E:
@@ -284,11 +284,26 @@ def insert_pickup(rider_id, tasks, after_task_index, item, times_from_pickup):
 
 def add_pickup_item(item: Item):
 
+    print("Adding pickup",item)
+
     try:
 
         item = serializers.item_serializer(item)
 
+        location_detail = {
+            'address': item['task_location']['address'],
+            'area': '',
+            'awb_id': item['awb_id'],
+            'lat': 0.0,
+            'lng': 0.0,
+            'item_id': item['item_id']
+        }
+        location_detail["lat"] , location_detail["lng"] = utils.geocode(location_detail["awb_id"],location_detail["address"])
+        item["task_location"]["lat"], item["task_location"]["lng"] = location_detail["lat"] , location_detail["lng"]
+        
+        location_details_db.insert_one(serializers.location_detail_serializer(location_detail))
         items_db.insert_one(item)
+
 
         riders = serializers.riders_serializer(riders_db.find())
         valid_riders = [rider for rider in riders if rider["task_index"] <= (len(rider["tasks"]) - 2)]

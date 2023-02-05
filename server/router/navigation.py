@@ -16,8 +16,8 @@ def dispatch():
     return services.dispatch()
 
 @router.post("/add_locations")
-def add_loctions(locations: List[LocationDetail]):
-    return services.add_locations(locations)
+def add_loctions(location_details: List[LocationDetail]):
+    return services.add_locations(location_details)
 
 
 @router.post("/add_pickup")
