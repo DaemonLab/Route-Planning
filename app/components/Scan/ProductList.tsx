@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import {Product} from "./Product";
+import { Product } from "./Product";
 import { ItemContextWrapper, Item } from "../../@types/item";
 import { ItemContext } from "../../context/itemContext";
 
@@ -21,4 +21,4 @@ export const ProductList: React.FC = () => {
       </div>
     </div>
   );
-}
+};
