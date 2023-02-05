@@ -42,7 +42,7 @@ def dispatch():
 
         time_adj = utils.get_delivery_time_matrix(items, num_items)
 
-        program_path = "./algorithm/dispatch_win.exe"
+        program_path = "./algorithm/dispatch_test_win.exe"
 
         p = Popen(program_path, stdout=PIPE, stdin=PIPE,  encoding='utf8')
 
@@ -75,7 +75,7 @@ def dispatch():
         areas = []
 
         areas.append(utils.WAREHOUSE_LOCATION_DETAIL["area"])
-        p.stdin.write(str(0)+'\n')
+        p.stdin.write(str(1)+'\n')
 
         for item in items:
             awb_id = item["awb_id"]
@@ -83,7 +83,7 @@ def dispatch():
             
             if area not in areas:
                 areas.append(area)
-            p.stdin.write(str(int(areas.index(area)))+'\n')
+            p.stdin.write(str(int(areas.index(area))+1)+'\n')
             
         
 

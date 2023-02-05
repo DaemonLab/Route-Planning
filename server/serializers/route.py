@@ -63,7 +63,8 @@ def location_detail_serializer(location_detail: LocationDetail) -> dict:
         "area": location_detail["area"],
         "awb_id": location_detail["awb_id"],
         "lat": location_detail["lat"],
-        "lng": location_detail["lng"]
+        "lng": location_detail["lng"],
+        "item_id": location_detail["item_id"]
     }
 
 def location_details_serializer(location_details: List[LocationDetail]) -> list:

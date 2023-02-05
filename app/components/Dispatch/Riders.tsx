@@ -1,8 +1,8 @@
 import React, { use, useEffect } from "react";
 import { ItemContextWrapper, Item } from "../../@types/item";
-import { ItemContext } from "../../context/itemsContext";
+import { ItemContext } from "../../context/itemContext";
 import { RiderContextWrapper, Rider } from "../../@types/rider";
-import { RiderContext } from "../../context/ridersContext";
+import { RiderContext } from "../../context/riderContext";
 
 export default function Riders() {
   const { item, items, getItem, getItems, addItem, addItems, deleteItem } =

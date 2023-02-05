@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Login() {
+export const Login: React.FC = () => {
   return (
     <div className="bg-black">
       <div className="flex flex-col items-center justify-center px-6 py-16 h-[72vh] md:h-[85vh] mx-auto lg:py-16">

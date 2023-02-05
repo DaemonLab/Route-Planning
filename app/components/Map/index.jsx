@@ -1,6 +1,6 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MapContainer, Marker, Polyline, TileLayer, useMap
 } from "react-leaflet";
@@ -18,20 +18,31 @@ export function ChangeView({ coords }) {
   return null;
 }
 
-export default function Map(props) {
-  const [geoData, setGeoData] = useState({
-    lat: coordinates[0][0],
-    lng: coordinates[0][1],
+export default function Map({rider}) {
+
+  console.log("Got rider",rider)
+
+  const [riderPosition, setRiderPosition] = useState({
+    lat: rider['current_route'][rider['route_index']]['lat'],
+    lng: rider['current_route'][rider['route_index']]['lng']
   });
 
-  const center = [geoData.lat, geoData.lng];
 
+  useEffect(()=>{
+    setRiderPosition({
+      lat: rider['current_route'][rider['route_index']]['lat'],
+      lng: rider['current_route'][rider['route_index']]['lng']
+    })
+    console.log("Updated Rider")
+  },[rider])
+  
+  
   return (
     <section className="text-gray-600 bg-black overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <MapContainer
-            center={center}
+            center={[riderPosition.lat, riderPosition.lng]}
             zoom={20}
             style={{ width: "100vw", height: "100vh" }}
             scrollWheelZoom={true}
@@ -41,11 +52,13 @@ export default function Map(props) {
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {geoData.lat && geoData.lng && (
-              <Marker position={[geoData.lat, geoData.lng]} icon={markerIcon} />
+
+            {riderPosition.lat && riderPosition.lng && (
+              <Marker position={[riderPosition.lat, riderPosition.lng]} icon={markerIcon} />
             )}
-            <Polyline pathOptions={limeOptions} positions={coordinates} />
-            <ChangeView coords={center} />
+
+            <Polyline pathOptions={limeOptions} positions={rider['route_polyline']} />
+            <ChangeView coords={[riderPosition.lat, riderPosition.lng]} />
           </MapContainer>
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           </div>

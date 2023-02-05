@@ -40,7 +40,8 @@ class LocationDetail(BaseModel):
     area: str = Field(..., title="Area or Locality")
     awb_id: str
     lat: float = Field(..., title="Latitude")
-    lng: float = Field(..., title="Longitude")    
+    lng: float = Field(..., title="Longitude")
+    item_id: str = Field(..., title="Item ID")    
 
     class Config:
         anystr_strip_whitespace = True

@@ -11,7 +11,8 @@ WAREHOUSE_LOCATION_DETAIL = {
     "area": "Indiranagar",
     "awb_id": "38434272738",
     "lat": 12.9699142, 
-    "lng": 77.6379417
+    "lng": 77.6379417,
+    "item_id": ""
 }
 
 

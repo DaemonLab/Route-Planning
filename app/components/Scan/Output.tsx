@@ -1,4 +1,30 @@
-export default function Output() {
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { ItemContextWrapper, Item } from "../../@types/item";
+import { ItemContext } from "../../context/itemContext";
+
+export const Output: React.FC = () => {
+  const router = useRouter();
+
+  const { item, setItem, addItem, addItems } = React.useContext(
+    ItemContext
+  ) as ItemContextWrapper;
+
+  setTimeout(()=>{
+    setItem({ ...item,
+        item_id: `SKU_${Math.floor(Math.random() * 100).toString()}`, 
+        name:`ItemName${Math.floor(Math.random() * 10).toString()}`, 
+        descrption: "Item Description" ,
+        volume: Math.floor(Math.random() * 10).toString(), 
+        weight: Math.floor(Math.random() * 100).toString()
+      });
+  },2000)
+
+  const addItemsHelper = () => {
+    addItems();
+    router.push("/");
+  };
+
   return (
     <section className="text-gray-400 bg-black">
       <div className="container mx-auto flex px-5 py-12 items-center justify-center flex-col">
@@ -12,25 +38,31 @@ export default function Output() {
         />
         <div className="text-center lg:w-2/3 w-full">
           <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">
-            Microdosing synth tattooed vexillologist
+            {item.name}
           </h1>
           <p className="leading-relaxed mb-8">
-            Meggings kinfolk echo park stumptown DIY, kale chips beard jianbing
-            tousled. Chambray dreamcatcher trust fund, kitsch vice godard
-            disrupt ramps hexagon mustache umami snackwave tilde chillwave ugh.
-            Pour-over meditation PBR&B pickled ennui celiac mlkshk freegan photo
-            booth af fingerstache pitchfork.
+            {item.description} <br />
+            ItemID: {item.item_id} <br />
+            Volume: {item.volume} <br />
+            Weight: {item.weight} <br />
+            AWB_ID: {item.awb_id} <br />
           </p>
           <div className="flex justify-center">
-            <button className="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">
-              Button
+            <button
+              className="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg"
+              onClick={() => addItem(item)}
+            >
+              Add Item
             </button>
-            <button className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">
-              Button
+            <button
+              className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
+              onClick={() => addItemsHelper()}
+            >
+              Approve Items
             </button>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};

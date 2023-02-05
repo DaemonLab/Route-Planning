@@ -1,5 +1,6 @@
 import { Item } from "../@types/item";
 import { Rider } from "../@types/rider";
+import { LocationDetail } from "./route";
 
 //Items DTO
 
@@ -27,6 +28,7 @@ export type AddRidersBody = Rider[]
 
 //Navigation DTO
 
+export type AddLocationDetailsBody = LocationDetail[]
 export type AddPickupItemBody  = Item
 
 
