@@ -8,7 +8,7 @@ const MapWithNoSSR = dynamic(() => import("../../../components/Map"), {
   ssr: false,
 });
 
-function RiderMap() {
+export default function RiderMap() {
   const router = useRouter();
   const {
     query: { rider_id },
@@ -33,5 +33,3 @@ function RiderMap() {
     </>
   );
 }
-
-export default RiderMap;
