@@ -47,35 +47,44 @@ def dispatch():
         p = Popen(program_path, stdout=PIPE, stdin=PIPE,  encoding='utf8')
 
         p.stdin.write(str(num_items)+'\n')
+        print(str(num_items))
 
         for i in range(num_items+1):
             for j in range(num_items+1):
                 if i == j:
                     continue
                 p.stdin.write(str(time_adj[i][j])+'\n')
+                print(str(time_adj[i][j]))
 
         for item in items:
             p.stdin.write(str(int(item['volume']))+'\n')
+            print(str(int(item['volume'])))
 
         for item in items:
             edd_time_simult = item["edd"]
             edd_time_algthm = (edd_time_simult - day_start).total_seconds()
             p.stdin.write(str(int(edd_time_algthm))+'\n')
+            print(str(int(edd_time_algthm)))
 
         location_detail = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": utils.WAREHOUSE_LOCATION_DETAIL["awb_id"]}))) 
         p.stdin.write(str(location_detail["lat"])+'\n')
         p.stdin.write(str(location_detail["lng"])+'\n')
+        print(str(location_detail["lat"]))
+        print(str(location_detail["lng"]))
 
         for item in items:
             awb_id = item["awb_id"]
             location_detail = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_id}))) 
             p.stdin.write(str(location_detail["lat"])+'\n')
             p.stdin.write(str(location_detail["lng"])+'\n')
+            print(str(location_detail["lat"]))
+            print(str(location_detail["lng"]))
 
         areas = []
 
         areas.append(utils.WAREHOUSE_LOCATION_DETAIL["area"])
         p.stdin.write(str(0)+'\n')
+        print(0)
 
         for item in items:
             awb_id = item["awb_id"]
@@ -84,13 +93,16 @@ def dispatch():
             if area not in areas:
                 areas.append(area)
             p.stdin.write(str(int(areas.index(area)))+'\n')
+            print(str(int(areas.index(area))))
             
         
 
         p.stdin.write(str(num_riders)+'\n')
+        print(str(num_riders))
 
         for rider in riders:
             p.stdin.write(str(int(rider['bag_volume']))+'\n')
+            print(str(int(rider['bag_volume'])))
 
         p.stdin.flush()
 

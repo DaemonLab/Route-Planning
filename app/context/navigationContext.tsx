@@ -3,6 +3,7 @@ import { Item } from "../@types/item";
 import { Rider } from "../@types/rider";
 import { NavigationContextWrapper } from "../@types/navigation";
 import * as api from "../api";
+import { LocationDetail } from "../@types/route";
 
 export const NavigationContext =
   React.createContext<NavigationContextWrapper | null>(null);
@@ -12,8 +13,18 @@ interface Props {
 }
 
 const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
+
   const [items, setItems] = React.useState<Item[]>([]);
   const [riders, setRiders] = React.useState<Rider[]>([]);
+
+  const addLocationDetails = async (locationDetails: LocationDetail[]) => {
+    await api.addLocationDetails(locationDetails)
+  }
+
+  const dispatch = async () => {
+    console.log("Dispatching items")
+    await api.dispatch();
+  }
 
   const getItems = async () => {
     const { data } = await api.getItems();
@@ -34,6 +45,8 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
       value={{
         items,
         riders,
+        addLocationDetails,
+        dispatch,
         getItems,
         getRiders,
         addPickupItem,

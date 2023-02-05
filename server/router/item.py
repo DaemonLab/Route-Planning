@@ -20,7 +20,7 @@ def get_items():
 
 @router.post("/")
 def add_items(items: List[Item]):
-    return services.add_items(items=items)
+    return services.add_items(items)
 
 
 @router.delete("/{item_id}")

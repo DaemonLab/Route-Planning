@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { RiderContextWrapper, Rider } from "../../../@types/rider";
-import { RiderContext } from "../../../context/ridersContext";
+import { RiderContext } from "../../../context/riderContext";
 import dynamic from "next/dynamic";
 
 const MapWithNoSSR = dynamic(() => import("../../../components/Map"), {

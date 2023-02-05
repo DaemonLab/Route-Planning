@@ -15,14 +15,15 @@ export interface Item {
   task_location: Location;
   scan_time: Date | null;
   edd: Date | null;
-}
+};
 
 export type ItemContextWrapper = {
   item: Item;
   items: Item[];
+  setItem: Dispatch<SetStateAction<Item>>;
   getItem: (item_id: string) => void;
   getItems: () => void;
   addItem: (item: Item) => void;
-  addItems: (items: Item[]) => void;
+  addItems: () => void;
   deleteItem: (item_id: string) => void;
 };

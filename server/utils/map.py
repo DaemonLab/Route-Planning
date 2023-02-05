@@ -137,9 +137,6 @@ def get_route(tasks, i1, i2):
         location_detail_source      = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_source})))
         location_detail_destination = (serializers.location_detail_serializer(location_details_db.find_one({"awb_id": awb_destination})))
 
-        print(location_detail_source)
-        print(location_detail_destination)
-
         coordinate_source      = {"lat": location_detail_source["lat"], "lng": location_detail_source["lng"]}
         coordinate_destination = {"lat": location_detail_destination["lat"], "lng": location_detail_destination["lng"]}
 

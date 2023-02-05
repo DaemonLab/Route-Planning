@@ -1,6 +1,12 @@
-import Product from "./Product";
+import React, { useEffect } from "react";
 
-export default function ProductList() {
+import {Product} from "./Product";
+import { ItemContextWrapper, Item } from "../../@types/item";
+import { ItemContext } from "../../context/itemContext";
+
+export const ProductList: React.FC = () => {
+  const { items } = React.useContext(ItemContext) as ItemContextWrapper;
+
   return (
     <div className="text-gray-400 bg-black">
       <div className="container px-5 py-12 mx-auto">
@@ -8,14 +14,9 @@ export default function ProductList() {
           Scanned Items
         </h1>
         <div className="flex flex-wrap -m-4">
-          <Product/>
-          <Product/>
-          <Product/>
-          <Product/>
-          <Product/>
-          <Product/>
-          <Product/>
-          <Product/>
+          {items.map((item) => {
+            return <Product item={item} key={item.item_id} />;
+          })}
         </div>
       </div>
     </div>

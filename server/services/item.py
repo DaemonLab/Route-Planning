@@ -1,9 +1,10 @@
 from fastapi import HTTPException
 from datetime import datetime as dt
 from typing import List
+import random
 
 from models import Item
-from database import items_db , clock_db
+from database import items_db , clock_db , location_details_db
 import serializers
 
 def get_item(item_id: str):
@@ -28,7 +29,21 @@ def get_items() -> dict:
 
 
 def mock_assign(items: List[Item]) -> List[Item]:
-    # Assign ids and edds to items according to predefined list
+
+    location_details = serializers.location_details_serializer(location_details_db.find())
+
+    for item_ind in range(len(items)):
+        
+        location_detail = location_details[item_ind]
+
+        items[item_ind]["awb_id"] = location_detail["awb_id"]
+        items[item_ind]["task_location"] = {
+                "address": location_detail["address"],
+                "lat": location_detail["lat"],
+                "lng": location_detail["lng"],
+            }
+
+
     return items
 
 
@@ -46,9 +61,9 @@ def add_items(items: List[Item]) -> dict:
             item["scan_time"] = scan_time_simult
 
         items_db.insert_many(items)
-
         return {"success": True, "message": "Items Added Successfully!"}
     except Exception as E:
+        print("Exception",E)
         return HTTPException(status_code=404, detail=f"Could Not Process Add Items")
 
 

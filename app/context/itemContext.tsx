@@ -1,23 +1,36 @@
 import * as React from "react";
-import { Item , ItemContextWrapper } from "../@types/item";
+import { Item, ItemContextWrapper } from "../@types/item";
 import * as api from "../api";
 
-export const ItemContext =
-  React.createContext<ItemContextWrapper | null>(null);
+export const ItemContext = React.createContext<ItemContextWrapper | null>(null);
 
 interface Props {
   children: React.ReactNode;
 }
 
 const ItemProvider: React.FC<Props> = ({ children }: Props) => {
+  const [item, setItem] = React.useState<Item>({
+    item_id: "",
+    name: "",
+    description: "",
+    task_type: "Delivery",
+    is_completed: false,
+    completion_time: new Date("2023-01-14 16:30:00"),
 
-  const [item, setItem]   = React.useState<Item>({} as Item);
+    volume: 0,
+    weight: 0,
+
+    awb_id: "1234",
+    task_location: { address: "", lat: 0.0, lng: 0.0 },
+    scan_time: new Date("2023-01-14 16:30:00"),
+    edd: new Date("2023-01-14 16:30:00"),
+  } as Item);
+
   const [items, setItems] = React.useState<Item[]>([]);
 
-  
   const getItem = async (item_id: string) => {
     const { data } = await api.getItem(item_id);
-    setItem({...data.item});
+    setItem({ ...data.item });
   };
 
   const getItems = async () => {
@@ -26,19 +39,12 @@ const ItemProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   const addItem = (item: Item) => {
-    setItems([...items,item])
-  }
+    setItems([...items, item]);
+  };
 
-  const addItems = async (items: Item[]) => {
-
-    let addItems = [...items]
-
-    addItems = addItems.map((item)=>{
-      const id = `insertID${(Math.floor(Math.random() * 100)).toString()}`
-      return {...item,item_id:id}
-    })
-
-    await api.addItems(addItems)
+  const addItems = async () => {
+    console.log("Adding items",items)
+    await api.addItems(items);
   };
 
   const deleteItem = () => {
@@ -50,11 +56,12 @@ const ItemProvider: React.FC<Props> = ({ children }: Props) => {
       value={{
         item,
         items,
+        setItem,
         getItem,
         getItems,
         addItem,
         addItems,
-        deleteItem
+        deleteItem,
       }}
     >
       {children}

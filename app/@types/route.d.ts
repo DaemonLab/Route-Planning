@@ -9,6 +9,15 @@ export type RouteLocation = {
     lng: number;
 }
 
+export type LocationDetail = {
+    address: string;
+    area: string;
+    awb_id: string;
+    lat: number;
+    lng: number;
+    item_id: string;
+}
+
 export interface RouteDetail {
     time_taken: number;
     distance: number;

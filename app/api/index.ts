@@ -7,6 +7,7 @@ import {
   AddItemsBody,
   AddRidersBody,
   AddPickupItemBody,
+  AddLocationDetailsBody,
 } from "../@types/dto";
 
 const BASE_URL = "http://localhost:8000";
@@ -72,6 +73,12 @@ export function completeDispatch() {
 }
 
 //Navigation API
+
+export function addLocationDetails(locationDetails: AddLocationDetailsBody) {
+  return axios.post(`${BASE_URL}/navigation/add_locations`, locationDetails, {
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+  });
+}
 
 export function dispatch() {
   return axios.get(`${BASE_URL}/navigation/dispatch`, {
