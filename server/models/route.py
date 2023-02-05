@@ -28,6 +28,9 @@ class RouteDetail(BaseModel):
     distance: int = Field(..., title="Distance")
     speed_limit: int = Field(..., title="Speed Limit")
     instruction: str = Field(..., title="Instruction")
+    from_index: int = Field(..., title="From Index")
+    to_index: int = Field(..., title="To Index")
+    polyline_index: int = Field(..., title="Polyline Index")
 
     class Config:
         anystr_strip_whitespace = True

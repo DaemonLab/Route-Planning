@@ -26,6 +26,7 @@ export default function RiderMap() {
     setInterval(() => {
       getRiders();
     }, 2000);
+    // getRiders()
   }, []);
 
 

@@ -43,7 +43,7 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   const addPickupItem = async (pickupItem: Item) => {
-    await api.addItems([{...pickupItem,task_type:"Pickup",is_completed:false}])
+    await api.addPickupItem(pickupItem)
   };
 
   return (

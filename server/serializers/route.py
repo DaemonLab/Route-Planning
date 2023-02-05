@@ -45,7 +45,10 @@ def route_detail_serializer(route_detail: RouteDetail) -> dict:
         "time_taken": route_detail["time_taken"],
         "distance": route_detail["distance"],
         "speed_limit": route_detail["speed_limit"],
-        "instruction": route_detail["instruction"]
+        "instruction": route_detail["instruction"],
+        "from_index": route_detail["from_index"],
+        "to_index": route_detail["to_index"],
+        "polyline_index": route_detail["polyline_index"]
     }
 
 def route_details_serializer(route_details: List[RouteDetail]) -> list:

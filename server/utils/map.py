@@ -57,7 +57,10 @@ def preprocess_response(response, coordinate_source, coordinate_destination):
                 'time_taken': steps[i]['time'],
                 'distance': steps[i]['distance'],
                 'speed_limit': speed_limit,
-                'instruction': instruction
+                'instruction': instruction,
+                'from_index': steps[i]['from_index'],
+                'to_index': steps[i]['to_index'],
+                'polyline_index': steps[i]['from_index']
             }
 
             current_route.append(coordinate)
