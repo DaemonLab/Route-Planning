@@ -23,4 +23,7 @@ export interface RouteDetail {
     distance: number;
     speed_limit: number;
     instruction: string;
+    from_index: number;
+    to_index: number;
+    polyline_index: number;
 };
