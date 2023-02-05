@@ -1,14 +1,14 @@
 from fastapi import APIRouter
 from datetime import datetime as dt
 
-from database import clock_db
+from database import clock_db, items_db , riders_db , location_details_db  
 import serializers
 import utils
 
 
 router = APIRouter(prefix="/clock", tags=["Clock"])
 
-@router.post("/start_day")
+@router.get("/start_day")
 def start_day():
 
     clock = serializers.clock_serializer(clock_db.find_one())
@@ -31,7 +31,11 @@ def start_day():
                 }
             })
 
-    return {"done": True}
+    items_db.delete_many({})
+    riders_db.delete_many({})
+    location_details_db.delete_many({})
+
+    return {"success": True, "message":"Clock Started Successfully"}
 
 @router.get("/complete_scan")
 def complete_scan():

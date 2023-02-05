@@ -1,0 +1,74 @@
+[
+    {
+        "address": "1, 24th Main Rd, 1st Phase, Girinagar, KR Layout, Muneshwara T-Block, JP Nagar, Bangalore",
+        "area": "JP Nagar",
+        "awb_id": "49726345575",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "1260 SY 35/4 SJR Tower's, JP Nagar 7th Phase, 24th Main Puttanhalli, JP Nagar, Bangalore",
+        "area": "JP Nagar",
+        "awb_id": "34763837898",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "2724, 31st Main, 17th Cross, HSR, Bangalore",
+        "area": "HSR",
+        "awb_id": "89394948450",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "647, Ground Floor, 27th Main Road, Sector 1, HSR, Bangalore",
+        "area": "HSR",
+        "awb_id": "96874607527",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "24, Church Street, Bangalore",
+        "area": "Indiranagar",
+        "awb_id": "70918939146",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "119/19, Ground Floor, 10th Cross, Venkateshwara Layout, SG Palya, HSR, Bangalore",
+        "area": "HSR",
+        "awb_id": "30262250302",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "191, Ground Floor, 27th Main Road, Near CPWD Quarters, Beside Lawrance & Mayo, Sector 2, HSR, Bangalore",
+        "area": "HSR",
+        "awb_id": "53402748741",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "9/3, Prestige Pearl House, Museum Road, Church Street, Bangalore",
+        "area": "Indiranagar",
+        "awb_id": "40661403008",
+        "lat":0.0,
+        "lng":0.0,
+        "item_id":""
+    },
+    {
+        "address": "Srinivasan Towers, ESI Hospital Road, Off Double Road, Indiranagar, Bangalore",
+        "area": "Indiranagar",
+        "awb_id": "55217454663",
+        "lat": 0.0,
+        "lng": 0.0,
+        "item_id":""
+    }
+]

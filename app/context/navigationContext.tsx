@@ -26,6 +26,12 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
     await api.dispatch();
   }
 
+  const startInterval = () => {
+    setInterval(()=>{
+      console.log("Hello Interval from Context")
+    },2000)
+  }
+
   const getItems = async () => {
     const { data } = await api.getItems();
     setItems([...data.items]);
@@ -47,6 +53,7 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
         riders,
         addLocationDetails,
         dispatch,
+        startInterval,
         getItems,
         getRiders,
         addPickupItem,

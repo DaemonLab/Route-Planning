@@ -1,0 +1,47 @@
+ [
+    {
+        "rider_id": "r1",
+        "name": "Rider ABC",
+        "age": 23,
+        "bag_volume": 100,
+        "current_location": {
+            "lat": 0.0,
+            "lng": 0.0
+        },
+        "current_route": [],
+        "route_details": [],
+        "route_index": 0,
+        "tasks": [],
+        "task_index": 0
+    },
+    {
+        "rider_id": "r2",
+        "name": "Rider PQR",
+        "age": 25,
+        "bag_volume": 150,
+        "current_location": {
+            "lat": 0.0,
+            "lng": 0.0
+        },
+        "current_route": [],
+        "route_details": [],
+        "route_index": 0,
+        "tasks": [],
+        "task_index": 1
+    },
+    {
+        "rider_id": "r3",
+        "name": "Rider XYZ",
+        "age": 20,
+        "bag_volume": 200,
+        "current_location": {
+            "lat": 0,
+            "lng": 0
+        },
+        "current_route": [],
+        "route_details": [],
+        "route_index": 0,
+        "tasks": [],
+        "task_index": 0
+    }
+  ]

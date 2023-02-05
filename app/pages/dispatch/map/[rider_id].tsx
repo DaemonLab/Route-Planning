@@ -1,35 +1,54 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { RiderContextWrapper, Rider } from "../../../@types/rider";
-import { RiderContext } from "../../../context/riderContext";
 import dynamic from "next/dynamic";
+
+import { Rider } from "../../../@types/rider";
+import { NavigationContextWrapper } from "../../../@types/navigation";
+import { NavigationContext } from "../../../context/navigationContext";
 
 const MapWithNoSSR = dynamic(() => import("../../../components/Map"), {
   ssr: false,
 });
 
 export default function RiderMap() {
+  
   const router = useRouter();
   const {
     query: { rider_id },
   } = router;
-  const {
-    rider,
-    riders,
-    getRider,
-    getRiders,
-    addRider,
-    addRiders,
-    deleteRider,
-  } = React.useContext(RiderContext) as RiderContextWrapper;
+
+  const { riders, getRiders } = React.useContext(
+    NavigationContext
+  ) as NavigationContextWrapper;
+  const [rider, setRider] = React.useState<Rider | undefined>(undefined);
+
   useEffect(() => {
-    if (rider_id && !Array.isArray(rider_id)) getRider(rider_id);
-  }, [rider_id]);
+    setInterval(() => {
+      getRiders();
+    }, 2000);
+  }, []);
+
+
+  useEffect(() => {
+    setRider(
+      riders.find((rider) => {
+        return rider.rider_id === rider_id;
+      })
+    );
+  }, [riders,rider_id]);
+
+
   return (
     <>
-      <div className="h-[500px] w-[500px]">{rider_id}
-        <MapWithNoSSR rider_id={rider_id}></MapWithNoSSR>
-      </div>
+      {rider === undefined || rider['current_route'].length === 0 ? (
+          <h1>Loading...</h1>
+        ) : (
+          <div className="h-[500px] w-[500px]">
+            {rider_id}
+            <MapWithNoSSR rider={rider}></MapWithNoSSR>
+          </div>
+        )
+      }
     </>
   );
 }

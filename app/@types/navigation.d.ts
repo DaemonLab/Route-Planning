@@ -8,6 +8,7 @@ export interface NavigationContextWrapper {
 
     addLocationDetails: (locationDetails: LocationDetail[]) => void
     dispatch: () => void
+    startInterval: () => void
     getItems: () => void
     getRiders: () => void
     addPickupItem: (item: Item) => void
