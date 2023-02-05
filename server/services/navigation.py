@@ -190,7 +190,7 @@ def update_rider_location():
 
         for rider in riders:
 
-            time_delta = 10
+            time_delta = 1
 
             if rider["task_index"] >= len(rider["tasks"]):
                 continue
@@ -207,6 +207,12 @@ def update_rider_location():
 
                 else:
                     rider["route_details"][rider["route_index"]]["time_taken"] -= time_delta
+                   
+                    rider["current_location"] = rider["route_polyline"][rider["route_details"][rider["route_index"]]['polyline_index']]
+
+                    if rider["route_details"][rider["route_index"]]['polyline_index'] < rider["route_details"][rider["route_index"]]['to_index']:
+                        rider["route_details"][rider["route_index"]]['polyline_index']+=1
+                    
                     break
 
             if rider["route_index"] == len(rider["route_details"]):
