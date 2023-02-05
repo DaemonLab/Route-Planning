@@ -43,21 +43,21 @@ export default function Navbar() {
             <li>
               <Link
                 href="/scan"
-                aria-label="Scan Items"
-                title="Scan Items"
+                aria-label="Today's Items"
+                title="Today's Items"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
-                Scan
+                Items
               </Link>
             </li>
             <li>
               <Link
-                href="/dispatch"
-                aria-label="Dispatch Items"
-                title="Dispatch Items"
+                href="/dispatch/map"
+                aria-label="All Riders"
+                title="All Riders"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
               >
-                Dispatch
+                Riders
               </Link>
             </li>
             <li>
