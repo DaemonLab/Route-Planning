@@ -23,10 +23,10 @@ export default function RiderMap() {
   const [rider, setRider] = React.useState<Rider | undefined>(undefined);
 
   useEffect(() => {
-    setInterval(() => {
-      getRiders();
-    }, 2000);
-    // getRiders()
+    // setInterval(() => {
+    //   getRiders();
+    // }, 2000);
+    getRiders()
   }, []);
 
 
