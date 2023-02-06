@@ -11,7 +11,7 @@ const MapWithNoSSR = dynamic(() => import("../../../components/Map"), {
 });
 
 export default function RiderMap() {
-  
+
   const router = useRouter();
   const {
     query: { rider_id },
@@ -27,7 +27,8 @@ export default function RiderMap() {
     //   getRiders();
     // }, 2000);
     getRiders()
-  }, []);
+    console.log(riders)
+  }, [riders]);
 
 
   useEffect(() => {
@@ -36,19 +37,19 @@ export default function RiderMap() {
         return rider.rider_id === rider_id;
       })
     );
-  }, [riders,rider_id]);
+  }, [riders, rider_id]);
 
 
   return (
     <>
       {rider === undefined || rider['current_route'].length === 0 ? (
-          <h1>Loading...</h1>
-        ) : (
-          <div className="h-[500px] w-[500px]">
-            {rider_id}
-            <MapWithNoSSR rider={rider}></MapWithNoSSR>
-          </div>
-        )
+        <h1>Loading...</h1>
+      ) : (
+        <div className="h-[500px] w-[500px]">
+          {rider_id}
+          <MapWithNoSSR rider={rider}></MapWithNoSSR>
+        </div>
+      )
       }
     </>
   );
