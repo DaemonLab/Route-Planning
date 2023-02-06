@@ -1,7 +1,13 @@
 import React, { use, useEffect } from "react";
+import RiderMap from "./Map";
 
-export default function Navigation() {
+export default function Navigation(props: any) {
+  // console.log(props.ridersList)
   const [showInfoModal, setShowInfoModal] = React.useState(false);
+  const [riderMap, setRiderMap] = React.useState({})
+  useEffect(()=>{
+    console.log(props.ridersList)
+  })
   const lolitems = [
     {
       current_task: "(ID 879-10-940)",
@@ -74,6 +80,7 @@ export default function Navigation() {
         ) : null}
         <h2 className="sm:text-3xl text-2xl text-white font-medium title-font mb-2 md:w-2/5">
           Map
+          <RiderMap {...riderMap}></RiderMap>
         </h2>
         <div className="md:w-3/5 md:pl-6">
           <div className="bg-black">
@@ -82,28 +89,28 @@ export default function Navigation() {
                 All Riders
               </h1>
               <h2 className="text-center text-white pb-2">January 10, 2023</h2>
-
-              <ul className="flex flex-col">
-                {lolitems.map((item) => (
+              
+              {props.ridersList.length === 0 || props.ridersList===undefined ? (<h1 className="text-white">Loading!!!</h1>) : (<> <ul className="flex flex-col" >
+                {props.ridersList.map((item: any) => (
                   <li
                     key={item.current_task}
                     className="border-b-2 border-gray-100"
+                    onClick={() => setRiderMap({ rider: item })}
                   >
                     <div
-                      className={`py-5 px-4 flex justify-between border-l-4 border-transparent bg-transparent text-gray-100 hover:text-gray-900 ${
-                        item.type
-                          ? "hover:border-green-400 hover:bg-green-100"
-                          : "hover:border-yellow-500 hover:bg-yellow-100"
-                      }`}
+                      className={`py-5 px-4 flex justify-between border-l-4 border-transparent bg-transparent text-gray-100 hover:text-gray-900 ${item.type
+                        ? "hover:border-green-400 hover:bg-green-100"
+                        : "hover:border-yellow-500 hover:bg-yellow-100"
+                        }`}
                     >
                       <div className="sm:pl-4 pr-8 flex sm:items-center">
                         <div className="space-y-1">
                           <p className="text-base text-white text-inherit font-bold tracking-wide hover:underline cursor-pointer">
-                            {item.current_task}
+                            {item.rider_id}
                           </p>
                           <p className="text-sm font-medium">{item.name}</p>
                           <p className="text-sm font-medium">
-                            Bag Volume: {item.volume}
+                            Bag Volume: {item.bag_volume}
                           </p>
                         </div>
                       </div>
@@ -146,7 +153,9 @@ export default function Navigation() {
                     </div>
                   </li>
                 ))}
-              </ul>
+              </ul></>)}
+
+
             </div>
           </div>
         </div>

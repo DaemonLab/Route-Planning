@@ -10,7 +10,7 @@ body {
   overflow-x: hidden;
 }
 #map {
-  height: 180px;
+  height: 100px;
 }
 .items-wrapper {
   background: rgb(13, 236, 165);
