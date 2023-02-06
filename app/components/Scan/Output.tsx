@@ -10,20 +10,21 @@ export const Output: React.FC = () => {
     ItemContext
   ) as ItemContextWrapper;
 
-  setTimeout(()=>{
-    setItem({ ...item,
-        item_id: `SKU_${Math.floor(Math.random() * 100).toString()}`, 
-        name:`ItemName${Math.floor(Math.random() * 10).toString()}`, 
-        descrption: "Item Description" ,
-        volume: Math.floor(Math.random() * 10).toString(), 
-        weight: Math.floor(Math.random() * 100).toString()
-      });
-  },2000)
-
   const addItemsHelper = () => {
     addItems();
     router.push("/");
   };
+
+  const randomItem = () => {
+    setItem({
+      ...item,
+      item_id: `SKU_${Math.floor(Math.random() * 100).toString()}`,
+      name: `ItemName${Math.floor(Math.random() * 10).toString()}`,
+      descrption: "Item Description",
+      volume: Math.floor(Math.random() * 10).toString(),
+      weight: Math.floor(Math.random() * 100).toString()
+    });
+  }
 
   return (
     <section className="text-gray-400 bg-black">
@@ -59,6 +60,12 @@ export const Output: React.FC = () => {
               onClick={() => addItemsHelper()}
             >
               Approve Items
+            </button>
+            <button
+              className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
+              onClick={() => randomItem()}
+            >
+              Use Random
             </button>
           </div>
         </div>
