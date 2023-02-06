@@ -153,9 +153,47 @@ def get_route(tasks, i1, i2):
 
 
 def get_delivery_time_matrix(items, num_items):
+
+    GEOAPIFY_API_KEY = "fe5e6ebb8b044f6c9a70b8fa79976f6e"
+
+    dist = np.zeros((num_items+1,num_items+1))
+
+    origins , destinations = [] , []
+
+    lat , lng = utils.WAREHOUSE_LOCATION_DETAIL['lat'] , utils.WAREHOUSE_LOCATION_DETAIL['lng']
+    origins.append( {"location": [lng, lat] } )
+    destinations.append( {"location": [lng, lat] } )
+
+    for item in items:
+        lat , lng = item['task_location']['lat'] , item['task_location']['lng']
+        origins.append( {"location": [lng, lat] } )
+        destinations.append( {"location": [lng, lat] } )
+
+    print(origins,destinations)
+
+    url = f"https://api.geoapify.com/v1/routematrix?apiKey={GEOAPIFY_API_KEY}"
+    headers = {"Content-Type": "application/json"}
+    data = {
+        "sources": origins,
+        "targets": destinations,
+        "mode": "drive"
+    }
+
+    resp = requests.post(url, headers=headers, json=data).json()
+
+    # print(resp)
+    
     dist = np.random.randint(10, 30, size=(num_items+1, num_items+1))
     return dist
 
+    for row in resp["sources_to_targets"]:
+        for dist_pair in row:
+            dist[dist_pair["source_index"]][dist_pair["target_index"]] = int(dist_pair["distance"])
+
+    dist = dist.astype(int)
+
+    print("Distance = ",dist)
+    return dist
 
 def get_pickup_time_matrix(riders, item):
 
@@ -175,6 +213,8 @@ def get_pickup_time_matrix(riders, item):
 
 '''
 
+RANDOM
+
 def get_delivery_time_matrix(items,num_items):
     dist = np.random.randint(10, 30, size=(num_items+1, num_items+1))
     return dist
@@ -193,6 +233,10 @@ def get_pickup_time_matrix(riders,item):
 
     return times_from_pickup
 
+def get_delivery_time_matrix(items, num_items):
+    dist = np.random.randint(10, 30, size=(num_items+1, num_items+1))
+    return dist
+
 def get_route(tasks,i1,i2):
 
     if i1==-1:
@@ -209,4 +253,44 @@ def get_route(tasks,i1,i2):
 
     route = awb_pair_to_route[f"{awb1}-{awb2}"]
     return route["current_route"] , route["route_details"] , route["route_polyline"]
+'''
+
+
+'''
+GEOAPIFY
+def get_delivery_time_matrix(items, num_items):
+
+    GEOAPIFY_API_KEY = "fe5e6ebb8b044f6c9a70b8fa79976f6e"
+
+    dist = np.zeros((num_items+1,num_items+1))
+
+    origins , destinations = [] , []
+
+    lat , lng = utils.WAREHOUSE_LOCATION_DETAIL['lat'] , utils.WAREHOUSE_LOCATION_DETAIL['lng']
+    origins.append( {"location": [lat, lng] } )
+    destinations.append( {"location": [lat, lng] } )
+
+    for item in items:
+        lat , lng = item['task_location']['lat'] , item['task_location']['lng']
+        origins.append( {"location": [lat, lng] } )
+        destinations.append( {"location": [lat, lng] } )
+        
+
+
+    url = f"https://api.geoapify.com/v1/routematrix?apiKey={GEOAPIFY_API_KEY}"
+    headers = {"Content-Type": "application/json"}
+    data = {
+        "sources": origins,
+        "targets": destinations,
+        "mode": "drive"
+    }
+
+    resp = requests.post(url, headers=headers, json=data)
+
+    for row in resp["sources_to_targets"]:
+        for dist_pair in row:
+            dist[dist_pair["source_index"]][dist_pair["target_index"]] = dist_pair["distance"]
+
+
+    return dist
 '''
