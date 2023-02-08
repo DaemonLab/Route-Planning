@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Rider , RiderContextWrapper } from "../@types/rider";
+import { Rider, RiderContextWrapper } from "../@types/rider";
 import * as api from "../api";
 
 export const RiderContext =
@@ -11,13 +11,13 @@ interface Props {
 
 const RiderProvider: React.FC<Props> = ({ children }: Props) => {
 
-  const [rider, setRider]   = React.useState<Rider>({} as Rider);
+  const [rider, setRider] = React.useState<Rider>({} as Rider);
   const [riders, setRiders] = React.useState<Rider[]>([]);
 
-  
+
   const getRider = async (rider_id: string) => {
     const { data } = await api.getRider(rider_id);
-    setRider({...data.rider});
+    setRider({ ...data.rider });
   };
 
   const getRiders = async () => {
@@ -26,7 +26,7 @@ const RiderProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   const addRider = (rider: Rider) => {
-    setRiders([...riders,rider])
+    setRiders([...riders, rider])
   }
 
   const addRiders = async (riders: Rider[]) => {

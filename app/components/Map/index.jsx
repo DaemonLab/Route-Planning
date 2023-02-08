@@ -6,13 +6,13 @@ import {
 } from "react-leaflet";
 import coordinates from "./coordinates";
 
-let zoomLevel = 20
+let zoomLevel = 12
 
 const markerIcon = new L.icon({
   iconUrl: "/images/marker2.png",
   iconSize: [40, 40],
 });
-const limeOptions = { color: "lime" };
+const limeOptions = { color: "blue" };
 
 export function ChangeView({ coords }) {
   const map = useMap();
@@ -38,12 +38,12 @@ export default function Map({rider}) {
     
   return (
     <section className="text-gray-600 bg-black overflow-hidden">
-      <div className="container px-5 py-24 mx-auto">
+      <div className="container px0 py-0 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <MapContainer
             center={[riderPosition.lat, riderPosition.lng]}
             zoom={zoomLevel}
-            style={{ width: "100vw", height: "100vh" }}
+            style={{ width: "100vw", height: "70vh" }}
             scrollWheelZoom={true}
           >
             Hi
