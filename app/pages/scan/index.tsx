@@ -5,12 +5,6 @@ import {Login} from "../../components/Scan/Login";
 
 export default function Scan() {
 
-  const router = useRouter();
-  const onLogin = () => {
-    //verification
-    router.push("/scan/dashboard");
-  };
-  
   return (
     <>
       <Navbar />
