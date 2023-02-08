@@ -23,3 +23,7 @@ def add_location_details(location_details: List[LocationDetail]):
 @router.post("/add_pickup_items")
 def add_pickups(pickupItems: PickupItems):
     return services.add_pickup_items(pickupItems)
+
+@router.post("/remove_pickup_item")
+def remove_pickup_item(item_id: str):
+    return services.remove_pickup_item(item_id)

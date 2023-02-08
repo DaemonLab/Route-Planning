@@ -343,3 +343,35 @@ def add_pickup_items(pickupItems: PickupItems):
     except Exception as E:
         print(E)
         return {"success": False, "message": E}
+
+
+def remove_pickup_item(item_id):
+    
+    riders = serializers.riders_serializer(riders_db.find())
+
+    for rider in riders:
+
+        rem_task_ind = 0
+        found = False   
+        
+        for task_ind in len(rider["tasks"]):
+            if rider["tasks"][task_ind]["item_id"] == item_id:
+                rem_task_ind = task_ind
+                found = True
+                break
+
+        if found:
+
+            tasks = rider["tasks"]
+            tasks.remove(rem_task_ind)
+            tasks[task_ind]["route_steps"], tasks[task_ind]["route_polyline"] , tasks[task_ind]["time_taken"]  = utils.get_route(tasks, task_ind-1, task_ind)
+            if task_ind > 0:
+                tasks[task_ind-1]["time_next"] = tasks[task_ind]["time_taken"]
+
+            riders_db.update_one({"rider_id": rider["rider_id"]}, {
+                "$set": {
+                    "tasks": tasks
+                }
+            })
+
+            break

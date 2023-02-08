@@ -1,6 +1,8 @@
 import React,{ useState } from 'react';
 import * as XLSX from 'xlsx';
-
+import '../../components/Home/Navbar'
+import Navbar from '../../components/Home/Navbar';
+import Footer from '../../components/Footer';
 
 import { NavigationContext } from "../../context/navigationContext"
 
@@ -115,25 +117,52 @@ function AddPickupItems() {
     }
     
     return (
-        <>
-           <div>
-              <form action="/addCsv">
-                  <br></br>
-                  <h3>Add Instructors</h3>
-                  <br></br> <br></br> 
-                  <input type="number" onChange={(e)=>setNumHours(parseInt(e.target.value))} placeholder='Enter number of hours'
-                      value={numHours}/>
-                  <input
+      <>
+      <Navbar />
+          <div className="flex items-center justify-start bg-black px-4" style={{height:'83vh'}}>
+          <div className="mx-auto w-full max-w-lg ">
+          <h1 className="text-4xl font-bold text-center text-white">Add Pickup Items</h1>
+          <form action="/addCsv" className="mt-10">
+           <div className="relative z-0 mt-10 mb-10 pt-2 col-span-2">
+              <input
+                type="number"                              
+                className="peer block w-full appearance-none border-0 border-b border-white bg-transparent py-3 px-0 text-sm text-gray-100 focus:border-green-500 focus:outline-none focus:ring-0"
+                placeholder=" "
+
+              />
+              <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-md text-white duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-green-500">
+                Enter number of hours
+              </label>
+            </div>
+            <div className="gap:6">
+              <div className="relative z-0 mt-10 pt-2 col-span-2">              
+                <input
                   type="file"
                   accept=".csv,.xlsx,.xls"
                   onChange={handleFileUpload}
-                  />
-                  <br></br> <br></br> 
-              </form> 
-          </div>
-          <br/><br/>
-          <button onClick={handleSubmit}>Upload CSV</button>
-        </>
+                  className="peer block w-full appearance-none border-0 border-b border-white bg-transparent py-3 px-0 text-sm text-gray-100 focus:border-green-500 focus:outline-none focus:ring-0"
+                  placeholder=" "
+                                
+                />
+                <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-md text-white duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-green-500">
+                  Upload File Here
+                </label>
+              </div>
+              <div className="flex justify-center align-items-center">
+                <button
+                  type="submit"
+                  className="mt-10 rounded-md bg-green-600 hover:bg-green-500 px-10 py-2 text-white"
+                  onClick={handleSubmit}
+                >
+                  Add
+                </button>
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <Footer />
+      </>
     )
 }
 

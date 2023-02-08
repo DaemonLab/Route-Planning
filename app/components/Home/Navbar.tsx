@@ -70,6 +70,36 @@ export default function Navbar() {
                 Deliver/Pickup
               </Link>
             </li>
+            <li>
+              <Link
+                href="/addPickupItems"
+                aria-label="Deliver/Pickup Items"
+                title="Deliver/Pickup Items"
+                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
+              >
+                Add Pickup Items
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/addRiders"
+                aria-label="Deliver/Pickup Items"
+                title="Deliver/Pickup Items"
+                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
+              >
+                Add Riders
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/dispatch/map"
+                aria-label="Deliver/Pickup Items"
+                title="Deliver/Pickup Items"
+                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
+              >
+                Deliver/Pickup
+              </Link>
+            </li>
           </ul>
           <ul className="items-center hidden space-x-8 lg:flex">
             <li>
