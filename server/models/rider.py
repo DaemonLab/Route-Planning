@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import List
 
 
-from .route import RouteLocation ,  RouteDetail
+from .route import RouteLocation
 from .task import Task
 
 
@@ -13,12 +13,6 @@ class Rider(BaseModel):
     age: int = Field(..., title="Age")
     bag_volume: int = Field(..., title="Bag Volume")
 
-    current_location: RouteLocation
-    current_route: List[RouteLocation] = []
-    route_details: List[RouteDetail] = []
-    route_polyline: List[RouteLocation] = []
-    route_index: int = Field(..., title="Route Index")
-    
     tasks: List[Task] = []
     task_index: int = Field(..., title="Task Index")
 

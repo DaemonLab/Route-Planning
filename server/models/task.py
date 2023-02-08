@@ -1,18 +1,23 @@
 import datetime
-from typing import Literal
+from typing import Literal, List
 from pydantic import BaseModel, Field
 
-from .route import Location
+from .route import Location, RouteStep, RouteLocation
 
 
 class Task(BaseModel):
     item_id: str = Field(..., title="Item ID")
-    volume: int  = Field(..., title="Volume")
-    task_type: Literal["Delivery", "Pickup"]
-    edd: datetime.datetime = Field(None, title="Expected Delivery Date")
     awb_id: str = Field(..., title="AWB ID")
+    task_type: Literal["Delivery", "Pickup"]
+    volume: int  = Field(..., title="Volume")
+    
     task_location: Location
-    time_next: int
+    edd: datetime.datetime = Field(None, title="Scan Time")
+
+    route_steps: List[RouteStep] = []
+    route_polyline: List[RouteLocation] = []
+    time_taken: int = 0
+    time_next: int = -1
 
     class Config:
         anystr_strip_whitespace = True

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-
+from typing import List
 
 class Location(BaseModel):
     
@@ -22,19 +22,16 @@ class RouteLocation(BaseModel):
         orm_mode = True
 
 
-class RouteDetail(BaseModel):
+class RouteStep(BaseModel):
 
-    time_taken: int = Field(..., title="Time Taken")
     distance: int = Field(..., title="Distance")
-    speed_limit: int = Field(..., title="Speed Limit")
+    time_taken: int = Field(..., title="Time Taken")
     instruction: str = Field(..., title="Instruction")
-    from_index: int = Field(..., title="From Index")
-    to_index: int = Field(..., title="To Index")
-    polyline_index: int = Field(..., title="Polyline Index")
+    polyline: List[RouteLocation] = []
 
     class Config:
         anystr_strip_whitespace = True
-        title = "RouteDetail"
+        title = "RouteStep"
         orm_mode = True
 
 class LocationDetail(BaseModel):

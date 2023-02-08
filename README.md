@@ -7,7 +7,7 @@
 1. Frontend : Next.js (Typescript)
 2. Design   : TailwindCSS
 3. Backend  : Python (FastAPI)
-4. Database : SQLite 
+4. Database : MongoDB 
 
 ## Installation
 
@@ -27,7 +27,6 @@
 
 ### Note to Developers
 1. If you working with VSCode, we recommend you to install PostCSS Language Support
-2. Before making any changes to the project, test the project using `python -m pytest`
 
 ## Users of the app
 

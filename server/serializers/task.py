@@ -1,6 +1,6 @@
 from typing import List
 
-from models import Task
+from models import Task, RouteStep
 import serializers
 
 def task_serializer(task: Task) -> dict :
@@ -12,11 +12,16 @@ def task_serializer(task: Task) -> dict :
 
     return {
         "item_id": task["item_id"],
-        "volume": task["volume"],
-        "task_type": task["task_type"],
-        "edd": task["edd"],
         "awb_id": task["awb_id"],
+        "task_type": task["task_type"],
+        "volume": task["volume"],
+       
         "task_location": serializers.location_serializer(task["task_location"]),
+        "edd": task["edd"],
+        
+        "route_steps": serializers.route_steps_serializer(task["route_steps"]),
+        "route_polyline": serializers.route_locations_serializer(task["route_polyline"]),
+        "time_taken": task["time_taken"],
         "time_next": task["time_next"]
     }
 

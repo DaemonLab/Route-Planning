@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {
   MapContainer, Marker, Polyline, TileLayer, useMap, Popup
 } from "react-leaflet";
-import coordinates from "./coordinates";
 
 let zoomLevel = 12
 
@@ -14,6 +13,17 @@ const markerIcon = new L.icon({
 });
 const limeOptions = { color: "blue" };
 
+const createRoute = (rider) =>{
+  
+  let coordinates = []
+
+  for(let i=0; i<rider["tasks"].length; i++) {
+    coordinates = [...coordinates,...rider["tasks"][i]["route_polyline"]]
+  }
+
+  return coordinates
+}
+
 export function ChangeView({ coords }) {
   const map = useMap();
   map.setView(coords, zoomLevel);
@@ -22,19 +32,11 @@ export function ChangeView({ coords }) {
 
 export default function Map({rider}) {
 
-  console.log("Got rider",rider)
 
   const [riderPosition, setRiderPosition] = useState({
-    lat: rider['current_route'][rider['route_index']]['lat'],
-    lng: rider['current_route'][rider['route_index']]['lng']
+    lat: 12.9699142,
+    lng: 77.6379417
   });
-
-  useEffect(()=>{
-    setRiderPosition({
-      lat: rider['current_route'][rider['route_index']]['lat'],
-      lng: rider['current_route'][rider['route_index']]['lng']
-    })
-  },[rider])
     
   return (
     <section className="text-gray-600 bg-black overflow-hidden">
@@ -42,7 +44,7 @@ export default function Map({rider}) {
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <MapContainer
             center={[riderPosition.lat, riderPosition.lng]}
-            zoom={zoomLevel}
+            zoom={20}
             style={{ width: "100vw", height: "70vh" }}
             scrollWheelZoom={true}
           >
@@ -60,7 +62,7 @@ export default function Map({rider}) {
                 </Marker>
             )}
 
-            <Polyline pathOptions={limeOptions} positions={rider['route_polyline']} />
+            <Polyline pathOptions={limeOptions} positions={createRoute(rider)} />
             <ChangeView coords={[riderPosition.lat, riderPosition.lng]} />
           </MapContainer>
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">

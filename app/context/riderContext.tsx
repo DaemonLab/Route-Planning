@@ -30,14 +30,7 @@ const RiderProvider: React.FC<Props> = ({ children }: Props) => {
   }
 
   const addRiders = async (riders: Rider[]) => {
-
     let addRiders = [...riders]
-
-    // addRiders = addRiders.map((rider)=>{
-    //   const id = `insertID${(Math.floor(Math.random() * 100)).toString()}`
-    //   return {...rider,rider_id:id}
-    // })
-
     await api.addRiders(addRiders)
   };
 

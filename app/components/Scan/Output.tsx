@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const Output: React.FC = () => {
   const router = useRouter();
-  const [volume, setVolume] = React.useState();
+  const [volume, setVolume] = React.useState(0);
   const { item, setItem, addItem, addItems } = React.useContext(
     ItemContext
   ) as ItemContextWrapper;

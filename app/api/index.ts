@@ -6,7 +6,7 @@ import {
   GetRidersResponse,
   AddItemsBody,
   AddRidersBody,
-  AddPickupItemBody,
+  AddPickupItemsBody,
   AddLocationDetailsBody,
 } from "../@types/dto";
 
@@ -75,7 +75,7 @@ export function completeDispatch() {
 //Navigation API
 
 export function addLocationDetails(locationDetails: AddLocationDetailsBody) {
-  return axios.post(`${BASE_URL}/navigation/add_locations`, locationDetails, {
+  return axios.post(`${BASE_URL}/navigation/add_location_details`, locationDetails, {
     headers: { "Content-Type": "application/json;charset=utf-8" },
   });
 }
@@ -98,8 +98,8 @@ export function stopNavigation() {
   });
 }
 
-export function addPickupItem(item: AddPickupItemBody) {
-  return axios.post(`${BASE_URL}/navigation/add_pickup_item`, item, {
+export function addPickupItems(pickupItems: AddPickupItemsBody) {
+  return axios.post(`${BASE_URL}/navigation/add_pickup_items`, pickupItems, {
     headers: { "Content-Type": "application/json;charset=utf-8" },
   });
 }

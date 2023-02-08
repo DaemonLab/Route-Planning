@@ -1,33 +1,21 @@
 import React, { use, useEffect } from "react";
-import RiderMap from "./Map";
+import { Rider } from "../../@types/rider";
+import RiderMap from "./RiderMap";
+import { NavigationContextWrapper } from "../../@types/navigation"
+import { NavigationContext } from "../../context/navigationContext";
 
-export default function Navigation(props: any) {
-  // console.log(props.ridersList)
+export default function Navigation() {
+
+  const { riders} = React.useContext(
+    NavigationContext
+  ) as NavigationContextWrapper;
+
+
   const [showInfoModal, setShowInfoModal] = React.useState(false);
   const [riderMap, setRiderMap] = React.useState({})
-  useEffect(()=>{
-    console.log(props.ridersList)
-  })
-  const lolitems = [
-    {
-      current_task: "(ID 879-10-940)",
-      name: "John Doe",
-      type: true,
-      volume: "50 Kg",
-    },
-    {
-      current_task: "(ID 879-10-940)",
-      name: "John Doe",
-      type: false,
-      volume: "50 Kg",
-    },
-    {
-      current_task: "(ID 879-10-940)",
-      name: "John Doe",
-      type: true,
-      volume: "50 Kg",
-    },
-  ];
+
+  console.log("In Navigation",riders)
+
   return (
     <section className="bg-black">
       <div className="lg:container px-24 lg:px-5 py-24 mx-auto flex flex-wrap">
@@ -79,7 +67,6 @@ export default function Navigation(props: any) {
           </div>
         ) : null}
         <h2 className="sm:text-3xl text-2xl text-white font-medium title-font mb-2 md:w-2/5">
-          Map
           <RiderMap {...riderMap}></RiderMap>
         </h2>
         <div className="md:w-3/5 md:pl-6">
@@ -90,27 +77,32 @@ export default function Navigation(props: any) {
               </h1>
               <h2 className="text-center text-white pb-2">January 10, 2023</h2>
               
-              {props.ridersList.length === 0 || props.ridersList===undefined ? (<h1 className="text-white">Loading!!!</h1>) : (<> <ul className="flex flex-col" >
-                {props.ridersList.map((item: any) => (
+              {riders.length === 0 || riders===undefined ? (<h1 className="text-white">Loading!!!</h1>) : (<> <ul className="flex flex-col" >
+                {riders.map((rider: Rider) => 
+                
+                rider['tasks'].length === 0 ?
+                <>No Tasks Assigned to the Rider</>:
+                (
                   <li
-                    key={item.current_task}
+                    key={rider["rider_id"]}
                     className="border-b-2 border-gray-100"
-                    onClick={() => setRiderMap({ rider: item })}
+                    onClick={() => setRiderMap({ rider: rider })}
                   >
                     <div
-                      className={`py-5 px-4 flex justify-between border-l-4 border-transparent bg-transparent text-gray-100 hover:text-gray-900 ${item.type
-                        ? "hover:border-green-400 hover:bg-green-100"
-                        : "hover:border-yellow-500 hover:bg-yellow-100"
-                        }`}
+                      className={`py-5 px-4 flex justify-between border-l-4 border-transparent bg-transparent text-gray-100 hover:text-gray-900 
+                                  ${rider["tasks"][rider["task_index"]]["task_type"] == "Delivery"
+                                      ? "hover:border-green-400 hover:bg-green-100"
+                                      : "hover:border-yellow-500 hover:bg-yellow-100"
+                                }`}
                     >
                       <div className="sm:pl-4 pr-8 flex sm:items-center">
                         <div className="space-y-1">
                           <p className="text-base text-white text-inherit font-bold tracking-wide hover:underline cursor-pointer">
-                            {item.rider_id}
+                            {rider.rider_id}
                           </p>
-                          <p className="text-sm font-medium">{item.name}</p>
+                          <p className="text-sm font-medium">{rider.name}</p>
                           <p className="text-sm font-medium">
-                            Bag Volume: {item.bag_volume}
+                            Bag Volume: {rider.bag_volume}
                           </p>
                         </div>
                       </div>
@@ -118,7 +110,7 @@ export default function Navigation(props: any) {
                       <div className="flex items-center">
                         <div className="pr-4 flex flex-col justify-start items-end">
                           <div>
-                            {item.type ? (
+                            {rider["tasks"][rider["task_index"]]["task_type"]=="Delivery"  ? (
                               <div>
                                 <span className="text-xs text-green-500 font-semibold bg-green-50 px-2 py-1 rounded-full">
                                   Delivery

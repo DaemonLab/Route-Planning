@@ -4,6 +4,7 @@ import { Rider } from "../@types/rider";
 import { NavigationContextWrapper } from "../@types/navigation";
 import * as api from "../api";
 import { LocationDetail } from "../@types/route";
+import { PickupItems } from "../@types/item";
 
 export const NavigationContext =
   React.createContext<NavigationContextWrapper | null>(null);
@@ -42,8 +43,8 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
     setRiders([...data.riders]);
   };
 
-  const addPickupItem = async (pickupItem: Item) => {
-    await api.addPickupItem(pickupItem)
+  const addPickupItems = async (pickupItems: PickupItems) => {
+    await api.addPickupItems(pickupItems)
   };
 
   return (
@@ -56,7 +57,7 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
         startInterval,
         getItems,
         getRiders,
-        addPickupItem,
+        addPickupItems,
       }}
     >
       {children}

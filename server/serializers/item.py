@@ -1,6 +1,6 @@
 from typing import List
 
-from models import Item
+from models import Item, PickupItems
 import serializers
 
 
@@ -16,8 +16,6 @@ def item_serializer(item: Item) -> dict:
         "name": item["name"],
         "description": item["description"],
         "task_type": item["task_type"],
-        "is_completed": item["is_completed"],
-        "completion_time": item["completion_time"],
 
         "volume": item["volume"],
         "weight": item["weight"],
@@ -31,3 +29,16 @@ def item_serializer(item: Item) -> dict:
 
 def items_serializer(items: List[Item]) -> list:
     return [item_serializer(item) for item in items]
+
+
+def pickup_items_serializer(pickupItems: PickupItems) -> dict:
+
+    if pickupItems is None:
+        return pickupItems
+
+    pickupItems = serializers.serialize_object(pickupItems)
+
+    return {
+        'items': serializers.items_serializer(pickupItems['items']),
+        'num_hours': pickupItems['num_hours']
+    }

@@ -5,6 +5,8 @@ from models import Rider
 from database import riders_db
 import serializers
 
+
+
 def get_rider(rider_id: str):
     try:
         rider = serializers.rider_serializer(riders_db.find_one({"rider_id": rider_id}))
