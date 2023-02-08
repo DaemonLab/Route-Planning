@@ -18,12 +18,9 @@ export type LocationDetail = {
     item_id: string;
 }
 
-export interface RouteDetail {
-    time_taken: number;
+export interface RouteStep {
     distance: number;
-    speed_limit: number;
-    instruction: string;
-    from_index: number;
-    to_index: number;
-    polyline_index: number;
+    time_taken: number;
+    instruction: str;
+    polyline: RouteLocation[]
 };

@@ -1,2 +1,2 @@
-from .map import *
+from .maputils import *
 from .warehouse import *

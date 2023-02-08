@@ -10,8 +10,10 @@ import warehouse
 f = open('./data/awb_to_coordinate.json')
 awb_to_coordinate = json.load(f)
 
-GOOGLE_API_KEY = "YOUR GOOGLE API KEY"
+GOOGLE_API_KEY = "YOUR GOOLE API KEY"
 gmaps = googlemaps.Client(key=GOOGLE_API_KEY)
+
+
 
 
 def get_coordinate(address : str):
@@ -26,11 +28,35 @@ def get_coordinate(address : str):
         print(geocode_result,E)
         print("Could not find for ",address)
 
-def find_dist(awb_source, awb_dest):
+def toRadians(degree):
+    one_deg = 1 / 180
+    return (one_deg * degree)
+
+
+def calculate_distance(awb_source, awb_dest):
+
     coordinate_source, coordinate_dest = awb_to_coordinate[awb_source] , awb_to_coordinate[awb_dest]
-    delta_lat = (coordinate_dest['lat'] - coordinate_source['lat'])
-    delta_lng = (coordinate_dest['lng'] - coordinate_source['lng'])
-    return int((math.sqrt(delta_lat**2 + delta_lng**2))*1000)
+    lat1 , lng1 = toRadians(coordinate_source['lat']) , toRadians(coordinate_source['lng'])
+    lat2 , lng2 = toRadians(coordinate_dest['lat'])  , toRadians(coordinate_dest['lng'])
+
+    delta_lat =  lat2 - lat1
+    delta_lng =  lng2 - lng1
+
+    ans = math.pow(math.sin(delta_lat/2),2) +  math.cos(lat1) * math.cos(lat2) * math.pow(math.sin(delta_lng/2),2)
+
+    ans = 2*math.asin(math.sqrt(ans))
+
+    R = 6371 #Radius of the Earth
+
+    ans = ans * R
+
+    #Value is calculated by assuming that the speed of the rider is 40km/h as normal
+    #and thinking that the euclidean distance will be lesser than the real distance
+
+    ans = ans/40
+    ans*= 3600
+
+    return int(ans)
 
 def get_delivery_time_matrix(awbs, num_items):
 
@@ -45,8 +71,7 @@ def get_delivery_time_matrix(awbs, num_items):
             awb_souce = (warehouse.WAREHOUSE_LOCATION_DETAIL["awb_id"] if i==0 else str(awbs[i-1]))
             awb_dest  = (warehouse.WAREHOUSE_LOCATION_DETAIL["awb_id"] if j==0 else str(awbs[j-1]))
 
-            dist[i][j] = find_dist(str(awb_souce),str(awb_dest))
-
+            dist[i][j] = calculate_distance(str(awb_souce),str(awb_dest))
 
     dist = dist.astype(int)
     return dist
@@ -63,9 +88,10 @@ def get_pickup_time_matrix(riders,item):
 
         num_tasks = len(rider["tasks"]) - riders[rider_ind]["task_index"]
 
+
         for task_index in range( riders[rider_ind]["task_index"], riders[rider_ind]["task_index"] + num_tasks):
             awb_task , awb_pickup = rider["tasks"][task_index]["awb_id"] , item["awb_id"]
-            times_from_pickup[rider["rider_id"]][task_index] = find_dist(str(awb_task), str(awb_pickup))
+            times_from_pickup[rider["rider_id"]][task_index] = calculate_distance(str(awb_task), str(awb_pickup))
 
     return times_from_pickup
 
@@ -134,11 +160,17 @@ def find_route(coordinate_source, coordinate_destination):
 def get_route(tasks, i1, i2):
 
     if i2 >= len(tasks):
-        return [], [], []
+        return [], [], 0
 
     try:
         awb_source = (warehouse.WAREHOUSE_LOCATION_DETAIL["awb_id"] if i1 == -1 else tasks[i1]["awb_id"])
         awb_destination = tasks[i2]["awb_id"]
+
+        if i1==-1:
+            print(awb_source,awb_destination)
+
+        if awb_source == awb_destination:
+            return [] , [] , 0
 
         coordinate_source      = {"lat": awb_to_coordinate[awb_source]["lat"], "lng": awb_to_coordinate[awb_source]["lng"]}
         coordinate_destination = {"lat": awb_to_coordinate[awb_destination]["lat"], "lng": awb_to_coordinate[awb_destination]["lng"]}

@@ -75,7 +75,7 @@ export function completeDispatch() {
 //Navigation API
 
 export function addLocationDetails(locationDetails: AddLocationDetailsBody) {
-  return axios.post(`${BASE_URL}/navigation/add_locations`, locationDetails, {
+  return axios.post(`${BASE_URL}/navigation/add_location_details`, locationDetails, {
     headers: { "Content-Type": "application/json;charset=utf-8" },
   });
 }

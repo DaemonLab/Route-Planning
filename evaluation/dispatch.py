@@ -41,7 +41,7 @@ awb_to_coordinate = json.load(f)
 ##############################################
 
 
-assign_deliveries = True
+assign_deliveries = False
 
 def get_delivery_assignment():
 
@@ -160,7 +160,7 @@ if assign_deliveries:
 
 #############################################
 
-find_routes = False
+find_routes = True
 
 if not find_routes:
     print(5/0)
@@ -192,10 +192,11 @@ def load_variables(num_items,num_riders):
 
     return item_volumes , rider_bag_volumes , item_edds , time_adj, deliveries
 
-num_riders = 5 ###Dont Forget to change this!!
+num_riders = 10
 item_volumes , rider_bag_volumes , item_edds , time_adj, deliveries = load_variables(num_items,num_riders)
 
 print(deliveries)
+
 
 riders_0 = []
 
@@ -234,10 +235,24 @@ for rider_ind in range(num_riders):
 
         bag_volume-=int(item_volumes[item_ind])
 
-    if len(tasks) > 0:
-        
-        tasks.append(warehouse.WAREHOUSE_TASK)
+    tasks.append({
+        "item_id": "warehose_task",
+        "awb_id": "38434272738",
+        "task_type": "Delivery",
+        "volume": 0,
+        "edd": 48600,
+        "route_steps": [],
+        "route_polyline": [],
+        "task_location": {
+            "address": "1088, 12th Main, HAL 2nd Stage, Off 100 Feet Road, Indiranagar, Bangalore",
+            "lat": 12.9699142,
+            "lng": 77.6379417
+        },
+        "time_taken": 0,
+        "time_next": 0
+    })
 
+    if len(tasks) > 1:
         for task_ind in range(len(tasks)):
             tasks[task_ind]["route_steps"], tasks[task_ind]["route_polyline"] , tasks[task_ind]["time_taken"]  = maputils.get_route(tasks, task_ind-1, task_ind)
             if task_ind > 0:
@@ -247,6 +262,9 @@ for rider_ind in range(num_riders):
     rider["tasks"] = tasks
     rider["task_index"] = 0
     riders_0.append(rider)
-        
+
+
+
+
 with open("./data/riders_0.json", "w") as outfile:
     json.dump(riders_0, outfile)

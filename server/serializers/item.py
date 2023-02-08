@@ -16,8 +16,6 @@ def item_serializer(item: Item) -> dict:
         "name": item["name"],
         "description": item["description"],
         "task_type": item["task_type"],
-        "is_completed": item["is_completed"],
-        "completion_time": item["completion_time"],
 
         "volume": item["volume"],
         "weight": item["weight"],

@@ -6,13 +6,7 @@ export interface Rider {
   name: string;
   age: number;
   bag_volume: number;
-
-  current_location: RouteLocation;
-  current_route: RouteLocation[];
-  route_details: RouteDetail[]; 
-  route_polyline: RouteLocation[]
-  route_index: number; 
-  
+    
   tasks: Task[];
   task_index: number;
 };

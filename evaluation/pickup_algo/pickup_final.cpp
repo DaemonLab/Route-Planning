@@ -8,8 +8,6 @@ pair<int, int> getAns(int current_time,int item_volume,int item_entry_time,int n
                     vector<int>&bag_volume,vector<int>&first_task_time,vector<vector<vector<int>>>&tasks_old,
                     int&reach_hub_before_this_time)
 {
-    cout<<"Reached here 1"<<"\n";
-
     vector<vector<int>> time_required(num_riders);
 
     vector<vector<vector<int>>> tasks = tasks_old;
@@ -103,16 +101,12 @@ pair<int, int> getAns(int current_time,int item_volume,int item_entry_time,int n
         }
     }
 
-    cout<<"Reached here 2"<<"\n";
-
-    return {ans1, ans2};
+    return {ans1, ans2-1};
 }
 
 
 int main ()
 {
-    freopen("input.in", "r", stdin);
-
     srand(time(0));
     
     int current_time;
@@ -139,10 +133,6 @@ int main ()
     {
         int num_tasks;
         cin>>num_tasks;
-
-        if(num_tasks == 0) {
-            continue;
-        }
 
         cin>>first_task_time[i];
 

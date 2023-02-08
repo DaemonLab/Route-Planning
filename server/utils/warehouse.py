@@ -1,10 +1,14 @@
 from datetime import datetime as dt
 
-day_end = "14-01-2023 22:00:00"
-day_end = dt.strptime(day_end, "%d-%m-%Y %H:%M:%S")
+day_start = "07-02-2023"
+day_start = dt.strptime(day_start, "%d-%m-%Y")
 
-day_start = "14-01-2023 09:00:00"
-day_start = dt.strptime(day_start, "%d-%m-%Y %H:%M:%S")
+day_time_start = "14-01-2023 09:00:00"
+day_time_start = dt.strptime(day_time_start, "%d-%m-%Y %H:%M:%S")
+
+
+day_time_end = "14-01-2023 22:00:00"
+day_time_end = dt.strptime(day_time_end, "%d-%m-%Y %H:%M:%S")
 
 WAREHOUSE_LOCATION_DETAIL = {
     "address": "1088, 12th Main, HAL 2nd Stage, Off 100 Feet Road, Indiranagar, Bangalore",
@@ -15,18 +19,3 @@ WAREHOUSE_LOCATION_DETAIL = {
     "item_id": ""
 }
 
-
-
-WAREHOUSE_TASK = {
-    "item_id": "warehose_task",
-    "volume": 0,
-    "task_type": "Delivery",
-    "edd": day_end,
-    "awb_id": WAREHOUSE_LOCATION_DETAIL["awb_id"],
-    "task_location": {
-        "address": WAREHOUSE_LOCATION_DETAIL["address"],
-        "lat": WAREHOUSE_LOCATION_DETAIL["lat"],
-        "lng": WAREHOUSE_LOCATION_DETAIL["lng"]
-    },
-    "time_next": 0
-}

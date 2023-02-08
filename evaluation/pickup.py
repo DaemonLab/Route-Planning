@@ -11,7 +11,7 @@ random.seed(time.time())
 
 def get_updated_riders(riders, NUM_HOURS):
 
-    return riders
+    updated_riders = []
 
     for rider in riders:
 
@@ -29,7 +29,9 @@ def get_updated_riders(riders, NUM_HOURS):
                 rider["bag_volume"] = rider["bag_volume"] + (rider["tasks"][rider["task_index"]]["volume"])*(1 if rider["tasks"][rider["task_index"]]["task_type"] == "Delivery" else -1)
                 rider["task_index"]+=1
 
-    return riders
+        updated_riders.append(rider)
+
+    return updated_riders
 
 ### To indicate number of hours after which we are adding riders ###
 NUM_HOURS = 1
@@ -37,7 +39,7 @@ NUM_HOURS = 1
 ### Read Items ###
 items_pickup = pd.read_csv("./data/items_pickup.csv")
 total_items = len(list(items_pickup["AWB"]))
-num_items = 3
+num_items = total_items
 item_ids = list(items_pickup["sku"])[:num_items]
 awbs = list(items_pickup["AWB"])[:num_items]
 addresses = list(items_pickup["address"])[:num_items]
@@ -47,7 +49,7 @@ addresses = list(items_pickup["address"])[:num_items]
 f = open(f'./data/riders_{NUM_HOURS - 1}.json')
 riders = json.load(f)
 riders = get_updated_riders(riders,NUM_HOURS)
-valid_riders = [rider for rider in riders if ( (rider["task_index"] <= (len(rider["tasks"]) - 2)) or len(rider["tasks"])==0 )]
+valid_riders = [rider for rider in riders if ( (rider["task_index"] <= (len(rider["tasks"]) - 2)) or (len(rider["tasks"])==1 and rider["task_index"]==0))]
 ##############################################
 
 ##############################################
@@ -61,6 +63,30 @@ item_edds = [48600 for i in range(num_items)]
 f = open('./data/awb_to_coordinate.json')
 awb_to_coordinate = json.load(f)
 ##############################################
+
+def insert_pickup( tasks, after_task_index, item):
+
+    pickup_task = dict({
+        "item_id": item["item_id"],
+        "awb_id": item["awb_id"],
+        "task_type": "Pickup",
+        "volume": item["volume"],
+        "task_location": item["task_location"],
+        "edd": item["edd"],
+        "route_steps": [],
+        "route_polyline": [],
+        "time_taken": 0,
+        "time_next": 0
+    })
+
+    tasks.insert(after_task_index+1, pickup_task)
+
+    for task_ind in range(after_task_index+1,after_task_index+3):
+        tasks[task_ind]["route_steps"], tasks[task_ind]["route_polyline"] , tasks[task_ind]["time_taken"]  = maputils.get_route(tasks, task_ind-1, task_ind)
+        if task_ind > 0:
+            tasks[task_ind-1]["time_next"] = tasks[task_ind]["time_taken"]
+
+    return tasks
 
 def add_pickup(item):
 
@@ -100,20 +126,12 @@ def add_pickup(item):
 
         rider = valid_riders[rider_ind]
 
-        if len(rider["tasks"]) == 0:
-            p.stdin.write(str(0)+'\n')
-            f.write(str(0) + '\n\n')
-            continue
-
         num_tasks = len(rider["tasks"]) -  valid_riders[rider_ind]["task_index"]
         p.stdin.write(str(num_tasks)+'\n')
         f.write(str(num_tasks) + '\n')
 
-        try:
-            first_task_time = rider["tasks"][valid_riders[rider_ind]["task_index"]]["time_taken"]
-        except:
-            first_task_time = int(random.randint(10,5000))
-
+        first_task_time = rider["tasks"][valid_riders[rider_ind]["task_index"]]["time_taken"]
+        
         p.stdin.write(str(first_task_time)+'\n')
         f.write(str(first_task_time) + '\n')
 
@@ -142,60 +160,7 @@ def add_pickup(item):
     rider_ind = int(p.stdout.readline().strip())
     after_task_index = int(p.stdout.readline().strip()) + valid_riders[rider_ind]["task_index"]
 
-    return rider_ind , after_task_index , times_from_pickup
-
-def dispatch_new_rider(rider,item):
-
-    rider["tasks"].append({
-        "item_id": item["item_id"],
-        "awb_id": item["awb_id"],
-        "task_type": "Pickup",
-        "volume": item["volume"],
-        "task_location": item["task_location"],
-        "edd": item["edd"],
-        "route_steps": [],
-        "route_polyline": [],
-        "time_taken": 0,
-        "time_next": -1
-    })
-
-    rider["tasks"].append(warehouse.WAREHOUSE_TASK)
-
-    tasks = rider["tasks"]
-
-    for task_ind in range(len(tasks)):
-        tasks[task_ind]["route_steps"], tasks[task_ind]["route_polyline"] , tasks[task_ind]["time_taken"]  = maputils.get_route(tasks, task_ind-1, task_ind)
-        if task_ind > 0:
-            tasks[task_ind-1]["time_next"] = tasks[task_ind]["time_taken"]
-
-    rider["tasks"] = tasks
-
-    return rider
-    
-
-def insert_pickup( tasks, after_task_index, item):
-
-    pickup_task = dict({
-        "item_id": item["item_id"],
-        "awb_id": item["awb_id"],
-        "task_type": "Pickup",
-        "volume": item["volume"],
-        "task_location": item["task_location"],
-        "edd": item["edd"],
-        "route_steps": [],
-        "route_polyline": [],
-        "time_taken": 0,
-        "time_next": -1
-    })
-
-    tasks.insert(after_task_index+1, pickup_task)
-
-    for task_ind in range(after_task_index+1,after_task_index+3):
-        tasks[task_ind]["route_steps"], tasks[task_ind]["route_polyline"] , tasks[task_ind]["time_taken"]  = maputils.get_route(tasks, task_ind-1, task_ind)
-        if task_ind > 0:
-            tasks[task_ind-1]["time_next"] = tasks[task_ind]["time_taken"]
-
-    return tasks
+    return rider_ind , after_task_index
 
 for i in range(num_items):
 
@@ -211,18 +176,21 @@ for i in range(num_items):
         }
     }
 
-    rider_ind , after_task_index , times_from_pickup = add_pickup(item)
+    rider_ind , after_task_index = add_pickup(item)
 
     print(rider_ind,after_task_index)
 
-    if len(valid_riders[rider_ind]["tasks"]) == 0:
-        valid_riders[rider_ind] = dispatch_new_rider(valid_riders[rider_ind], item)
+    if rider_ind == -1:
+        print("Could not assign item ",i)
+        continue
 
-    else:
-        tasks = valid_riders[rider_ind]["tasks"]
-        valid_riders[rider_ind]["tasks"] = insert_pickup(tasks, after_task_index, item)
+    print(rider_ind,after_task_index)
 
+    tasks = valid_riders[rider_ind]["tasks"]
+    valid_riders[rider_ind]["tasks"] = insert_pickup(tasks, after_task_index, item)
+        
     ind = [rind for rind in range(len(riders)) if riders[rind]["rider_id"]==valid_riders[rider_ind]["rider_id"]][0]
+    riders[ind] = valid_riders[rider_ind]
 
 with open("./data/riders_1.json", "w") as outfile:
     json.dump(riders, outfile)

@@ -1,6 +1,6 @@
 from typing import List
 
-from models import  Location, RouteLocation, RouteDetail , LocationDetail
+from models import  Location, RouteLocation, RouteStep , LocationDetail
 import serializers
 
 def location_serializer(location: Location) -> dict:
@@ -34,25 +34,22 @@ def route_location_serializer(route_location: RouteLocation):
 def route_locations_serializer(route_locations: List[RouteLocation]) -> list:
     return [route_location_serializer(route_location) for route_location in route_locations]
 
-def route_detail_serializer(route_detail: RouteDetail) -> dict:
+def route_step_serializer(route_step: RouteStep) -> dict:
 
-    if route_detail is None:
-        return route_detail
+    if route_step is None:
+        return route_step
 
-    route_detail = serializers.serialize_object(route_detail)
+    route_step = serializers.serialize_object(route_step)
 
     return {
-        "time_taken": route_detail["time_taken"],
-        "distance": route_detail["distance"],
-        "speed_limit": route_detail["speed_limit"],
-        "instruction": route_detail["instruction"],
-        "from_index": route_detail["from_index"],
-        "to_index": route_detail["to_index"],
-        "polyline_index": route_detail["polyline_index"]
+        "distance": route_step["distance"],
+        "time_taken": route_step["time_taken"],
+        "instruction": route_step["instruction"],
+        "polyline": route_locations_serializer(route_step["polyline"])
     }
 
-def route_details_serializer(route_details: List[RouteDetail]) -> list:
-    return [route_detail_serializer(route_detail) for route_detail in route_details]
+def route_steps_serializer(route_steps: List[RouteStep]) -> list:
+    return [route_step_serializer(route_step) for route_step in route_steps]
 
 def location_detail_serializer(location_detail: LocationDetail) -> dict:
 

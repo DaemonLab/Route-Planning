@@ -2,22 +2,13 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { Rider } from "../../@types/rider";
-import { NavigationContextWrapper } from "../../@types/navigation";
-import { NavigationContext } from "../../context/navigationContext";
 
-const MapWithNoSSR = dynamic(() => import("../../components/Map"), {
+const MapWithNoSSR = dynamic(() => import("../Map"), {
     ssr: false,
 });
 
 export default function RiderMap(props: any) {
-    const router = useRouter();
-    const {
-        query: { rider_id },
-    } = router;
-
-    const { riders, getRiders } = React.useContext(
-        NavigationContext
-    ) as NavigationContextWrapper;
+    
     const [rider, setRider] = React.useState<Rider | undefined>(undefined);
 
     useEffect(() => {
@@ -31,11 +22,10 @@ export default function RiderMap(props: any) {
 
     return (
         <>
-            {rider === undefined || rider['current_route'].length === 0 ? (
-                <h1>Loading...</h1>
+            {rider === undefined || rider['tasks'].length === 0 ? (
+                <h1>Rider is at the Hub</h1>
             ) : (
                 <div className="h-[500px] w-[500px]">
-                    {rider_id}
                     <MapWithNoSSR rider={rider}></MapWithNoSSR>
                 </div>
             )

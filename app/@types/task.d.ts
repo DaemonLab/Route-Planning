@@ -1,13 +1,19 @@
-import { Location } from "./route";
+import { Location, RouteLocation, RouteStep} from "./route";
 
 export interface Task {
     item_id: string;
-    volume: number;
-    task_type: string;
-    edd: Date | null;
     awb_id: string;
+    task_type: "Delivery" | "Pickup";
+    volume: number;
+    
     task_location: Location;
-    time_next: number;
+    edd: Date | null;
+    
+    
+    route_steps: RouteStep[];
+    route_polyline: RouteLocation[];
+    time_taken: number;
+    time_next: number; 
 };
 
 export interface TaskLog {
