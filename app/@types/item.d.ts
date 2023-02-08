@@ -17,6 +17,11 @@ export interface Item {
   edd: Date | null;
 };
 
+export interface PickupItems {
+  num_hours: int,
+  items: Item[]
+}
+
 export type ItemContextWrapper = {
   item: Item;
   items: Item[];

@@ -27,8 +27,9 @@ class Item(BaseModel):
 
 class PickupItems(BaseModel):
 
-    items: List[Item] = []
     num_hours: int = Field(..., title="Number of Hours")
+    items: List[Item] = []
+   
 
     class Config:
         anystr_strip_whitespace = True

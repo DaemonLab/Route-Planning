@@ -227,8 +227,8 @@ def add_pickup_item(item: Item, valid_riders: List[Rider], num_hours):
     f.write(str(int(current_time)) + '\n')
 
     item_volume = int(item["volume"])
-    p.stdin.write(item_volume+'\n')
-    f.write(item_volume+'\n')
+    p.stdin.write(str(item_volume)+'\n')
+    f.write(str(item_volume)+'\n')
 
     item_entry_time = current_time
     p.stdin.write(str(int(item_entry_time))+'\n')
@@ -262,7 +262,8 @@ def add_pickup_item(item: Item, valid_riders: List[Rider], num_hours):
 
             item_volume = rider["tasks"][task_index]["volume"]
             task_type = (0 if rider["tasks"][task_index]["task_type"] == "Delivery" else 1)
-            edd_time_simult = rider["tasks"][task_index]["edd"]
+            # edd_time_simult = rider["tasks"][task_index]["edd"]
+            edd_time_simult = random.randint(1000,40000)
             time_next = rider["tasks"][task_index]["time_next"]
             time_from_pickup = times_from_pickup[rider["rider_id"]][task_index]
 
@@ -283,6 +284,8 @@ def add_pickup_item(item: Item, valid_riders: List[Rider], num_hours):
     rider_ind = int(p.stdout.readline().strip())
     after_task_index = int(p.stdout.readline().strip()) + valid_riders[rider_ind]["task_index"]
 
+    print(rider_ind,after_task_index)
+
     if rider_ind == -1:
         print("Could not assign item")
         return
@@ -291,17 +294,18 @@ def add_pickup_item(item: Item, valid_riders: List[Rider], num_hours):
     valid_riders[rider_ind]["tasks"] = insert_pickup(tasks, after_task_index, item)
     
     riders_db.update_one({"rider_id":valid_riders[rider_ind]["rider_id"]},{
-        tasks: valid_riders[rider_ind]["tasks"]
+        "$set": {
+                "tasks": valid_riders[rider_ind]["tasks"]
+         }
     })
 
 def add_pickup_items(pickupItems: PickupItems):
 
+    pickupItems = serializers.pickup_items_serializer(pickupItems)
     items = pickupItems["items"]
-    num_hours = pickupItems["num_hours"]
-
+    num_hours = int(pickupItems["num_hours"])
+    
     try:
-
-        items = serializers.item_serializer(items)
 
         location_details = []
 
@@ -332,9 +336,9 @@ def add_pickup_items(pickupItems: PickupItems):
             return {"success": False, "message": "Cannot Be Inserted"}
 
         for item in items:
-            valid_riders = add_pickup_item(item,valid_riders,num_hours)
+            add_pickup_item(item,valid_riders,num_hours)
 
-        return {"success": True, "message": "Assigned Pickup Successfully!"}
+        return {"success": True, "message": "Assigned Pickup Items Successfully!"}
 
     except Exception as E:
         print(E)

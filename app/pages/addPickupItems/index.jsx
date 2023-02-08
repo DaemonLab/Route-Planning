@@ -4,12 +4,14 @@ import * as XLSX from 'xlsx';
 
 import { NavigationContext } from "../../context/navigationContext"
 
-function AddPickupLocations() {
+function AddPickupItems() {
 
   const { addPickupItems } = React.useContext(NavigationContext) 
 
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
+
+    const [numHours, setNumHours] = useState(1);
 
     console.log("Columns",columns)
     console.log("Data",data)
@@ -18,11 +20,11 @@ function AddPickupLocations() {
 
       let pickupItems = []
 
-      if(!(columns.length===5 && columns[0]['name']==='address' && columns[1]['name']==='AWB' 
-                              && columns[2]['name']==='names' && columns[3]['name']==='sku'
-                              && columns[4]['name']==='EDD' && columns[5]['name']==='Volume'))
+      if(!(columns.length===7 && columns[0]['name']=='srno' && columns[1]['name']==='address' && columns[2]['name']==='AWB' 
+                              && columns[3]['name']==='names' && columns[4]['name']==='sku'
+                              && columns[5]['name']==='EDD' && columns[6]['name']==='Volume'))
       {
-        alert('Invalid file uploaded for dispatch items.')
+        alert('Invalid file uploaded for pickup items.')
         return
       }
 
@@ -30,14 +32,28 @@ function AddPickupLocations() {
 
         pickupItems.push({
             'item_id': pickupItem['sku'],
-            'awb_id': pickupItem['AWB']
+            'name': 'Pickup Item',
+            'description': '',
+            'task_type': 'Pickup',
+
+            'volume': (pickupItem['Volume']==='') ? (Math.random() * (31 - 10) + 10) : parseInt(pickupItem['Volume']),
+            'weight': (Math.random() * (500 - 100) + 100), 
+
+            'awb_id': pickupItem['AWB'],
+            'task_location': {
+              'address': pickupItem['address'],
+              'lat': 0.0,
+              'lng': 0.0
+            },
+            'scan_time': new Date(),
+            'edd': new Date()
         })
       })
 
-      addLocationDetails(locationDetails);
+      addPickupItems({num_hours:numHours, items:pickupItems});
 
 
-      alert("Instructors Added")
+      alert("Pickup Items Added")
     }
 
     const processData = (dataString) => {
@@ -105,7 +121,8 @@ function AddPickupLocations() {
                   <br></br>
                   <h3>Add Instructors</h3>
                   <br></br> <br></br> 
-
+                  <input type="number" onChange={(e)=>setNumHours(parseInt(e.target.value))} placeholder='Enter number of hours'
+                      value={numHours}/>
                   <input
                   type="file"
                   accept=".csv,.xlsx,.xls"
@@ -120,4 +137,4 @@ function AddPickupLocations() {
     )
 }
 
-export default AddPickupLocations;
+export default AddPickupItems;

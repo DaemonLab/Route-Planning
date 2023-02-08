@@ -1,6 +1,7 @@
-import { Item } from "./item";
+import { Item, PickupItems } from "./item";
 import { Rider, Task } from "./rider";
 import { LocationDetail } from "./route";
+
 
 export interface NavigationContextWrapper {
     items: Item[];
@@ -11,6 +12,6 @@ export interface NavigationContextWrapper {
     startInterval: () => void
     getItems: () => void
     getRiders: () => void
-    addPickupItem: (item: Item) => void
+    addPickupItems: (pickupItems: PickupItems) => void
 };
 

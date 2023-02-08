@@ -62,7 +62,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                href="/deliver"
+                href="/deliver/map"
                 aria-label="Deliver/Pickup Items"
                 title="Deliver/Pickup Items "
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"
