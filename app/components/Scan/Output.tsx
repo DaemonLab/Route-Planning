@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { ItemContextWrapper, Item } from "../../@types/item";
 import { ItemContext } from "../../context/itemContext";
+import axios from "axios";
 
 export const Output: React.FC = () => {
   const router = useRouter();
-
+  const [volume, setVolume] = React.useState();
   const { item, setItem, addItem, addItems } = React.useContext(
     ItemContext
   ) as ItemContextWrapper;
@@ -14,6 +15,14 @@ export const Output: React.FC = () => {
     addItems();
     router.push("/");
   };
+
+  useEffect(() => {
+    axios.get("https://localhost:8000/volume").then((response: any) => {
+      setVolume(response.volume)
+    })
+  }, [volume])
+
+
 
   const randomItem = () => {
     setItem({
@@ -44,7 +53,7 @@ export const Output: React.FC = () => {
           <p className="leading-relaxed mb-8">
             {item.description} <br />
             ItemID: {item.item_id} <br />
-            Volume: {item.volume} <br />
+            Volume: {volume} <br />
             Weight: {item.weight} <br />
             AWB_ID: {item.awb_id} <br />
           </p>
