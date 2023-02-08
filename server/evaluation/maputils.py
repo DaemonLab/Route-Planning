@@ -10,7 +10,7 @@ import warehouse
 f = open('./data/awb_to_coordinate.json')
 awb_to_coordinate = json.load(f)
 
-GOOGLE_API_KEY = "AIzaSyC4mDyxBB_jpI8MDhZqDqCDWyR8A34GaF4"
+GOOGLE_API_KEY = "YOUR GOOGLE API KEY"
 gmaps = googlemaps.Client(key=GOOGLE_API_KEY)
 
 
