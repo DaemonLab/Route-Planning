@@ -143,7 +143,7 @@ def dispatch():
                 tasks[delivery_ind]["time_next"] = int(time_adj[item_num_1][item_num_2])
 
             if len(tasks) > 0:
-                current_route, route_details, route_polyline = utils.get_route(tasks, -1, 0)
+                current_route, route_details, route_polyline , _ = utils.get_route(tasks, -1, 0)
                 tasks.append(utils.WAREHOUSE_TASK)
             else:
                 current_route, route_details, route_polyline = [], [], []
@@ -234,7 +234,7 @@ def update_rider_location():
 
                 rider["bag_volume"] = rider["bag_volume"] + (rider["tasks"][rider["task_index"]]["volume"])*(1 if rider["tasks"][rider["task_index"]]["task_type"] == "Delivery" else -1)
 
-                rider["current_route"], rider["route_details"], rider["route_polyline"] = utils.get_route(
+                rider["current_route"], rider["route_details"], rider["route_polyline"], _ = utils.get_route(
                     rider["tasks"], rider["task_index"], rider["task_index"]+1)
                 rider["route_index"] = 0
 
@@ -264,6 +264,41 @@ def update_rider_location():
         return {"success": False, "message": E}
 
 
+def dispatch_new_rider(rider, item):
+
+    rider["tasks"].append({
+        "item_id": item["item_id"],
+        "awb_id": item["awb_id"],
+        "task_type": "Pickup",
+        "volume": item["volume"],
+        "task_location": item["task_location"],
+        "edd": item["edd"],
+        "route_steps": [],
+        "route_polyline": [],
+        "time_taken": 0,
+        "time_next": 0
+    })
+
+    rider["current_route"], rider["route_details"], rider["route_polyline"], rider["tasks"][0]["time_next"] = utils.get_route(rider["tasks"], -1, 0)
+    rider["tasks"].append(utils.WAREHOUSE_TASK)
+
+    current_location = {"lat":utils.WAREHOUSE_LOCATION_DETAIL["lat"], "lng":utils.WAREHOUSE_LOCATION_DETAIL["lng"]}
+    route_index = 0
+    task_index = 0
+
+    riders_db.update_one({"rider_id": rider["rider_id"]}, {
+            "$set": {
+                "current_location": serializers.route_location_serializer(current_location),
+                "current_route": serializers.route_locations_serializer(rider["current_route"]),
+                "route_details": serializers.route_details_serializer(rider["route_details"]),
+                "route_polyline": serializers.route_locations_serializer(rider["route_polyline"]),
+                "route_index": route_index,
+                "tasks": serializers.tasks_serializer(rider["tasks"]),
+                "task_index": task_index
+            }
+        })
+
+
 def insert_pickup(rider_id, tasks, after_task_index, item, times_from_pickup):
 
     tasks[after_task_index]["time_next"] = int(times_from_pickup[rider_id][after_task_index])
@@ -281,6 +316,7 @@ def insert_pickup(rider_id, tasks, after_task_index, item, times_from_pickup):
     tasks.insert(after_task_index+1, pickup_task)
 
     return tasks
+    
 
 def add_pickup_item(item: Item):
 
@@ -306,7 +342,7 @@ def add_pickup_item(item: Item):
 
 
         riders = serializers.riders_serializer(riders_db.find())
-        valid_riders = [rider for rider in riders if rider["task_index"] <= (len(rider["tasks"]) - 2)]
+        valid_riders = [rider for rider in riders if ( (rider["task_index"] <= (len(rider["tasks"]) - 2)) or len(rider["tasks"])==0 )]
 
         clock = serializers.clock_serializer(clock_db.find_one())
         day_start = clock["day_start"]
@@ -338,6 +374,10 @@ def add_pickup_item(item: Item):
 
         for rider in valid_riders:
 
+            if len(rider["tasks"] == 0):
+                p.stdin.write(str(0)+'\n')
+                continue
+
             num_tasks = len(rider["tasks"]) - rider["task_index"]
             p.stdin.write(str(num_tasks)+'\n')
 
@@ -364,14 +404,18 @@ def add_pickup_item(item: Item):
 
         print(rider_ind, after_task_index)
 
-        tasks = valid_riders[rider_ind]["tasks"]
-        valid_riders[rider_ind]["tasks"] = insert_pickup(valid_riders[rider_ind]["rider_id"], tasks, after_task_index, item, times_from_pickup)
+        if len(valid_riders[rider_ind]["tasks"]) == 0:
+            dispatch_new_rider(valid_riders[rider_ind], item)
 
-        riders_db.update_one({"rider_id": valid_riders[rider_ind]["rider_id"]}, {
-            "$set": {
-                "tasks": valid_riders[rider_ind]["tasks"]
-            }
-        })
+        else:
+            tasks = valid_riders[rider_ind]["tasks"]
+            valid_riders[rider_ind]["tasks"] = insert_pickup(valid_riders[rider_ind]["rider_id"], tasks, after_task_index, item, times_from_pickup)
+
+            riders_db.update_one({"rider_id": valid_riders[rider_ind]["rider_id"]}, {
+                "$set": {
+                    "tasks": valid_riders[rider_ind]["tasks"]
+                }
+            })
 
         return {"success": True, "message": "Assigned Pickup Successfully!"}
 
