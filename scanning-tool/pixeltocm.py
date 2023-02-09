@@ -213,7 +213,7 @@ try:
                     print("gradient",avg_gradient)
                     height=(calibrated_height - depth_image[cy,cx]*depth_scale)
 
-                    if 0.4 < avg_gradient < 5:
+                    if 0.41 < avg_gradient < 5:
                         print("prism")
                         cv2.putText(color_image,"prism",(cx,cy),font,1,(0,0,0))  
                         print("area",area/sq_scaling)
@@ -222,7 +222,7 @@ try:
                         print("vol",(area/sq_scaling)*height)
                         print(" Sending data ...")
 
-                    elif avg_gradient < 0.4:
+                    elif avg_gradient < 0.41:
                         print("Cuboid")
                         cv2.putText(color_image,"Cuboid",(cx,cy),font,1,(0,0,0))  
                         print("area",area/sq_scaling)
