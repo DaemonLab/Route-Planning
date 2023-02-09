@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from typing import List
+from typing import Dict, Any
 
 from models import Item
 import services
@@ -30,7 +31,10 @@ def add_items(items: List[Item]):
 def delete_item(item_id: str):
     return services.delete_item(item_id=item_id)
 
-
+@router.post("/tool/volume")
+def show_volume(data: Dict[Any, Any]):
+    print("Hello",data)
+    return {'success':True}
 
 @router.post("/volume")
 def getVolume(item):
