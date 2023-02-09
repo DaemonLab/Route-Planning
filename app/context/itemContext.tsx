@@ -23,7 +23,7 @@ const ItemProvider: React.FC<Props> = ({ children }: Props) => {
     awb_id: "1234",
     task_location: { address: "", lat: 0.0, lng: 0.0 },
     scan_time: new Date("2023-01-14 16:30:00"),
-    edd: new Date("2023-01-14 16:30:00"),
+    edd: 0
   } as Item);
 
   const [items, setItems] = React.useState<Item[]>([]);
@@ -41,6 +41,10 @@ const ItemProvider: React.FC<Props> = ({ children }: Props) => {
   const addItem = (item: Item) => {
     setItems([...items, item]);
   };
+
+  const addDispatchDetails = async (items: Item[]) => {
+    await api.addDispatchDetails(items)
+  }
 
   const addItems = async () => {
     console.log("Adding items",items)
@@ -60,6 +64,7 @@ const ItemProvider: React.FC<Props> = ({ children }: Props) => {
         getItem,
         getItems,
         addItem,
+        addDispatchDetails,
         addItems,
         deleteItem,
       }}

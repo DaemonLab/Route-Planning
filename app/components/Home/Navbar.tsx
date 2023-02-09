@@ -52,7 +52,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                href="/dispatch"
+                href="/addDispatchDetails"
                 aria-label="Dispatch Items"
                 title="Dispatch Items"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-green-500"

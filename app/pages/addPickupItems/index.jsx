@@ -18,7 +18,7 @@ function AddPickupItems() {
     console.log("Columns",columns)
     console.log("Data",data)
 
-    const handleSubmit = ()=>{
+    const handleSubmit = (e)=>{
 
       let pickupItems = []
 
@@ -38,8 +38,8 @@ function AddPickupItems() {
             'description': '',
             'task_type': 'Pickup',
 
-            'volume': (pickupItem['Volume']==='') ? (Math.random() * (31 - 10) + 10) : parseInt(pickupItem['Volume']),
-            'weight': (Math.random() * (500 - 100) + 100), 
+            'volume': (pickupItem['Volume']==='') ? parseInt(Math.random() * (31 - 10) + 10) : parseInt(pickupItem['Volume']),
+            'weight': parseInt(Math.random() * (500 - 100) + 100), 
 
             'awb_id': pickupItem['AWB'],
             'task_location': {
@@ -48,9 +48,10 @@ function AddPickupItems() {
               'lng': 0.0
             },
             'scan_time': new Date(),
-            'edd': new Date()
+            'edd': 48600
         })
       })
+
 
       addPickupItems({num_hours:numHours, items:pickupItems});
 
@@ -122,7 +123,7 @@ function AddPickupItems() {
           <div className="flex items-center justify-start bg-black px-4" style={{height:'83vh'}}>
           <div className="mx-auto w-full max-w-lg ">
           <h1 className="text-4xl font-bold text-center text-white">Add Pickup Items</h1>
-          <form action="/addCsv" className="mt-10">
+          <form action="/" className="mt-10">
            <div className="relative z-0 mt-10 mb-10 pt-2 col-span-2">
               <input
                 type="number"                              

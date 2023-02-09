@@ -7,7 +7,6 @@ import googlemaps
 from datetime import datetime as dt
 import math
 
-from database import location_details_db
 import serializers
 import utils
 

@@ -44,7 +44,7 @@ function AddRiders() {
       addRiders(riders);
 
 
-      alert("Instructors Added")
+      alert("Riders Added")
     }
 
     const processData = (dataString) => {
@@ -111,7 +111,7 @@ function AddRiders() {
           <div className="flex items-center justify-start bg-black px-4" style={{height:'83vh'}}>
           <div className="mx-auto w-full max-w-lg ">
           <h1 className="text-4xl font-bold text-center text-white">Add Riders</h1>
-          <form action="/addCsv" className="mt-10">
+          <form action="/" className="mt-10">
             <div className="gap:6">
               <div className="relative z-0 mt-10 pt-2 col-span-2">              
                 <input

@@ -18,10 +18,6 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   const [items, setItems] = React.useState<Item[]>([]);
   const [riders, setRiders] = React.useState<Rider[]>([]);
 
-  const addLocationDetails = async (locationDetails: LocationDetail[]) => {
-    await api.addLocationDetails(locationDetails)
-  }
-
   const dispatch = async () => {
     console.log("Dispatching items")
     await api.dispatch();
@@ -44,6 +40,7 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   const addPickupItems = async (pickupItems: PickupItems) => {
+    console.log("Adding pickup items",pickupItems)
     await api.addPickupItems(pickupItems)
   };
 
@@ -52,7 +49,6 @@ const NavigationProvider: React.FC<Props> = ({ children }: Props) => {
       value={{
         items,
         riders,
-        addLocationDetails,
         dispatch,
         startInterval,
         getItems,
