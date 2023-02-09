@@ -1,13 +1,13 @@
 import axios from "axios";
 import {
   GetItemResponse,
+  GetToolResponse,
   GetRiderResponse,
   GetItemsResponse,
   GetRidersResponse,
   AddItemsBody,
   AddRidersBody,
-  AddPickupItemsBody,
-  AddLocationDetailsBody,
+  AddPickupItemsBody
 } from "../@types/dto";
 
 const BASE_URL = "http://localhost:8000";
@@ -16,6 +16,12 @@ const BASE_URL = "http://localhost:8000";
 
 export function getItem(item_id: string) {
   return axios.get<GetItemResponse>(`${BASE_URL}/item/${item_id}`, {
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+  });
+}
+
+export function getTool() {
+  return axios.get<GetToolResponse>(`${BASE_URL}/item/tool/getTool`,  {
     headers: { "Content-Type": "application/json;charset=utf-8" },
   });
 }

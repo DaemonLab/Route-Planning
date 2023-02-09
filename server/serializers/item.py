@@ -1,6 +1,6 @@
 from typing import List
 
-from models import Item, PickupItems
+from models import Item, PickupItems, Tool
 import serializers
 
 
@@ -41,4 +41,16 @@ def pickup_items_serializer(pickupItems: PickupItems) -> dict:
     return {
         'items': serializers.items_serializer(pickupItems['items']),
         'num_hours': pickupItems['num_hours']
+    }
+
+def tool_serializer(tool: Tool) -> dict:
+
+    if tool is None:
+        return tool
+    
+    tool = serializers.serialize_object(tool)
+
+    return {
+        'volume': tool['volume'],
+        'weight': tool['weight']
     }

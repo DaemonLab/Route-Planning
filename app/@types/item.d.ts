@@ -18,15 +18,22 @@ export interface Item {
 };
 
 export interface PickupItems {
-  num_hours: int,
+  num_hours: number;
   items: Item[]
+}
+
+export interface Tool {
+  volume: number;
+  weight: number;
 }
 
 export type ItemContextWrapper = {
   item: Item;
+  tool: Tool;
   items: Item[];
   setItem: Dispatch<SetStateAction<Item>>;
   getItem: (item_id: string) => void;
+  getTool: () => void;
   getItems: () => void;
   addItem: (item: Item) => void;
   addDispatchDetails: (items: Item[]) => void
