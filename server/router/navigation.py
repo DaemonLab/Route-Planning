@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from typing import List
 import threading
 
-from models import Item , LocationDetail, PickupItems
+from models import Item , PickupItems
 import services
 from setInterval import setInterval
 
@@ -14,11 +14,6 @@ inter = 'setInterval Object'
 @router.get("/dispatch")
 def dispatch():
     return services.dispatch()
-
-@router.post("/add_location_details")
-def add_location_details(location_details: List[LocationDetail]):
-    return services.add_location_details(location_details)
-
 
 @router.post("/add_pickup_items")
 def add_pickups(pickupItems: PickupItems):

@@ -17,6 +17,9 @@ def get_item(item_id: str):
 def get_items():
     return services.get_items()
 
+@router.post("/add_dispatch_details")
+def add_dispatch_details(items: List[Item]):
+    return services.add_dispatch_details(items)
 
 @router.post("/")
 def add_items(items: List[Item]):
@@ -26,6 +29,7 @@ def add_items(items: List[Item]):
 @router.delete("/{item_id}")
 def delete_item(item_id: str):
     return services.delete_item(item_id=item_id)
+
 
 
 @router.post("/volume")

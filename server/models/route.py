@@ -34,16 +34,3 @@ class RouteStep(BaseModel):
         title = "RouteStep"
         orm_mode = True
 
-class LocationDetail(BaseModel):
-
-    address: str = Field(..., title="Address")
-    area: str = Field(..., title="Area or Locality")
-    awb_id: str
-    lat: float = Field(..., title="Latitude")
-    lng: float = Field(..., title="Longitude")
-    item_id: str = Field(..., title="Item ID")    
-
-    class Config:
-        anystr_strip_whitespace = True
-        title = "LocationDetail"
-        orm_mode = True

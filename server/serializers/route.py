@@ -1,6 +1,6 @@
 from typing import List
 
-from models import  Location, RouteLocation, RouteStep , LocationDetail
+from models import  Location, RouteLocation, RouteStep 
 import serializers
 
 def location_serializer(location: Location) -> dict:
@@ -51,21 +51,3 @@ def route_step_serializer(route_step: RouteStep) -> dict:
 def route_steps_serializer(route_steps: List[RouteStep]) -> list:
     return [route_step_serializer(route_step) for route_step in route_steps]
 
-def location_detail_serializer(location_detail: LocationDetail) -> dict:
-
-    if location_detail is None:
-        return location_detail
-
-    location_detail = serializers.serialize_object(location_detail)
-
-    return {
-        "address": location_detail["address"],
-        "area": location_detail["area"],
-        "awb_id": location_detail["awb_id"],
-        "lat": location_detail["lat"],
-        "lng": location_detail["lng"],
-        "item_id": location_detail["item_id"]
-    }
-
-def location_details_serializer(location_details: List[LocationDetail]) -> list:
-    return [location_detail_serializer(location_detail) for location_detail in location_details]

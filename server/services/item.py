@@ -1,11 +1,11 @@
 from fastapi import HTTPException
 from datetime import datetime as dt
 from typing import List
-import random
 
 from models import Item
 from database import items_db , clock_db , location_details_db
 import serializers
+import utils
 
 def get_item(item_id: str):
     try:
@@ -27,22 +27,37 @@ def get_items() -> dict:
     except Exception as E:
         return HTTPException(status_code=404, detail=f"Could Not Process Get Items")
 
+def add_dispatch_details(items: List[Item]):
+        
+    items = serializers.items_serializer(items)
+
+
+    for item_ind in range(len(items)):
+
+        lat , lng = utils.geocode(items[item_ind]["awb_id"],"")
+
+        items[item_ind]["task_location"] = {
+            'address': items[item_ind]['task_location']['address'],
+            'lat': lat,
+            'lng': lng
+        }
+
+
+    items_db.insert_many(items)
 
 def mock_assign(items: List[Item]) -> List[Item]:
 
-    location_details = serializers.location_details_serializer(location_details_db.find())
+    dispatch_item_locations = items_db.find({})
 
     for item_ind in range(len(items)):
-        
-        location_detail = location_details[item_ind]
 
-        items[item_ind]["awb_id"] = location_detail["awb_id"]
-        items[item_ind]["task_location"] = {
-                "address": location_detail["address"],
-                "lat": location_detail["lat"],
-                "lng": location_detail["lng"],
+        items_db.update_one({"item_id":dispatch_item_locations[item_ind]["item_id"]},
+        {
+            "$set": {
+                "volume": items[item_ind]["volume"],
+                "weight": items[item_ind]["weight"]
             }
-
+        })
 
     return items
 
@@ -50,17 +65,6 @@ def mock_assign(items: List[Item]) -> List[Item]:
 def add_items(items: List[Item]) -> dict:
     try:
         items = mock_assign(serializers.items_serializer(items))
-
-        clock = serializers.clock_serializer(clock_db.find_one())
-        day_start = clock["day_start"]
-        clock_start = clock["clock_start"]
-        scan_time_actual = dt.strptime(dt.now().strftime("%d-%m-%Y %H:%M:%S"), "%d-%m-%Y %H:%M:%S")
-        scan_time_simult = day_start + (scan_time_actual - clock_start)
-        
-        for item in items:
-            item["scan_time"] = scan_time_simult
-
-        items_db.insert_many(items)
         return {"success": True, "message": "Items Added Successfully!"}
     except Exception as E:
         print("Exception",E)

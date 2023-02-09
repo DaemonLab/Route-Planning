@@ -12,7 +12,7 @@ class Task(BaseModel):
     volume: int  = Field(..., title="Volume")
     
     task_location: Location
-    edd: datetime.datetime = Field(None, title="Scan Time")
+    edd: int = Field(None, title="EDD Time in Seconds")
 
     route_steps: List[RouteStep] = []
     route_polyline: List[RouteLocation] = []

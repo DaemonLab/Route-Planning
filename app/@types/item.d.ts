@@ -14,7 +14,7 @@ export interface Item {
   awb_id: string;
   task_location: Location;
   scan_time: Date | null;
-  edd: Date | null;
+  edd: number;
 };
 
 export interface PickupItems {
@@ -29,6 +29,7 @@ export type ItemContextWrapper = {
   getItem: (item_id: string) => void;
   getItems: () => void;
   addItem: (item: Item) => void;
+  addDispatchDetails: (items: Item[]) => void
   addItems: () => void;
   deleteItem: (item_id: string) => void;
 };

@@ -26,6 +26,12 @@ export function getItems() {
   });
 }
 
+export function addDispatchDetails(items: AddItemsBody) {
+  return axios.post(`${BASE_URL}/item/add_dispatch_details`, items, {
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+  });
+}
+
 export function addItems(items: AddItemsBody) {
   return axios.post(`${BASE_URL}/item`, items, {
     headers: { "Content-Type": "application/json;charset=utf-8" },
@@ -73,12 +79,6 @@ export function completeDispatch() {
 }
 
 //Navigation API
-
-export function addLocationDetails(locationDetails: AddLocationDetailsBody) {
-  return axios.post(`${BASE_URL}/navigation/add_location_details`, locationDetails, {
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-  });
-}
 
 export function dispatch() {
   return axios.get(`${BASE_URL}/navigation/dispatch`, {

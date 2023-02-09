@@ -16,11 +16,11 @@ export const Output: React.FC = () => {
     router.push("/");
   };
 
-  useEffect(() => {
-    axios.get("https://localhost:8000/volume").then((response: any) => {
-      setVolume(response.volume)
-    })
-  }, [volume])
+  // useEffect(() => {
+  //   axios.get("https://localhost:8000/volume").then((response: any) => {
+  //     setVolume(response.volume)
+  //   })
+  // }, [volume])
 
 
 
@@ -30,8 +30,8 @@ export const Output: React.FC = () => {
       item_id: `SKU_${Math.floor(Math.random() * 100).toString()}`,
       name: `ItemName${Math.floor(Math.random() * 10).toString()}`,
       descrption: "Item Description",
-      volume: Math.floor(Math.random() * 10).toString(),
-      weight: Math.floor(Math.random() * 100).toString()
+      volume: Math.floor(Math.random() * (30 - 10) + 10),
+      weight: Math.floor(Math.random() * (500 - 100) + 100)
     });
   }
 
@@ -53,7 +53,7 @@ export const Output: React.FC = () => {
           <p className="leading-relaxed mb-8">
             {item.description} <br />
             ItemID: {item.item_id} <br />
-            Volume: {volume} <br />
+            Volume: {item.volume} <br />
             Weight: {item.weight} <br />
             AWB_ID: {item.awb_id} <br />
           </p>

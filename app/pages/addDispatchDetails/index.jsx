@@ -4,11 +4,30 @@ import '../../components/Home/Navbar'
 import Navbar from '../../components/Home/Navbar';
 import Footer from '../../components/Footer';
 
-import { NavigationContext } from "../../context/navigationContext"
+import { ItemContext } from "../../context/itemContext"
 
-function AddDispatcLocations() {
+const day_start = new Date("07-02-2023")
 
-  const { addLocationDetails } = React.useContext(NavigationContext) 
+const get_algthm_edd = (edd) => {
+
+  let delta_seconds = parseInt(((new Date(edd)).getTime() - day_start.getTime())/1000);
+
+  let edd_time_algthm
+
+  if(delta_seconds > 0) {
+    edd_time_algthm = 48600
+  }
+  else {
+    edd_time_algthm = delta_seconds + parseInt(Math.random() * (30000 - 3600) + 3600)
+  }
+
+  return edd_time_algthm
+
+}
+
+function AddDispatchDetails() {
+
+  const { addDispatchDetails } = React.useContext(ItemContext) 
 
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
@@ -16,9 +35,9 @@ function AddDispatcLocations() {
     console.log("Columns",columns)
     console.log("Data",data)
 
-    const handleSubmit = ()=>{
+    const handleSubmit = (e)=>{
 
-      let locationDetails = []
+      let dispatchDetails = []
 
       if(!(columns.length===6 && columns[0]['name']==='address' && columns[1]['name']==='AWB' 
                               && columns[2]['name']==='names' && columns[3]['name']==='product_id'
@@ -28,20 +47,32 @@ function AddDispatcLocations() {
         return
       }
 
-      data.forEach((locationDetail)=>{
+      data.forEach((dispatchDetail)=>{
 
-        locationDetails.push({
-          address: locationDetail['address'],
-          area: '',
-          awb_id: locationDetail['AWB'],
-          lat: 0.0,
-          lng: 0.0,
-          item_id: locationDetail['product_id']
+        dispatchDetails.push({
+          item_id: dispatchDetail['product_id'],
+          name: 'Delivery Item',
+          description: 'This is an Item',
+          task_type: "Delivery",
+
+          volume: (dispatchDetail['Volume']==='') ? parseInt(Math.random() * (30 - 10) + 10) : parseInt(dispatchDetail['Volume']),
+          weight: parseInt(Math.random() * (500 - 100) + 100),
+
+          awb_id: dispatchDetail['AWB'],
+          task_location: {
+            address: dispatchDetail['address'],
+            lat: 0.0,
+            lng: 0.0
+          },
+          scan_time: new Date(),
+          edd: get_algthm_edd(dispatchDetail['EDD'])
         })
       })
 
-      addLocationDetails(locationDetails);
-      alert("Dispatch Items Added")
+      console.log("Adding dispatch details",dispatchDetails)
+
+      addDispatchDetails(dispatchDetails);
+      alert("Dispatch Details Added")
     }
 
     const processData = (dataString) => {
@@ -108,7 +139,7 @@ function AddDispatcLocations() {
           <div className="flex items-center justify-start bg-black px-4" style={{height:'83vh'}}>
           <div className="mx-auto w-full max-w-lg ">
           <h1 className="text-4xl font-bold text-center text-white">Add Dispatch Items</h1>
-          <form action="/addCsv" className="mt-10">
+          <form action="/" className="mt-10">
             <div className="gap:6">
               <div className="relative z-0 mt-10 pt-2 col-span-2">              
                 <input
@@ -141,4 +172,4 @@ function AddDispatcLocations() {
     )
 }
 
-export default AddDispatcLocations;
+export default AddDispatchDetails;

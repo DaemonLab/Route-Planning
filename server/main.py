@@ -1,8 +1,7 @@
 from fastapi import FastAPI, WebSocket
-from router import RidersRouter , ItemsRouter , NavigationRouter , ClockRouter
+from router import RidersRouter , ItemsRouter , NavigationRouter 
 from fastapi.middleware.cors import CORSMiddleware
 from settings import settings
-from PIL import Image
 from numpy import asarray
 
 tags_metadata = [
@@ -40,5 +39,4 @@ def read_root():
 app.include_router(RidersRouter)
 app.include_router(ItemsRouter)
 app.include_router(NavigationRouter)
-app.include_router(ClockRouter)
 

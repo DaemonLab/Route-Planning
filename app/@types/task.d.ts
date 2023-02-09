@@ -7,8 +7,7 @@ export interface Task {
     volume: number;
     
     task_location: Location;
-    edd: Date | null;
-    
+    edd: number;
     
     route_steps: RouteStep[];
     route_polyline: RouteLocation[];
