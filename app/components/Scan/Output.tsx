@@ -16,6 +16,24 @@ export const Output: React.FC = () => {
     router.push("/");
   };
 
+
+  useEffect(() => {
+
+    const ws = new WebSocket("ws://localhost:8000/ws");
+
+    ws.onmessage = function (event) {
+      const msg = event.data;
+      console.log(msg)
+      // const arrayBuffer = event.data;
+
+    };
+    const btn = document.querySelector(".itemGet");
+    btn?.addEventListener('click', () => {
+      ws.send("helo")
+    })
+
+  }, [])
+
   // useEffect(() => {
   //   axios.get("https://localhost:8000/volume").then((response: any) => {
   //     setVolume(response.volume)
@@ -71,10 +89,16 @@ export const Output: React.FC = () => {
               Approve Items
             </button>
             <button
-              className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
+              className="random ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
               onClick={() => randomItem()}
             >
               Use Random
+            </button>
+            <button
+              className="itemGet ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
+              // onClick={() => randomItem()}
+            >
+              Websocket
             </button>
           </div>
         </div>
