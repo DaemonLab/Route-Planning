@@ -39,9 +39,9 @@ function AddDispatchDetails() {
 
       let dispatchDetails = []
 
-      if(!(columns.length===6 && columns[0]['name']==='address' && columns[1]['name']==='AWB' 
+      if(!(columns.length===5 && columns[0]['name']==='address' && columns[1]['name']==='AWB' 
                               && columns[2]['name']==='names' && columns[3]['name']==='product_id'
-                              && columns[4]['name']==='EDD' && columns[5]['name']==='Volume'))
+                              && columns[4]['name']==='EDD'))
       {
         alert('Invalid file uploaded for dispatch items.')
         return
@@ -55,7 +55,7 @@ function AddDispatchDetails() {
           description: 'This is an Item',
           task_type: "Delivery",
 
-          volume: (dispatchDetail['Volume']==='') ? parseInt(Math.random() * (30 - 10) + 10) : parseInt(dispatchDetail['Volume']),
+          volume: parseInt(Math.random() * (30 - 10) + 10),
           weight: parseInt(Math.random() * (500 - 100) + 100),
 
           awb_id: dispatchDetail['AWB'],

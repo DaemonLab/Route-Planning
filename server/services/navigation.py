@@ -15,7 +15,7 @@ def dispatch():
         items = serializers.items_serializer(items_db.find())
         riders = serializers.riders_serializer(riders_db.find())
 
-        num_items = len(items)
+        num_items  = len(items)
         num_riders = len(riders)
 
         time_adj = utils.get_delivery_time_matrix(items, num_items)

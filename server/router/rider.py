@@ -15,11 +15,6 @@ def get_rider(rider_id: str):
 def get_riders():
     return services.get_riders()
 
-# @router.get("/download/riders")
-# def download_riders():
-#     return services.download_riders()
-
-
 @router.post("/")
 def add_riders(riders: List[Rider]):
     return services.add_riders(riders=riders)

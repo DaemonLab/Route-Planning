@@ -22,9 +22,8 @@ function AddPickupItems() {
 
       let pickupItems = []
 
-      if(!(columns.length===7 && columns[0]['name']=='srno' && columns[1]['name']==='address' && columns[2]['name']==='AWB' 
-                              && columns[3]['name']==='names' && columns[4]['name']==='sku'
-                              && columns[5]['name']==='EDD' && columns[6]['name']==='Volume'))
+      if(!(columns.length===4 && columns[0]['name']==='address' && columns[1]['name']==='AWB' 
+                              && columns[2]['name']==='names' && columns[3]['name']==='sku'))
       {
         alert('Invalid file uploaded for pickup items.')
         return
@@ -38,7 +37,7 @@ function AddPickupItems() {
             'description': '',
             'task_type': 'Pickup',
 
-            'volume': (pickupItem['Volume']==='') ? parseInt(Math.random() * (31 - 10) + 10) : parseInt(pickupItem['Volume']),
+            'volume': parseInt(Math.random() * (31 - 10) + 10),
             'weight': parseInt(Math.random() * (500 - 100) + 100), 
 
             'awb_id': pickupItem['AWB'],
