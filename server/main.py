@@ -1,10 +1,9 @@
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from router import RidersRouter, ItemsRouter, NavigationRouter
 from fastapi.middleware.cors import CORSMiddleware
 from settings import settings
-from numpy import asarray
-from PIL import Image
-from numpy import asarray
+from typing import List
+
 
 tags_metadata = [
     {"name": "Users", "description": "User Authentication"},
@@ -22,6 +21,8 @@ app = FastAPI(
 
 origins = [
     "http://localhost:3000",
+    "http://127.0.0.1:5000",
+    "http://localhost:5000"
 ]
 
 app.add_middleware(
@@ -41,18 +42,3 @@ def read_root():
 app.include_router(RidersRouter)
 app.include_router(ItemsRouter)
 app.include_router(NavigationRouter)
-
-
-@app.post("/volume")
-def index():
-    websocket: WebSocket = WebSocket
-    print(websocket)
-    websocket.send_text('dasxasxas')
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: djodnw")

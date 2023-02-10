@@ -1,4 +1,4 @@
-import { Item, PickupItems} from "../@types/item";
+import { Item, PickupItems, Tool} from "../@types/item";
 import { Rider } from "../@types/rider";
 import { LocationDetail } from "./route";
 
@@ -6,6 +6,10 @@ import { LocationDetail } from "./route";
 
 export type GetItemResponse = {
     item: Item
+}
+
+export type GetToolResponse = {
+    tool: Tool
 }
 
 export type GetItemsResponse = {

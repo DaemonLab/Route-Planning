@@ -16,7 +16,7 @@ export default function Dashboard() {
   
   useEffect(() => {
     getRiders()
-  }, [riders]);
+  }, []);
 
 
   return (

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Item, ItemContextWrapper } from "../@types/item";
+import { Item, Tool, ItemContextWrapper } from "../@types/item";
 import * as api from "../api";
 
 export const ItemContext = React.createContext<ItemContextWrapper | null>(null);
@@ -26,12 +26,18 @@ const ItemProvider: React.FC<Props> = ({ children }: Props) => {
     edd: 0
   } as Item);
 
+  const [tool, setTool] = React.useState<Tool>({'volume':0,'weight':0})
   const [items, setItems] = React.useState<Item[]>([]);
 
   const getItem = async (item_id: string) => {
     const { data } = await api.getItem(item_id);
     setItem({ ...data.item });
   };
+
+  const getTool = async () => {
+    const { data } = await api.getTool()
+    setTool(data.tool)
+  }
 
   const getItems = async () => {
     const { data } = await api.getItems();
@@ -60,6 +66,8 @@ const ItemProvider: React.FC<Props> = ({ children }: Props) => {
       value={{
         item,
         items,
+        tool,
+        getTool,
         setItem,
         getItem,
         getItems,

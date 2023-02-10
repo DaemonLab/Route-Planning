@@ -5,42 +5,26 @@ import { ItemContext } from "../../context/itemContext";
 import axios from "axios";
 
 export const Output: React.FC = () => {
+  
   const router = useRouter();
-  const [volume, setVolume] = React.useState(0);
-  const { item, setItem, addItem, addItems } = React.useContext(
+  const [useRandom, setUseRandom] = React.useState(false);
+
+  const { item, tool, getTool, setItem, addItem, addItems } = React.useContext(
     ItemContext
   ) as ItemContextWrapper;
 
   const addItemsHelper = () => {
     addItems();
+    alert("Items added successfully!")
     router.push("/");
   };
 
-
-  useEffect(() => {
-
-    const ws = new WebSocket("ws://localhost:8000/ws");
-
-    ws.onmessage = function (event) {
-      const msg = event.data;
-      console.log(msg)
-      // const arrayBuffer = event.data;
-
-    };
-    const btn = document.querySelector(".itemGet");
-    btn?.addEventListener('click', () => {
-      ws.send("helo")
-    })
-
-  }, [])
-
-  // useEffect(() => {
-  //   axios.get("https://localhost:8000/volume").then((response: any) => {
-  //     setVolume(response.volume)
-  //   })
-  // }, [volume])
-
-
+  useEffect(()=>{
+    setInterval(()=>{
+      getTool()
+    },1500)
+  },[])
+  
 
   const randomItem = () => {
     setItem({
@@ -51,6 +35,15 @@ export const Output: React.FC = () => {
       volume: Math.floor(Math.random() * (30 - 10) + 10),
       weight: Math.floor(Math.random() * (500 - 100) + 100)
     });
+  }
+
+  const toggleRandom = () => {
+    setUseRandom(!useRandom)
+
+    if(useRandom) {
+      randomItem()
+    }
+
   }
 
   return (
@@ -71,8 +64,8 @@ export const Output: React.FC = () => {
           <p className="leading-relaxed mb-8">
             {item.description} <br />
             ItemID: {item.item_id} <br />
-            Volume: {item.volume} <br />
-            Weight: {item.weight} <br />
+            Volume: {useRandom ? item.volume : tool.volume} <br />
+            Weight: {useRandom ? item.weight : tool.weight} <br />
             AWB_ID: {item.awb_id} <br />
           </p>
           <div className="flex justify-center">
@@ -90,15 +83,11 @@ export const Output: React.FC = () => {
             </button>
             <button
               className="random ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
-              onClick={() => randomItem()}
+              onClick={() => toggleRandom()}
             >
-              Use Random
-            </button>
-            <button
-              className="itemGet ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg"
-              // onClick={() => randomItem()}
-            >
-              Websocket
+              {
+                useRandom ? "Use Tool" : "Use Random"
+              }
             </button>
           </div>
         </div>

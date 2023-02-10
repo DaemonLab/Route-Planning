@@ -178,6 +178,9 @@ def get_updated_riders(riders, NUM_HOURS):
 
     for rider in riders:
 
+        if len(rider["tasks"])==1 and rider["task_index"]==0:
+            continue
+
         time_delta = NUM_HOURS*60*60
 
         while rider["task_index"] < len(rider["tasks"]):

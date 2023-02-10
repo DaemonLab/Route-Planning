@@ -35,3 +35,12 @@ class PickupItems(BaseModel):
         anystr_strip_whitespace = True
         title = "Pickup Item"
         orm_mode = True
+
+class Tool(BaseModel):
+    volume: int = Field(..., title="Volume")
+    weight: float = Field(..., title="Weight")
+
+    class Config:
+        anystr_strip_whitespace = True
+        title = "Tool"
+        orm_mode = True
