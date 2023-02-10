@@ -20,7 +20,7 @@ def dispatch():
 
         time_adj = utils.get_delivery_time_matrix(items, num_items)
 
-        program_path = "./algorithm/dispatch_eval.exe"
+        program_path = "./algorithm/dispatch_eval_f.exe"
 
         p = Popen(program_path, stdout=PIPE, stdin=PIPE,  encoding='utf8')
 

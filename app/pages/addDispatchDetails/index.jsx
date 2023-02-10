@@ -21,7 +21,7 @@ const get_algthm_edd = (edd) => {
     edd_time_algthm = delta_seconds + parseInt(Math.random() * (30000 - 3600) + 3600)
   }
 
-  return edd_time_algthm
+  return parseInt(edd_time_algthm)
 
 }
 

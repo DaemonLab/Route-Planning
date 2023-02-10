@@ -16,8 +16,8 @@ function AddRiders() {
     console.log("Columns",columns)
     console.log("Data",data)
 
-    const handleSubmit = ()=>{
-
+    const handleSubmit = (e)=>{
+      
       let riders = []
 
       console.log(columns)
@@ -34,13 +34,13 @@ function AddRiders() {
         riders.push({
           rider_id : rider['rider_id'],
           name: rider['name'],
-          age: rider['age'],
-          bag_volume: (rider['bag_volume']==='') ? (Math.random() * (1500 - 500) + 500) : parseInt(rider['bag_volume']),
+          age: parseInt(rider['age']),
+          bag_volume: (rider['bag_volume']==='') ? parseInt(Math.random() * (1500 - 500) + 500) : parseInt(rider['bag_volume']),
           tasks: [],
           task_index: 0
         })
       })
-
+      console.log("Addng riders ",riders)
       addRiders(riders);
 
 
