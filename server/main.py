@@ -1,5 +1,5 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from router import RidersRouter, ItemsRouter, NavigationRouter
+from router import RidersRouter, ItemsRouter, NavigationRouter, TestRouter
 from fastapi.middleware.cors import CORSMiddleware
 from settings import settings
 from typing import List
@@ -42,3 +42,4 @@ def read_root():
 app.include_router(RidersRouter)
 app.include_router(ItemsRouter)
 app.include_router(NavigationRouter)
+app.include_router(TestRouter)
