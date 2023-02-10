@@ -51,7 +51,7 @@ function AddPickupItems() {
         })
       })
 
-
+      console.log("Adding pickups ",pickupItems)
       addPickupItems({num_hours:numHours, items:pickupItems});
 
 
