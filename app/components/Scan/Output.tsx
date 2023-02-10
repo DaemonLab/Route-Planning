@@ -15,6 +15,7 @@ export const Output: React.FC = () => {
 
   const addItemsHelper = () => {
     addItems();
+    alert("Items added successfully!")
     router.push("/");
   };
 
@@ -64,7 +65,7 @@ export const Output: React.FC = () => {
             {item.description} <br />
             ItemID: {item.item_id} <br />
             Volume: {useRandom ? item.volume : tool.volume} <br />
-            Weight: {item.weight} <br />
+            Weight: {useRandom ? item.weight : tool.weight} <br />
             AWB_ID: {item.awb_id} <br />
           </p>
           <div className="flex justify-center">

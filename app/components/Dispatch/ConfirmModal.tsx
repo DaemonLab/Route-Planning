@@ -20,6 +20,7 @@ export const ConfirmModal: React.FC<WarnModalProp> = ({setShowConfirmModal}) => 
   const dispatchHelper = () => {
     setShowConfirmModal(false)
     dispatch()
+    alert("Items Dispatched Successfully!")
     router.push("/")
   }
 
