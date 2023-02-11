@@ -23,27 +23,35 @@ def dispatch():
         program_path = "./algorithm/dispatch_eval_f.exe"
 
         p = Popen(program_path, stdout=PIPE, stdin=PIPE,  encoding='utf8')
+        f = open("./algorithm/dispatch_input.in","w")
 
         p.stdin.write(str(num_items)+'\n')
+        f.write(str(int(num_items)) + '\n')
 
         for i in range(num_items+1):
             for j in range(num_items+1):
                 if i == j:
                     p.stdin.write(str(0)+'\n')
+                    f.write(str(int(0)) + '\n')
                     continue
                 p.stdin.write(str(time_adj[i][j])+'\n')
+                f.write(str(int(time_adj[i][j])) + '\n')
 
         for item in items:
             p.stdin.write(str(int(item['volume']))+'\n')
+            f.write(str(int(item['volume'])) + '\n')
 
         for item in items:
             edd_time_algth = item["edd"]
             p.stdin.write(str(int(edd_time_algth))+'\n')
+            f.write(str(int(edd_time_algth)) + '\n')
 
         warehouse_lat, warehouse_lng = utils.geocode(utils.WAREHOUSE_LOCATION_DETAIL["awb_id"],utils.WAREHOUSE_LOCATION_DETAIL["address"])
 
         p.stdin.write(str(warehouse_lat)+'\n')
         p.stdin.write(str(warehouse_lng)+'\n')
+        f.write(str(warehouse_lat) + '\n')
+        f.write(str(warehouse_lng) + '\n')
 
 
         for item in items:
@@ -51,16 +59,22 @@ def dispatch():
             lat , lng = utils.geocode(awb_id,"")
             p.stdin.write(str(lat)+'\n')
             p.stdin.write(str(lng)+'\n')
+            f.write(str(lat) + '\n')
+            f.write(str(lng) + '\n')
 
         p.stdin.write(str(1)+'\n')
+        f.write(str(1) + '\n')
 
         for item in items:
             p.stdin.write(str(1)+'\n')
+            f.write(str(1) + '\n')
             
         p.stdin.write(str(num_riders)+'\n')
+        f.write(str(int(num_riders)) + '\n')
 
         for rider in riders:
             p.stdin.write(str(int(rider['bag_volume']))+'\n')
+            f.write(str(int(rider['bag_volume'])) + '\n')
 
         p.stdin.flush()
 
