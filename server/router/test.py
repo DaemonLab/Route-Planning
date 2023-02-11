@@ -47,6 +47,7 @@ def metrics():
                 for route_step in task["route_steps"]:
                     distance_rider+=route_step["distance"]
                     time_rider+=route_step["time_taken"]
+            print(time_rider)
             total_distance+=distance_rider
             total_time+=time_rider
 
@@ -54,9 +55,9 @@ def metrics():
         arr_len = len(num_tasks)
 
         if arr_len%2 == 0:
-            median = (num_tasks[math.floor(arr_len/2)] + arr_len[math.floor(arr_len/2) - 1])/2
+            median = (num_tasks[math.floor(arr_len/2)] + num_tasks[math.floor(arr_len/2) - 1])/2
         else:
-            median = num_tasks[(arr_len+1)/2]
+            median = num_tasks[(arr_len-1)/2]
 
         avg_distance = (total_distance)/num_riders
         avg_time = (total_time)/num_riders
@@ -71,8 +72,6 @@ def metrics():
             'median_orders': median,
             'total_distance': total_distance
         }
-
-        return {'success': True}
     except Exception as E:
         print(E)
         return {'success': False}
