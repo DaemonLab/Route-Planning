@@ -19,11 +19,13 @@ export const Output: React.FC = () => {
     router.push("/");
   };
 
-  useEffect(()=>{
-    setInterval(()=>{
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log("Getting tool")
       getTool()
-    },1500)
-  },[])
+    }, 1500);
+    return () => clearTimeout(timer);
+  });
 
 
   const randomItem = () => {
