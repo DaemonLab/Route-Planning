@@ -3,6 +3,7 @@ from database import items_db, riders_db
 import serializers
 import json
 import random
+import math
 
 router = APIRouter(prefix="/test", tags=["Test"])
 
@@ -50,9 +51,26 @@ def metrics():
             total_time+=time_rider
 
         num_tasks.sort()
+        arr_len = len(num_tasks)
+
+        if arr_len%2 == 0:
+            median = (num_tasks[math.floor(arr_len/2)] + arr_len[math.floor(arr_len/2) - 1])/2
+        else:
+            median = num_tasks[(arr_len+1)/2]
 
         avg_distance = (total_distance)/num_riders
         avg_time = (total_time)/num_riders
+        avg_orders = (num_orders)/(num_riders)
+
+        return {
+            'num_orders': num_orders,
+            'num_riders': num_riders,
+            'avg_orders': avg_orders,
+            'avg_distance': avg_distance,
+            'avg_time': avg_time,
+            'median_orders': median,
+            'total_distance': total_distance
+        }
 
         return {'success': True}
     except Exception as E:

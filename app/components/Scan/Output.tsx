@@ -23,7 +23,7 @@ export const Output: React.FC = () => {
     const timer = setTimeout(() => {
       console.log("Getting tool")
       getTool()
-    }, 1500);
+    }, 1000);
     return () => clearTimeout(timer);
   });
 
