@@ -14,7 +14,7 @@ GOOGLE_API_KEY = "AIzaSyC4mDyxBB_jpI8MDhZqDqCDWyR8A34GaF4"
 gmaps = googlemaps.Client(key=GOOGLE_API_KEY)
 
 
-f = open('./utils/awb_to_coordinate.json')
+f = open('./utils/awb_to_coordinate_temp.json')
 awb_to_coordinate = json.load(f)
 
 def geocode(awb_id,address):
@@ -129,7 +129,7 @@ def calculate_distance(awb_source, awb_dest):
     #Value is calculated by assuming that the speed of the rider is 40km/h as normal
     #and thinking that the euclidean distance will be lesser than the real distance
 
-    ans = ans/40
+    ans = ans/22
     ans*= 3600
 
     return int(ans)

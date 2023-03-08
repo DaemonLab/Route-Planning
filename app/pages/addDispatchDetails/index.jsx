@@ -6,7 +6,7 @@ import Footer from '../../components/Footer';
 
 import { ItemContext } from "../../context/itemContext"
 
-const day_start = new Date("07-02-2023")
+const day_start = new Date("11-02-2023")
 
 const get_algthm_edd = (edd) => {
 
@@ -65,7 +65,8 @@ function AddDispatchDetails() {
             lng: 0.0
           },
           scan_time: new Date(),
-          edd: get_algthm_edd(dispatchDetail['EDD'])
+          // edd: get_algthm_edd(dispatchDetail['EDD'])
+          edd: 48600
         })
       })
 

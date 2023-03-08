@@ -11,156 +11,156 @@ import utils
 
 def dispatch():
 
-    try:
-        items = serializers.items_serializer(items_db.find())
-        riders = serializers.riders_serializer(riders_db.find())
+    # try:
+    items = serializers.items_serializer(items_db.find())
+    riders = serializers.riders_serializer(riders_db.find())
 
-        num_items  = len(items)
-        num_riders = len(riders)
+    num_items  = len(items)
+    num_riders = len(riders)
 
-        time_adj = utils.get_delivery_time_matrix(items, num_items)
+    time_adj = utils.get_delivery_time_matrix(items, num_items)
 
-        program_path = "./algorithm/dispatch_eval_f.exe"
+    program_path = "./algorithm/dispatch_eval_1000.exe"
 
-        p = Popen(program_path, stdout=PIPE, stdin=PIPE,  encoding='utf8')
-        f = open("./algorithm/dispatch_input.in","w")
+    p = Popen(program_path, stdout=PIPE, stdin=PIPE,  encoding='utf8')
+    f = open("./algorithm/dispatch_input.in","w")
 
-        p.stdin.write(str(num_items)+'\n')
-        f.write(str(int(num_items)) + '\n')
+    p.stdin.write(str(num_items)+'\n')
+    f.write(str(int(num_items)) + '\n')
 
-        for i in range(num_items+1):
-            for j in range(num_items+1):
-                if i == j:
-                    p.stdin.write(str(0)+'\n')
-                    f.write(str(int(0)) + '\n')
-                    continue
-                p.stdin.write(str(time_adj[i][j])+'\n')
-                f.write(str(int(time_adj[i][j])) + '\n')
+    for i in range(num_items+1):
+        for j in range(num_items+1):
+            if i == j:
+                p.stdin.write(str(0)+'\n')
+                f.write(str(int(0)) + '\n')
+                continue
+            p.stdin.write(str(time_adj[i][j])+'\n')
+            f.write(str(int(time_adj[i][j])) + '\n')
 
-        for item in items:
-            p.stdin.write(str(int(item['volume']))+'\n')
-            f.write(str(int(item['volume'])) + '\n')
+    for item in items:
+        p.stdin.write(str(int(item['volume']))+'\n')
+        f.write(str(int(item['volume'])) + '\n')
 
-        for item in items:
-            edd_time_algth = item["edd"]
-            p.stdin.write(str(int(edd_time_algth))+'\n')
-            f.write(str(int(edd_time_algth)) + '\n')
+    for item in items:
+        edd_time_algth = item["edd"]
+        p.stdin.write(str(int(edd_time_algth))+'\n')
+        f.write(str(int(edd_time_algth)) + '\n')
 
-        warehouse_lat, warehouse_lng = utils.geocode(utils.WAREHOUSE_LOCATION_DETAIL["awb_id"],utils.WAREHOUSE_LOCATION_DETAIL["address"])
+    warehouse_lat, warehouse_lng = utils.geocode(utils.WAREHOUSE_LOCATION_DETAIL["awb_id"],utils.WAREHOUSE_LOCATION_DETAIL["address"])
 
-        p.stdin.write(str(warehouse_lat)+'\n')
-        p.stdin.write(str(warehouse_lng)+'\n')
-        f.write(str(warehouse_lat) + '\n')
-        f.write(str(warehouse_lng) + '\n')
+    p.stdin.write(str(warehouse_lat)+'\n')
+    p.stdin.write(str(warehouse_lng)+'\n')
+    f.write(str(warehouse_lat) + '\n')
+    f.write(str(warehouse_lng) + '\n')
 
 
-        for item in items:
-            awb_id = item["awb_id"]
-            lat , lng = utils.geocode(awb_id,"")
-            p.stdin.write(str(lat)+'\n')
-            p.stdin.write(str(lng)+'\n')
-            f.write(str(lat) + '\n')
-            f.write(str(lng) + '\n')
+    for item in items:
+        awb_id = item["awb_id"]
+        lat , lng = utils.geocode(awb_id,"")
+        p.stdin.write(str(lat)+'\n')
+        p.stdin.write(str(lng)+'\n')
+        f.write(str(lat) + '\n')
+        f.write(str(lng) + '\n')
 
+    p.stdin.write(str(1)+'\n')
+    f.write(str(1) + '\n')
+
+    for item in items:
         p.stdin.write(str(1)+'\n')
         f.write(str(1) + '\n')
+        
+    p.stdin.write(str(num_riders)+'\n')
+    f.write(str(int(num_riders)) + '\n')
 
-        for item in items:
-            p.stdin.write(str(1)+'\n')
-            f.write(str(1) + '\n')
-            
-        p.stdin.write(str(num_riders)+'\n')
-        f.write(str(int(num_riders)) + '\n')
+    for rider in riders:
+        p.stdin.write(str(int(rider['bag_volume']))+'\n')
+        f.write(str(int(rider['bag_volume'])) + '\n')
 
-        for rider in riders:
-            p.stdin.write(str(int(rider['bag_volume']))+'\n')
-            f.write(str(int(rider['bag_volume'])) + '\n')
+    p.stdin.flush()
 
-        p.stdin.flush()
+    deliveries = dict()
 
-        deliveries = dict()
+    for rider_ind in range(num_riders):
 
-        for rider_ind in range(num_riders):
+        order = []
 
-            order = []
+        while True:
 
-            while True:
+            result = int(p.stdout.readline().strip())
 
-                result = int(p.stdout.readline().strip())
+            if result == -1:
+                break
 
-                if result == -1:
-                    break
+            order.append(result-1)
 
-                order.append(result-1)
+        deliveries[rider_ind] = order
 
-            deliveries[rider_ind] = order
+    print(deliveries)
 
-        print(deliveries)
+    for rider_ind in range(num_riders):
 
-        for rider_ind in range(num_riders):
+        delivery_items = [items[i] for i in deliveries[rider_ind]]
 
-            delivery_items = [items[i] for i in deliveries[rider_ind]]
+        bag_volume = riders[rider_ind]["bag_volume"]
 
-            bag_volume = riders[rider_ind]["bag_volume"]
+        tasks = []
 
-            tasks = []
-
-            for item in delivery_items:
-
-                tasks.append({
-                    "item_id": item["item_id"],
-                    "awb_id": item["awb_id"],
-                    "task_type": "Delivery",
-                    "volume": int(item["volume"]),
-                    "task_location": item["task_location"],
-                    "edd": item["edd"],
-                    "route_steps": [],
-                    "route_polyline": [],
-                    "time_taken": 0,
-                    "time_next": 0
-                })
-
-                bag_volume-=item["volume"]
+        for item in delivery_items:
 
             tasks.append({
-                "item_id": "warehose_task",
-                "awb_id": utils.WAREHOUSE_LOCATION_DETAIL["awb_id"],
+                "item_id": item["item_id"],
+                "awb_id": item["awb_id"],
                 "task_type": "Delivery",
-                "volume": 0,
-                "edd": 48600,
+                "volume": int(item["volume"]),
+                "task_location": item["task_location"],
+                "edd": item["edd"],
                 "route_steps": [],
                 "route_polyline": [],
-                "task_location": {
-                    "address": utils.WAREHOUSE_LOCATION_DETAIL["address"],
-                    "lat": utils.WAREHOUSE_LOCATION_DETAIL["lat"],
-                    "lng": utils.WAREHOUSE_LOCATION_DETAIL["lng"]
-                },
                 "time_taken": 0,
                 "time_next": 0
             })
 
-            if len(tasks) > 1:
-                for task_ind in range(len(tasks)):
-                    tasks[task_ind]["route_steps"], tasks[task_ind]["route_polyline"] , tasks[task_ind]["time_taken"]  = utils.get_route(tasks, task_ind-1, task_ind)
-                    if task_ind > 0:
-                        tasks[task_ind-1]["time_next"] = tasks[task_ind]["time_taken"]
+            bag_volume-=item["volume"]
 
-            task_index = 0
+        tasks.append({
+            "item_id": "warehose_task",
+            "awb_id": utils.WAREHOUSE_LOCATION_DETAIL["awb_id"],
+            "task_type": "Delivery",
+            "volume": 0,
+            "edd": 48600,
+            "route_steps": [],
+            "route_polyline": [],
+            "task_location": {
+                "address": utils.WAREHOUSE_LOCATION_DETAIL["address"],
+                "lat": utils.WAREHOUSE_LOCATION_DETAIL["lat"],
+                "lng": utils.WAREHOUSE_LOCATION_DETAIL["lng"]
+            },
+            "time_taken": 0,
+            "time_next": 0
+        })
 
-            riders_db.update_one({"rider_id": riders[rider_ind]["rider_id"]}, {
-                "$set": {
-                    "bag_volume": bag_volume,
-                    "tasks": serializers.tasks_serializer(tasks),
-                    "task_index": task_index
-                }
-            })
+        if len(tasks) > 1:
+            for task_ind in range(len(tasks)):
+                tasks[task_ind]["route_steps"], tasks[task_ind]["route_polyline"] , tasks[task_ind]["time_taken"]  = utils.get_route(tasks, task_ind-1, task_ind)
+                if task_ind > 0:
+                    tasks[task_ind-1]["time_next"] = tasks[task_ind]["time_taken"]
+
+        task_index = 0
+
+        riders_db.update_one({"rider_id": riders[rider_ind]["rider_id"]}, {
+            "$set": {
+                "bag_volume": bag_volume,
+                "tasks": serializers.tasks_serializer(tasks),
+                "task_index": task_index
+            }
+        })
 
 
-        return {"success": True, "message": "Dispatched Successfully!"}
+    return {"success": True, "message": "Dispatched Successfully!"}
 
-    except Exception as E:
-        print(E)
-        return {"success": False}
+    # except Exception as E:
+    #     print(E)
+    #     return {"success": False}
 
 
 def insert_pickup(tasks, after_task_index, item):
